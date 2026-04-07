@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://ivanclf.github.io/2026/03/17/os-ex3/pollevents.png">
 <meta property="article:published_time" content="2026-03-17T03:00:31.000Z">
-<meta property="article:modified_time" content="2026-03-19T08:00:08.193Z">
+<meta property="article:modified_time" content="2026-03-30T13:23:39.453Z">
 <meta property="article:author" content="Ivan Chan">
 <meta property="article:tag" content="碎片知识">
 <meta property="article:tag" content="日常">
@@ -343,7 +343,11 @@
 <p><code>poll</code> 识别三类数据，普通(normal)、优先级带(priority band)和高优先级(high priority)。但仅高优先级对 TCP&#x2F;UDP有意义，优先级带仅适用于 STREAMS 套接字。</p>
 <p>且就 TCP 和 UDP 套接字而言，该 <code>reevents</code> 定义有许多漏洞。比如，TCP 链接存在的错误即可认为是普通数据，也可认为是错误，监听新连接可用数据即可认为是普通数据，也可认为是优先级数据（大部分时候是普通数据），等等。</p>
 <p>其存在的某些问题其实和 <code>select</code> 是一样的，也就是没有优化大量 FD 复制于用户态和内核态地址空间之间，以及部分描述符就绪就触发整体描述符集合全部遍历的低效问题。</p>
-<h2 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a><code>epoll</code></h2><p>前两者都要遍历所有 FD，比较低效。而 <code>epoll</code> 则解决了这个问题，专为高并发场景而生。</p>
+<h2 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a><code>epoll</code></h2><div class="note note-danger">
+            <p>腾讯 WXG - 实习, 一面.</p>
+          </div>
+
+<p>前两者都要遍历所有 FD，比较低效。而 <code>epoll</code> 则解决了这个问题，专为高并发场景而生。</p>
 <p><code>epoll</code> 创建了一个内核级的“事件表”（红黑树存储已注册的 FD），只需要将 FD 一次性注册到列表中而无需在每次调用后都传递。同时，内核主动记录就绪的 FD，仅返回就绪的 FD 列表，无需遍历所有监听的 FD。除此之外，<code>epoll</code> 同时支持水平触发 <strong>LT</strong> 和边缘触发 <strong>ET</strong>。</p>
 <p>该接口一共有三个函数</p>
 <h3 id="epoll-create"><a href="#epoll-create" class="headerlink" title="epoll_create"></a><code>epoll_create</code></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">epoll_create</span><span class="hljs-params">(<span class="hljs-type">int</span> size)</span>;<br></code></pre></td></tr></table></figure>

@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://ivanclf.github.io/2025/11/15/networking-3/cache.png">
 <meta property="og:image" content="https://ivanclf.github.io/2025/11/15/networking-3/slow-start.png">
 <meta property="article:published_time" content="2025-11-15T07:17:21.000Z">
-<meta property="article:modified_time" content="2026-01-15T11:46:24.221Z">
+<meta property="article:modified_time" content="2026-04-02T15:24:02.443Z">
 <meta property="article:author" content="Ivan Chan">
 <meta property="article:tag" content="复习">
 <meta property="article:tag" content="日常">
@@ -298,150 +298,10 @@
 
 <p>进程到进程的传递需要两个标识符，IP 地址和端口号，这两个结合在一起称为了<strong>套接字</strong>。</p>
 <h3 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h3><p><strong>用户数据报协议</strong>称为无连接不可靠的传输层协议。它除了提供进程到进程通信而不是主机到主机的通信外，就没有给 IP 服务添加任何东西。</p>
-<p>USP 协议常用的端口有</p>
-<table>
-<thead>
-<tr>
-<th>端口号</th>
-<th>服务&#x2F;协议</th>
-<th>用途</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>53</td>
-<td>DNS</td>
-<td>域名解析</td>
-</tr>
-<tr>
-<td>67 68</td>
-<td>DHCP</td>
-<td>自动为网络中的设备分配 IP 地址</td>
-</tr>
-<tr>
-<td>69</td>
-<td>TFTP</td>
-<td>简单的文件传输</td>
-</tr>
-<tr>
-<td>123</td>
-<td>NTP</td>
-<td>同步计算机和网络设备的时间</td>
-</tr>
-<tr>
-<td>161 162</td>
-<td>SNMP</td>
-<td>网络设备的监控和管理</td>
-</tr>
-<tr>
-<td>500</td>
-<td>ISAKMP&#x2F;IKE</td>
-<td>IPsec VPN 协商的第一阶段</td>
-</tr>
-<tr>
-<td>514</td>
-<td>Syslog</td>
-<td>系统日志传输</td>
-</tr>
-<tr>
-<td>1194</td>
-<td>OpenVPN</td>
-<td>OpenVPN 服务默认使用的端口，也可能是 TCP</td>
-</tr>
-<tr>
-<td>520</td>
-<td>RIP</td>
-<td>用于路由器间交换路由信息</td>
-</tr>
-</tbody></table>
 <p><img src="udp.png" srcset="/img/loading.gif" lazyload alt="UDP 的结构"></p>
 <p>UDP数据报的“长度”是指其自身的总长度。计算校验和时，会临时组合一个包含IP信息的“伪首部”与UDP数据报一同运算，此举是为了进行端到端的正确性验证，但伪首部本身不参与传输。</p>
 <h3 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h3><p>TCP 是一个面向链接的协议。它在两个 TCP 之间建立一个虚拟的链接来发送数据。另外，TCP 在传输层使用流量控制和差错控制机制。</p>
 <p>TCP 通过报文段的确认和超时重传来保证数据的可靠传输。</p>
-<p>TCP 协议常见的端口有</p>
-<table>
-<thead>
-<tr>
-<th>端口号</th>
-<th>服务&#x2F;协议</th>
-<th>用途</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>80</td>
-<td>HTTP</td>
-<td>网页浏览</td>
-</tr>
-<tr>
-<td>443</td>
-<td>HTTPS</td>
-<td>加密网页浏览</td>
-</tr>
-<tr>
-<td>21</td>
-<td>FTP</td>
-<td>文件传输</td>
-</tr>
-<tr>
-<td>22</td>
-<td>SSH</td>
-<td>加密远程登录</td>
-</tr>
-<tr>
-<td>23</td>
-<td>Telnet</td>
-<td>不加密远程登录</td>
-</tr>
-<tr>
-<td>25</td>
-<td>SMTP</td>
-<td>发送电子邮件</td>
-</tr>
-<tr>
-<td>587</td>
-<td>SMTP Submission</td>
-<td>邮件客户端向邮件服务器提交邮件以进行中继</td>
-</tr>
-<tr>
-<td>110</td>
-<td>POP3</td>
-<td>从服务器下载邮件到本地客户端</td>
-</tr>
-<tr>
-<td>143</td>
-<td>IMAP</td>
-<td>在服务器上管理邮件</td>
-</tr>
-<tr>
-<td>3306</td>
-<td>MySQL</td>
-<td>MySQL 服务</td>
-</tr>
-<tr>
-<td>5432</td>
-<td>PostgreSQL</td>
-<td>PostgreSQL 服务</td>
-</tr>
-<tr>
-<td>1433</td>
-<td>Microsoft SQL Server</td>
-<td>SQL Server 服务</td>
-</tr>
-<tr>
-<td>6379</td>
-<td>redis</td>
-<td>redis 服务</td>
-</tr>
-<tr>
-<td>3389</td>
-<td>RDP</td>
-<td>远程桌面协议</td>
-</tr>
-<tr>
-<td>111</td>
-<td>RPC</td>
-<td>RPC 远程调用方法</td>
-</tr>
-</tbody></table>
 <p>TCP 的链接和建立都是采用客户端和服务器的方式。主动发起链接建立的进程都叫<strong>客户</strong>，被动等待链接建立的应用进程叫<strong>服务器</strong>。</p>
 <h4 id="报文结构"><a href="#报文结构" class="headerlink" title="报文结构"></a>报文结构</h4><p><img src="tcp.png" srcset="/img/loading.gif" lazyload alt="TCP 报文结构"></p>
 <p>其中的控制字段分以下几种</p>
@@ -453,7 +313,11 @@
 <li>SYN 在链接时对序列号进行同步</li>
 <li>FIN 终止链接</li>
 </ul>
-<h4 id="建立链接"><a href="#建立链接" class="headerlink" title="建立链接"></a>建立链接</h4><p>在发送任何应用数据前，TCP 必须先在客户端和服务器间建立可靠的链接。建立链接需要分三步</p>
+<h4 id="建立链接"><a href="#建立链接" class="headerlink" title="建立链接"></a>建立链接</h4><div class="note note-danger">
+            <p>字节跳动, 中国交易与广告 - 实习, 一面</p>
+          </div>
+
+<p>在发送任何应用数据前，TCP 必须先在客户端和服务器间建立可靠的链接。建立链接需要分三步</p>
 <ol>
 <li>SYN<br> 发送方向接收方发送特殊的报文，并随机生成一个初始序列号，说明“我想和你建立连接，我的初始号码是 <code>X</code>”</li>
 <li>SYN-ACK<br> 接收方收到请求后，会回复一个报文。这个报文同时设置了 SYN 和 ACK 标志位。它确认了客户端的序列号 (ACK &#x3D; X + 1)，同时也告知己方的初始序列号，说明“我听到了，我同意链接，我的初始号码是 <code>Y</code>”</li>
@@ -502,6 +366,12 @@
             <p>在实时性、速度和速率优先的场景下，通常选择 UDP；在数据准确性和完整性比较重要时，通常选择 TCP</p>
           </div>
 
+<h4 id="粘包与拆包"><a href="#粘包与拆包" class="headerlink" title="粘包与拆包"></a>粘包与拆包</h4><div class="note note-danger">
+            <p>字节跳动, 中国交易与广告 - 实习, 一面</p>
+          </div>
+
+<p>TCP 是流式协议. 为了提高效率, 发送方可能会把多个数据包合并成一个数据包一起发过去, 于是接收方一次读到多个包. 这种情况叫做’<strong>粘包</strong>; 反之, 发送方一个包很大, 但受限于 MSS(最大报文段大小), 会把它切成好几段发送, 这种情况叫做<strong>拆包</strong>.</p>
+<p>为了解决这些问题, 可以强制规定每条消息长度一样, 或者给每条消息末尾加特殊符号. 但现在最常用的是采用<strong>长度域协议</strong>, 即把消息变成 <code>[消息结构][消息体]</code> 的结构, 先读长度, 再按长度读取对应字节.</p>
 <h3 id="SCTP"><a href="#SCTP" class="headerlink" title="SCTP"></a>SCTP</h3><p>这是另一种传输层协议，集 TCP 的可靠和 UDP 的消息边界于一身。具有以下特性</p>
 <ol>
 <li>消息导向： 保留应用层的消息边界，不需要像 TCP 一样给自己加“报文头”来拆粘包。</li>

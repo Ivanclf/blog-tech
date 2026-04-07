@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://ivanclf.github.io/2026/03/16/os-ex2/socket-function.png">
 <meta property="og:image" content="https://ivanclf.github.io/2026/03/16/os-ex2/example1.png">
 <meta property="article:published_time" content="2026-03-16T05:47:06.000Z">
-<meta property="article:modified_time" content="2026-03-19T06:36:03.110Z">
+<meta property="article:modified_time" content="2026-03-31T05:39:52.152Z">
 <meta property="article:author" content="Ivan Chan">
 <meta property="article:tag" content="碎片知识">
 <meta property="article:tag" content="日常">
@@ -583,7 +583,11 @@
 </tbody></table>
 <p>这里的问题在于，客户实际上正在同时应对两个描述符——套接字和用户输入，它不能单纯阻塞在这两个源中某个特定源的输入上。而是应该阻塞在任意一个源的输入上。事实上这正是 <code>select</code>、<code>poll</code> 和 <code>epoll</code> 这三个函数的目的之一。</p>
 <p>当进程向已收到 RST 的套接字执行写操作时，第一次写就会触发 SIGPIPE 信号，同时返回 EPIPE。SIGPIPE 默认行为是终止进程；即使捕获信号，写操作仍返回 EPIPE。</p>
-<h3 id="服务器主机崩溃或关机"><a href="#服务器主机崩溃或关机" class="headerlink" title="服务器主机崩溃或关机"></a>服务器主机崩溃或关机</h3><p>服务器主机崩溃时，已有的网络链接上不发出任何东西。此时的客户端发出一行文本，等待回答。但此时客户会一直尝试重传，直到超时。</p>
+<h3 id="服务器主机崩溃或关机"><a href="#服务器主机崩溃或关机" class="headerlink" title="服务器主机崩溃或关机"></a>服务器主机崩溃或关机</h3><div class="note note-danger">
+            <p>腾讯微信支付 - 实习, 一面.</p>
+          </div>
+
+<p>服务器主机崩溃时，已有的网络链接上不发出任何东西。此时的客户端发出一行文本，等待回答。但此时客户会一直尝试重传，直到超时。</p>
 <p>若为崩溃后重启，服务器的 TCP 丢失了崩溃前的所有链接信息，因此服务器 TCP 对所有的客户数据分节均回复 RST，从而使客户端收到 <code>ECONNRESET</code> 错误。若需要实现即使客户不主动发送数据也要能检测出来，就需要采用其他技术，如心跳机制等。</p>
 <p>若为客户端主动关机，则 Unix 系统的 <code>init</code>&#x2F;<code>systemd</code> 会先给所有进程发送 SIGTERM 信号，等待一段固定的时间，然后给所有仍在运行的进程发送 SIGKILL 信号，该信号不能被捕获。如果部门不捕获 SIGTERM 信号并终止，我们的服务器将由 SIGKILL 信号终止。需要注意<a href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E7%A8%8B%E7%9B%B4%E6%8E%A5%E7%BB%88%E6%AD%A2">客户端在服务端终止后的情况</a></p>
 

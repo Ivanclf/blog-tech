@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://ivanclf.github.io/2025/11/11/microservices-components-2/up-35e102c633bbe8e0dea1e075ea3fee5dcfb.png">
 <meta property="article:published_time" content="2025-11-11T06:51:08.000Z">
-<meta property="article:modified_time" content="2026-01-07T07:25:03.868Z">
+<meta property="article:modified_time" content="2026-04-03T09:02:44.915Z">
 <meta property="article:author" content="Ivan Chan">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="spring">
@@ -364,10 +364,100 @@
 </tr>
 </tbody></table>
 <h2 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h2><p>Elasticsearch 用于在海量的数据中快速找到需要的内容，Elasticsearch 结合 kibana、Logstash、Beats，形成 elastic stack (ELK)，广泛应用于日志分析，实时监控领域。</p>
-<div class="note note-info">
-            <p>ES 的底层基于倒排索引实现。</p><p>我们使用<strong>文档</strong>表示关系型数据库的每一条数据，使用<strong>词条</strong> (term) 表示文档按照语义分成的词语（类似 Python 中 jieba 分词后的词语集合）。在关系型数据库中，文档中存储的是关键词列表，而在倒排索引中，我们用关键词存储文档列表。</p><p>例如，假设数据库中的数据为</p><table><thead><tr><th>武将 id</th><th>武将名</th><th>武将描述</th></tr></thead><tbody><tr><td>001</td><td>“董卓”</td><td>“辅助型英雄，为自己的武将增伤并对敌人的武将减防”</td></tr><tr><td>002</td><td>“吕布”</td><td>“输出型英雄，主要打单体伤害”</td></tr></tbody></table><p>现在需要建立武将描述的倒排索引。因此此处的文本首先会被分析器处理</p><p>001: [“辅助”, “英雄”, “自己”, “武将”, “增伤”, “敌人”, “减防”]<br>002: [“输出”, “英雄”, “主要”, “单体”, “伤害”]</p><p>于是开始构建倒排索引</p><table><thead><tr><th>词条</th><th align="right">文档频率 (df)</th><th>倒排表（文档ID: [位置序号]）</th></tr></thead><tbody><tr><td>“辅助”</td><td align="right">1</td><td>001: [1]</td></tr><tr><td>“英雄”</td><td align="right">2</td><td>001: [2], 002: [2]</td></tr><tr><td>“自己”</td><td align="right">1</td><td>001: [3]</td></tr><tr><td>“武将”</td><td align="right">1</td><td>001: [4]</td></tr><tr><td>“增伤”</td><td align="right">1</td><td>001: [5]</td></tr><tr><td>“敌人”</td><td align="right">1</td><td>001: [6]</td></tr><tr><td>“减防”</td><td align="right">1</td><td>001: [7]</td></tr><tr><td>“输出”</td><td align="right">1</td><td>002: [1]</td></tr><tr><td>“主要”</td><td align="right">1</td><td>002: [3]</td></tr><tr><td>“单体”</td><td align="right">1</td><td>002: [4]</td></tr><tr><td>“伤害”</td><td align="right">1</td><td>002: [5]</td></tr></tbody></table><p>查询 “辅助的英雄”，分词为 [“辅助”, “英雄”]，于是分条查找。”辅助” 的结果为 001，”英雄” 的结果为 001 和 002。最后按照搜索的筛选取其交集或并集即可。</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><div class="note note-danger">
+            <p>OPPO 后端工程师 - 实习, 二面</p>
           </div>
 
+<p>ES 的底层基于倒排索引实现。</p>
+<p>我们使用<strong>文档</strong>表示关系型数据库的每一条数据，使用<strong>词条</strong> (term) 表示文档按照语义分成的词语（类似 Python 中 jieba 分词后的词语集合）。在关系型数据库中，文档中存储的是关键词列表，而在倒排索引中，我们用关键词存储文档列表。</p>
+<p>例如，假设数据库中的数据为</p>
+<table>
+<thead>
+<tr>
+<th>武将 id</th>
+<th>武将名</th>
+<th>武将描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>001</td>
+<td>“董卓”</td>
+<td>“辅助型英雄，为自己的武将增伤并对敌人的武将减防”</td>
+</tr>
+<tr>
+<td>002</td>
+<td>“吕布”</td>
+<td>“输出型英雄，主要打单体伤害”</td>
+</tr>
+</tbody></table>
+<p>现在需要建立武将描述的倒排索引。因此此处的文本首先会被分析器处理</p>
+<p>001: [“辅助”, “英雄”, “自己”, “武将”, “增伤”, “敌人”, “减防”]<br>002: [“输出”, “英雄”, “主要”, “单体”, “伤害”]</p>
+<p>于是开始构建倒排索引</p>
+<table>
+<thead>
+<tr>
+<th>词条</th>
+<th align="right">文档频率 (df)</th>
+<th>倒排表（文档ID: [位置序号]）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>“辅助”</td>
+<td align="right">1</td>
+<td>001: [1]</td>
+</tr>
+<tr>
+<td>“英雄”</td>
+<td align="right">2</td>
+<td>001: [2], 002: [2]</td>
+</tr>
+<tr>
+<td>“自己”</td>
+<td align="right">1</td>
+<td>001: [3]</td>
+</tr>
+<tr>
+<td>“武将”</td>
+<td align="right">1</td>
+<td>001: [4]</td>
+</tr>
+<tr>
+<td>“增伤”</td>
+<td align="right">1</td>
+<td>001: [5]</td>
+</tr>
+<tr>
+<td>“敌人”</td>
+<td align="right">1</td>
+<td>001: [6]</td>
+</tr>
+<tr>
+<td>“减防”</td>
+<td align="right">1</td>
+<td>001: [7]</td>
+</tr>
+<tr>
+<td>“输出”</td>
+<td align="right">1</td>
+<td>002: [1]</td>
+</tr>
+<tr>
+<td>“主要”</td>
+<td align="right">1</td>
+<td>002: [3]</td>
+</tr>
+<tr>
+<td>“单体”</td>
+<td align="right">1</td>
+<td>002: [4]</td>
+</tr>
+<tr>
+<td>“伤害”</td>
+<td align="right">1</td>
+<td>002: [5]</td>
+</tr>
+</tbody></table>
+<p>查询 “辅助的英雄”，分词为 [“辅助”, “英雄”]，于是分条查找。”辅助” 的结果为 001，”英雄” 的结果为 001 和 002。最后按照搜索的筛选取其交集或并集即可。</p>
 <p>ES 中正常的文档数据会被序列化成 json 格式后存储在 ES 中。而<strong>索引</strong>是相同类型的文档的集合，而在表中一般是一个表。在数据库中称为约束的，在 ES 中称为<strong>映射</strong>。数据库中的列在 ES 中称为<strong>字段</strong> (Field)。ES 使用 <strong>DSL</strong> 这种 json 风格的请求语句来操作，实现 CRUD。ES 的调用通过发 HTTP 请求实现。</p>
 <h3 id="文档操作"><a href="#文档操作" class="headerlink" title="文档操作"></a>文档操作</h3><h4 id="mapping-类型"><a href="#mapping-类型" class="headerlink" title="mapping 类型"></a>mapping 类型</h4><p>mapping 是对索引库中文档的约束，常见的 mapping 属性包括</p>
 <ul>

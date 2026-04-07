@@ -19,30 +19,25 @@
   <meta name="author" content="Ivan Chan">
   <meta name="keywords" content="">
   
-    <meta name="description" content="语句执行顺序SQL语句的执行顺序如下  from字句，确定主表 join链接，确定列 where过滤，确定范围 group by进行分组，准备计算 having过滤聚合结果 select选择最终列 order by排序 limit返回行数  表结构MySQL是以表的形式存储的，而表的结构则由段区页行组成   行 行是InnoDB中数据存储的最小逻辑单位，也就是一条记录。里面除了各个列的值，还有一些">
+    <meta name="description" content="语句执行顺序SQL语句的执行顺序如下  from字句，确定主表 join链接，确定列 where过滤，确定范围 group by进行分组，准备计算 having过滤聚合结果 select选择最终列 order by排序 limit返回行数  表结构MySQL是以表的形式存储的，而表的结构则由段区页行组成  行 行是 InnoDB 中数据存储的最小逻辑单元，也就是一条记录。里面除了各个列的值，还有一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库底层 - 1">
 <meta property="og:url" content="https://ivanclf.github.io/2025/10/11/sql-2/index.html">
 <meta property="og:site_name" content="Ivan的博客">
-<meta property="og:description" content="语句执行顺序SQL语句的执行顺序如下  from字句，确定主表 join链接，确定列 where过滤，确定范围 group by进行分组，准备计算 having过滤聚合结果 select选择最终列 order by排序 limit返回行数  表结构MySQL是以表的形式存储的，而表的结构则由段区页行组成   行 行是InnoDB中数据存储的最小逻辑单位，也就是一条记录。里面除了各个列的值，还有一些">
+<meta property="og:description" content="语句执行顺序SQL语句的执行顺序如下  from字句，确定主表 join链接，确定列 where过滤，确定范围 group by进行分组，准备计算 having过滤聚合结果 select选择最终列 order by排序 limit返回行数  表结构MySQL是以表的形式存储的，而表的结构则由段区页行组成  行 行是 InnoDB 中数据存储的最小逻辑单元，也就是一条记录。里面除了各个列的值，还有一">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://ivanclf.github.io/2025/10/11/sql-2/mysql-20240515110034.png">
-<meta property="og:image" content="https://ivanclf.github.io/2025/10/11/sql-2/13526879-3037b144ed09eb88.png">
-<meta property="og:image" content="https://ivanclf.github.io/2025/10/11/sql-2/mysql-812fb038-39de-4204-ac9f-93d8b7448a18.jpg">
 <meta property="og:image" content="https://ivanclf.github.io/2025/10/11/sql-2/mysql-20250404111739.png">
-<meta property="og:image" content="https://ivanclf.github.io/2025/10/11/sql-2/01-20220305234724956.png">
 <meta property="og:image" content="https://ivanclf.github.io/2025/10/11/sql-2/mysql-20250317155312.png">
-<meta property="og:image" content="https://ivanclf.github.io/2025/10/11/sql-2/mysql-20250316105500.png">
 <meta property="og:image" content="https://ivanclf.github.io/2025/10/11/sql-2/mysql-20250318163110.png">
 <meta property="og:image" content="https://ivanclf.github.io/2025/10/11/sql-2/mysql-20240311231652.png">
 <meta property="article:published_time" content="2025-10-11T03:18:05.000Z">
-<meta property="article:modified_time" content="2026-03-20T06:28:36.338Z">
+<meta property="article:modified_time" content="2026-04-07T03:09:06.309Z">
 <meta property="article:author" content="Ivan Chan">
 <meta property="article:tag" content="复习">
 <meta property="article:tag" content="SQL">
 <meta property="article:tag" content="数据库">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://ivanclf.github.io/2025/10/11/sql-2/mysql-20240515110034.png">
+<meta name="twitter:image" content="https://ivanclf.github.io/2025/10/11/sql-2/mysql-20250404111739.png">
   
   
   
@@ -247,7 +242,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.3k 字
+          5k 字
         
       </span>
     
@@ -307,24 +302,25 @@
 <li><code>limit</code>返回行数</li>
 </ol>
 <h2 id="表结构"><a href="#表结构" class="headerlink" title="表结构"></a>表结构</h2><p>MySQL是以表的形式存储的，而表的结构则由段区页行组成</p>
-<p><img src="mysql-20240515110034.png" srcset="/img/loading.gif" lazyload alt="示意"></p>
 <ol>
-<li>行<br> 行是InnoDB中数据存储的最小逻辑单位，也就是一条记录。里面除了各个列的值，还有一些InnoDB为例管理为了管理而添加的一些隐藏字段，如行ID(<code>DB_ROW_ID</code>)、事务ID(<code>DB_TRX_ID</code>)、回滚指针(<code>DB_ROLL_PTR</code>)等。</li>
-<li>页<br> 页是InnoDB中磁盘管理的最小单位，也是内存和磁盘交互的基本单元。页默认有16kb大小，里面除了行，还有文件头、页头、最大最小记录、页目录、文件尾等管理结构。</li>
-<li>区<br> 区由64个连续的页组成，大小大约是1mb，用于提升顺序IO效率和空间管理效率。</li>
-<li>段<br> 段是一个表或索引的存储容器，由一个或多个区组成。创建索引的时候会创建两个段，数据段和索引段，前者用来存储 B+ 树中叶子节点的数据，后者用于存储 B+ 中非叶子节点的数据。</li>
+<li>行<br> 行是 InnoDB 中数据存储的最小逻辑单元，也就是一条记录。里面除了各个列的值，还有一些 InnoDB 为例管理为了管理而添加的一些隐藏字段，如行ID(<code>DB_ROW_ID</code>)、事务ID(<code>DB_TRX_ID</code>)、回滚指针(<code>DB_ROLL_PTR</code>)等。</li>
+<li>页<br> 页是 InnoDB 中磁盘与内存交互的最小单位。页默认有 16kb 大小.</li>
+<li>区<br> 区由64个连续的页组成，大小大约是 1mb，用于解决大表的磁盘碎片问题. 区是连续的物理空间, 顺序 IO 更快.</li>
+<li>段<br> 段是一个<strong>表</strong>或<strong>索引</strong>的存储容器, 也就是一个逻辑空间分配单位, 由一个或多个区组成。每个索引会使两个段来管理，数据段(叶子段)和索引段(非叶子段).</li>
 </ol>
-<p>其中，数据页由7部分构成，分别为文件头、页头、文件尾（这三者大小是固定的，用来标记该页的一些重要信息）、行记录、空闲空间、页目录、空闲空间。</p>
-<p>每个数据页的文件头都有上一页和下一页的编号，所有的数据页会形成一个双向链表。</p>
-<h2 id="MySQL架构"><a href="#MySQL架构" class="headerlink" title="MySQL架构"></a>MySQL架构</h2><p>MySQL的基础架构如下</p>
-<p><img src="13526879-3037b144ed09eb88.png" srcset="/img/loading.gif" lazyload alt="基础架构"></p>
+<p>其中，数据页由7部分构成，分别为文件头、页头、文件尾（这三者大小是固定的，用来标记该页的一些重要信息）、行记录、空闲空间、页目录、空闲空间。每个数据页的文件头都有上一页和下一页的编号，所有的数据页会形成一个双向链表。</p>
+<h2 id="MySQL架构"><a href="#MySQL架构" class="headerlink" title="MySQL架构"></a>MySQL架构</h2><div class="note note-danger">
+            <p>字节跳动, 中国交易与广告 - 实习, 一面</p>
+          </div>
+
+<p>MySQL的基础架构如下</p>
 <ul>
 <li>连接器用于管理客户端链接、身份认证、权限获取</li>
-<li>查询缓存层，查看是否有一条完全相同的sql语句</li>
-<li>分析器，对sql语句进行词法分析和语法分析</li>
-<li>优化器，在开始执行前，生成一个执行计划，决定sql语句应该如何高效执行</li>
+<li>查询缓存层，查看是否有一条完全相同的 sql 语句</li>
+<li>分析器，对 sql 语句进行词法分析和语法分析</li>
+<li>优化器，在开始执行前，生成一个执行计划，决定 sql 语句应该如何高效执行</li>
 <li>执行器，调用存储引擎接口开始执行</li>
-<li>引擎层，一般是InnoDB，以前的版本是MyISAM</li>
+<li>引擎层，一般是 InnoDB，以前的版本是 MyISAM</li>
 </ul>
 <h3 id="语句分析"><a href="#语句分析" class="headerlink" title="语句分析"></a>语句分析</h3><p>在执行<code>select</code>语句时，需要进行以下操作</p>
 <ul>
@@ -339,7 +335,15 @@
 </li>
 <li>最后进行执行查询，交给InnoDB处理</li>
 </ul>
-<p>而执行<code>update</code>语句的步骤就复杂得多。前面的步骤和<code>select</code>一致，而交由InnoDB&#96;后</p>
+<div class="note note-danger">
+            <p>腾讯混元 - 实习, 一面.</p>
+          </div>
+
+<div class="note note-danger">
+            <p>OPPO 后端工程师 - 实习, 二面</p>
+          </div>
+
+<p>而执行<code>update</code>语句的步骤就复杂得多。前面的步骤和<code>select</code>一致，而交由 InnoDB 后</p>
 <ol>
 <li>读取<br> 先从缓冲池中查找对应的数据页。若数据页不在缓冲池中，则从磁盘的<code>.ibd</code>文件里加载到缓冲池。通过B+树定位到待更新的行记录。</li>
 <li>加锁<br> InnoDB会为这行记录仪加上排他锁<code>X Lock</code>。确保在事务提交前，其他事务无法读&#x2F;改这行数据。若该行已经被其他事务加锁，则当前事务需要等待锁释放。</li>
@@ -351,18 +355,6 @@
 <li>事务提交<br> 执行器通知InnoDB正式版提交事务，InnoDB在Redo Log中写入<code>commit</code>标记。此时，事务才算真正提交成功，随后会释放排他锁。</li>
 <li>后续工作<br> 告知客户端执行成功，并在后台异步将“脏页”刷回到磁盘的<code>.ibd</code>文件中。因为有Redo Log保证了即使此时崩溃数据也不会丢失，因此MySQL不需要在事务提交时立即执行慢速的磁盘随机写。</li>
 </ol>
-<p><img src="mysql-812fb038-39de-4204-ac9f-93d8b7448a18.jpg" srcset="/img/loading.gif" lazyload alt="一条update语句的执行过程"></p>
-<h2 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h2><p>MySQL的存储引擎是插件式架构，支持多种存储引擎。而且，存储引擎是基于表的，而不是数据库。</p>
-<p>在MySQL5.5前，MyISAM引擎是MySQL的默认引擎，而在5.5后，InnoDB称为了默认存储引擎。两个引擎有以下区别</p>
-<ul>
-<li>MyISAM只支持表级锁，InnoDB支持行级锁。</li>
-<li>MyISAM不提供事务支持。</li>
-<li>MyISAM不支持外键，但可以没有主键；InnoDB支持外键，但必须有主键</li>
-<li>MyISAM不支持数据库崩溃后的异常修复</li>
-<li>MyISAM不支持MVCC(<code>Multi-Version Concurrency Control</code>，多版本并发控制)</li>
-<li>二者都使用B+树作为索引结构，但MyISAM索引文件和数据文件是分离的，InnoDB的数据文件本身就是索引文件</li>
-<li>MyISAM使用键缓存，仅缓存索引页而不缓存数据页；InnoDB使用缓冲池缓存数据页和索引页</li>
-</ul>
 <h2 id="InnoDB"><a href="#InnoDB" class="headerlink" title="InnoDB"></a>InnoDB</h2><p>InnoDB的内存结构如下</p>
 <p><img src="mysql-20250404111739.png" srcset="/img/loading.gif" lazyload alt="InnoDB整体架构示意图"></p>
 <p>整体分两块，<code>buffer pool</code>和<code>log buffer</code>，前者用于缓存数据页和索引页，减少磁盘 IO，提升读写性能；后者用于缓存<code>redo log</code>，批量刷盘，提升写入性能。</p>
@@ -370,12 +362,11 @@
 <p>在内存在 1GB~4GB RAM 的系统上，默认值为系统 RAM 的25%，在内存超过 4GB 的系统上，默认值为系统 RAM 的50%，但不超过 4GB。最低默认值为 128MB。</p>
 <p>缓存池大小参数为<code>innodb_buffer_pool_size</code></p>
 <div class="note note-success">
-            <p>InnoDB 的缓存对 LRU 进行了优化，目的是挡住一次性或顺序扫描带来的“缓存污染”，让真正的热点留在内存。</p><p>InnoDB将整个LRU链表通过<code>midpoint</code>指针切成两段：<code>Young</code>和<code>Old</code>。其中<code>Young</code>靠近链表头，占比63%，而<code>Old</code>占比接近37%。新页永远先放到<code>Old</code>的头部（即<code>midpoint</code>）。当页在<code>Old</code>里首次被访问后，若距离进入时间较短（默认小于1000ms），则不晋升，否则晋升到<code>Young</code>区的头部，与常见LRU保持一致。而需要淘汰时，从<code>Old</code>的尾部开始踢。</p><p>两个区比例的参数为<code>innodb_old_blocks_pct</code><br>页的观察时间参数为<code>innodb_old_blocks_time</code></p>
+            <p>InnoDB 的缓存对 LRU 进行了优化，目的是挡住一次性或顺序扫描带来的“缓存污染”，让真正的热点留在内存。</p><p>InnoDB将整个 LRU 链表通过<code>midpoint</code>指针切成两段：<code>Young</code>和<code>Old</code>。其中<code>Young</code>靠近链表头，占比63%，而<code>Old</code>占比接近37%。新页永远先放到<code>Old</code>的头部（即<code>midpoint</code>）。当页在<code>Old</code>里首次被访问后，若距离进入时间较短（默认小于1000ms），则不晋升，否则晋升到<code>Young</code>区的头部，与常见 LRU 保持一致。而需要淘汰时，从<code>Old</code>的尾部开始踢。</p><p>两个区比例的参数为<code>innodb_old_blocks_pct</code><br>页的观察时间参数为<code>innodb_old_blocks_time</code></p>
           </div>
 
 <h2 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h2><p>MySQL中日志种类很多，包括错误日志、查询日志、慢查询日志、事务日志、二进制日志几大类。其中较为重要的是 Server 层通用的 <code>binlog</code> 和 InnoDB 引擎独有的 <code>redo log</code></p>
 <h3 id="binlog"><a href="#binlog" class="headerlink" title="binlog"></a><code>binlog</code></h3><p>binlog 是一种逻辑日志，记录了语句的原始逻辑。不管使用什么存储引擎，只要发生了表数据更新，都会产生 binlog 日志。主要用于 MySQL 数据库的数据备份、主备、主主、主从等操作的同步数据。</p>
-<p><img src="01-20220305234724956.png" srcset="/img/loading.gif" lazyload alt="上面这堆的解释"></p>
 <p>binlog日志有三种格式：<code>statement</code>、<code>row</code>、<code>mixed</code>。</p>
 <ul>
 <li>第一种会记录执行的sql语句，但诸如 <code>now()</code> <code>rand()</code> 这种函数直接执行可能会导致主从不一致</li>
@@ -402,7 +393,7 @@
             <p>这个“合适的时机”，一般是</p><ul><li>在事务提交的时候。至于事务提交几次看相关参数</li><li>log buffer 写满时</li><li>每秒的定期刷盘</li><li>触发 <code>CheckPoint</code> 时</li><li>正常关闭MySQL时</li></ul>
           </div>
 
-<p>当MySQL崩溃重启时，会先检查redo log，对于未提交的事务，MySQL会通过undo log回滚这些修改。</p>
+<p>当MySQL崩溃重启时，会先检查redo log，对于<strong>未提交</strong>的事务，MySQL会通过undo log回滚这些修改。</p>
 <p>MySQL的redo log采用环形结构在固定大小的文件组中循环写入。其机制依赖两个指针：<code>write pos</code>，指向当前的写入位置，和<code>checkpoint</code>，指向已被持久化的日志位置。这两个指针将环形空间分成两部分：空闲区域和未刷盘的数据脏页。</p>
 <p>需要写入日志时，<code>write pos</code>向前推进，同时MySQL会定期执行<code>checkpoint</code>操作，将内存中的脏页定期刷盘，完成后即可将<code>checkpoint</code>指针向前推进，从而释放出旧日志占用的空间。</p>
 <p>部分配置参数如下</p>
@@ -424,12 +415,9 @@
             <p>预写日志（<code>WAL</code> &#96;Write-Ahead Logging）是InnoDB实现持久事务化的核心，它的思想是先写日志再刷硬盘。<br>在修改数据页前，先将修改记录写入redo log，这样的话，即使数据页尚未写入磁盘，系统崩溃时也能通过redo log恢复数据。</p>
           </div>
 
-<h3 id="undo-log"><a href="#undo-log" class="headerlink" title="undo log"></a><code>undo log</code></h3><p>每一个事务堆数据的修改都会被记录到undo log，当事务过程中出现错误或者需要执行回滚操作的话，MySQL可以利用undo log将数据恢复到事务开始前的状态。并且 undo log 还是 MVCC 机制的核心。</p>
-<h3 id="两阶段提交"><a href="#两阶段提交" class="headerlink" title="两阶段提交"></a>两阶段提交</h3><p>redo log 让 InnoDB 拥有了崩溃恢复能力，binlog 保证了MySQL集群架构的数据一致性。</p>
-<p><img src="mysql-20250316105500.png" srcset="/img/loading.gif" lazyload alt="使用2PC保证redo log和binding的强一致性"></p>
-<p>当MySQL在预写redo log之后，写入binlog前崩溃，那么MySQL重启后InnoDB会回滚该事务，因为redo log不是提交状态。并且由于binlog中没有数据，所以库中也没有该事务的数据。</p>
-<p>假如MySQL写入binlog后、redo提交前崩溃，那么MySQL重启后InnoDB会提交该事务，因为redo log时完整的<code>prepare</code>状态。并且由于binlog中有写入数据，所以库也会同步到该事务中的数据。</p>
+<p>redo log 让 InnoDB 拥有了崩溃恢复能力，binlog 保证了MySQL集群架构的数据一致性。</p>
 <p>为了标识每一个事务提交，每一个事务提交都会生成一个独特的<code>XID</code>，提交时会写入一个<code>XID_EVENT</code>到binlog中，表示这个事务真正完成了。</p>
+<h3 id="undo-log"><a href="#undo-log" class="headerlink" title="undo log"></a><code>undo log</code></h3><p>每一个事务堆数据的修改都会被记录到undo log，当事务过程中出现错误或者需要执行回滚操作的话，MySQL可以利用undo log将数据恢复到事务开始前的状态。并且 undo log 还是 MVCC 机制的核心。</p>
 <h2 id="Redo-Log-Buffer"><a href="#Redo-Log-Buffer" class="headerlink" title="Redo Log Buffer"></a><code>Redo Log Buffer</code></h2><p><code>redo log buffer</code>一般是连续的内存空间，MySQL将其分为若干个连续的<code>redo log block</code>。为了提高写入效率，该<code>buffer</code>采用了顺序写入的方式，会先往前面的<code>redo log block</code>写入，当写满后再往后面的block写入。</p>
 <div class="note note-success">
             <p><strong>MTR</strong> (<code>Mini Transaction</code>)是InnoDB内部用于操作数据页的原子操作单元。多个事务的 redo log 会以 MTR 为单位交替写入到redo log buffer中</p><p><img src="mysql-20250318163110.png" srcset="/img/loading.gif" lazyload alt="MTR与redo log buffer的关系"></p><p>一个MTR包含一组redo log记录，是MySQL崩溃后恢复事务的最小执行单元。</p>
@@ -451,15 +439,18 @@
             <p>在以下情况下，索引会失效</p><ul><li>使用<code>select</code>语句时，查询范围过大</li><li><code>in</code>的取值范围较大</li><li>对索引列使用了函数</li><li>使用通配符开头（<code>%</code>等）进行<code>like</code>模糊查询</li><li>联合索引不满足最左前缀原则</li><li>使用<code>or</code>的时候链接非索引列</li></ul>
           </div>
 
-<h3 id="底层结构"><a href="#底层结构" class="headerlink" title="底层结构"></a>底层结构</h3><p>除了哈希索引、BST索引、红黑树索引，目前大部分数据库和文件系统都采用B+树作为索引结构。</p>
-<div class="note note-info">
-            <p>不用哈希或者BST的原因很好理解，但为什么不用平衡树呢？因为其每个节点最多只能有两个子节点，在数据较多时树太高，磁盘 IO 次数多，仍然需要时间。</p>
+<h3 id="底层结构"><a href="#底层结构" class="headerlink" title="底层结构"></a>底层结构</h3><div class="note note-danger">
+            <p>字节跳动, 中国交易与广告 - 实习, 一面</p>
           </div>
 
-<div class="note note-info">
-            <p>B树与B+树的区别在于</p><ul><li>B树所有节点既存放键也存放数据，而B+树只有叶子节点存放键和数据，其他节点只存放key。这样非叶子节点就可以容纳更多的键值对。</li><li>B+树的叶子节点有一条引用链，指向与它相邻的叶子节点</li><li>B树的范围查询需要对B树进行中序遍历，而对B+树的范围查询只需要对链表进行遍历即可</li></ul><p>因此B+树相比B树具有更少的IO次数，更稳定的效率和更适用于范围查询这些优势。</p>
-          </div>
-
+<p>除了哈希索引、BST索引、红黑树索引，目前大部分数据库和文件系统都采用B+树作为索引结构。</p>
+<p>不用哈希或者BST的原因很好理解，但为什么不用平衡树呢？因为其每个节点最多只能有两个子节点，在数据较多时树太高，磁盘 IO 次数多，仍然需要时间。而 B 树与 B+ 树的区别在于</p>
+<ul>
+<li>B树所有节点既存放键也存放数据，而B+树只有叶子节点存放键和数据，其他节点只存放key。这样非叶子节点就可以容纳更多的键值对。</li>
+<li>B+树的叶子节点有一条引用链，指向与它相邻的叶子节点</li>
+<li>B树的范围查询需要对B树进行中序遍历，而对B+树的范围查询只需要对链表进行遍历即可</li>
+</ul>
+<p>因此B+树相比B树具有更少的IO次数，更稳定的效率和更适用于范围查询这些优势。</p>
 <p>在InnoDB中，页的默认大小为16kb，当主键为<code>bigint</code>时，3层B+树通常可以存2000万条数据。</p>
 <p>公式为</p>
 <p>$最大记录数&#x3D;分支因子^{树高度 - 1}\times 叶子节点容量$</p>
@@ -467,10 +458,12 @@
 <h3 id="应用维度"><a href="#应用维度" class="headerlink" title="应用维度"></a>应用维度</h3><h4 id="主键索引"><a href="#主键索引" class="headerlink" title="主键索引"></a>主键索引</h4><p>数据表的主键使用的就是主键索引。在创建主键时，MySQL会自动生成对应的唯一索引。</p>
 <p>在 MySQL 的 InnoDB 表中，若没有指定表的主键时，InnoDB 会自动检查表中是否有唯一索引且不允许有 <code>null</code> 值的字段，有则选择该字段为默认主键、否则 InnoDB 会自动创建一个6字节的自增主键。</p>
 <div class="note note-info">
-            <p>另外说明下自增主键的情况。</p><p>MyISAM将自增值保存在了文件中，而InnoDB在MySQL5.7前将自增值保存在了内存里，打开表的时候回去找自增值的最大值，以这个值加1作为当前表的自增值。</p><p>在以下情况下，自增id可能会不连续</p><ul><li>事务回滚，事务没有操作，但id增加了</li><li>插入失败，也是类似的状况</li><li>批量插入失败，同理</li><li>手动指定id值</li></ul>
+            <p>InnoDB在MySQL5.7前将自增值保存在了内存里, 现在则是再每次变更后都写入 <code>redo log</code> 中, 并定期持久化道数据字典(<code>mysql.ibd</code>)里.在以下情况下，自增id可能会不连续:</p><ul><li>事务回滚，事务没有操作，但id增加了. 因为自增值在插入语句执行初期就预分配了, 属于语句级, 非事务级分配.</li><li>插入失败，也是类似的状况</li><li>批量插入失败，同理</li><li>手动指定id值</li></ul>
           </div>
 
 <h4 id="稀疏索引"><a href="#稀疏索引" class="headerlink" title="稀疏索引"></a>稀疏索引</h4><p>仅为索引列的部分值创建索引项，索引项的数量远少于数据行数。对于<strong>存在大量重复值或大量空值</strong>的列，稀疏索引可以显著减少索引大小。</p>
+<p>如在 <code>gender</code> 列只有 M&#x2F;F&#x2F;U 三种, 稀疏索引只需要三条索引即可. 然而, InnoDB 本身没有这种索引. 这种索引形式常见于搜索引擎(如 ES 等).</p>
+<p>与这个概念相对的是<strong>稠密索引</strong>, 一般用的就是这种索引.</p>
 <h4 id="二级索引"><a href="#二级索引" class="headerlink" title="二级索引"></a>二级索引</h4><p>二级索引的叶子节点存储的数据是主键的值，通过二级索引可以定位主键的位置。二级索引又可以称为辅助索引。</p>
 <p>唯一索引、普通索引、前缀索引等都属于二级索引</p>
 <h5 id="唯一索引-unique-index"><a href="#唯一索引-unique-index" class="headerlink" title="唯一索引 unique index"></a>唯一索引 <code>unique index</code></h5><p>主键索引 &#x3D; 唯一索引 + 非空。一个表中可以有多个唯一索引，也可以插入<code>null</code>值。</p>
@@ -482,14 +475,26 @@
 <li><code>*</code> 表示通配符</li>
 </ul>
 <p>注意，要处理中文分词的话，一定要记得加上 <code>with parser ngram</code>，否则可能查不出来数据。</p>
-<h4 id="聚簇索引"><a href="#聚簇索引" class="headerlink" title="聚簇索引"></a>聚簇索引</h4><p>聚簇索引即索引结构和数据结构一起存放的索引，在叶子节点存储了完整的数据行，InnoDB中的主键索引就属于聚簇索引。其优点在于查询速度快，及对排序查找和范围查找的优化好；缺点在于其依赖于有序的数据，即更新代价大。</p>
+<h4 id="聚簇索引与非聚簇索引"><a href="#聚簇索引与非聚簇索引" class="headerlink" title="聚簇索引与非聚簇索引"></a>聚簇索引与非聚簇索引</h4><p>聚簇索引即索引结构和完整数据行一起存放的索引，在叶子节点存储了完整的数据行，InnoDB 中的主键索引就属于聚簇索引。其优点在于查询速度快，及对排序查找和范围查询的优化好；缺点在于其依赖于有序的数据，因此更新代价大。</p>
 <p><img src="mysql-20240311231652.png" srcset="/img/loading.gif" lazyload alt="聚簇索引示例"></p>
-<p>非聚簇索引即索引结构和数据分开存放的索引，MyISAM引擎不论主键还是非主键，使用的都是非聚簇索引。</p>
-<p>使用非聚簇索引进行查询时，MySQL需要先通过非聚簇索引找到主键值，然后再根据主键值回到聚簇索引中查找完整数据行，这个过程称为回表。</p>
-<p>非聚簇索引不一定需要回表查询，当用户需要查询建立了索引的数据时，直接返回即可。</p>
-<p><strong>MRR</strong> (Multi-Range Read) 是 InnoDB 为了解决回表带来的大量随机IO问题而引入的一种优化策略。它会首先把非聚簇索引查到的主键值列表进行排序再按顺序去主键索引中批量回表，从而把随机IO转换为批量IO。</p>
+<p>非聚簇索引即索引结构和数据分开存放的索引. 使用非聚簇索引进行查询时，MySQL需要先通过非聚簇索引找到主键值，然后再根据主键值回到聚簇索引中查找完整数据行，这个过程称为<strong>回表</strong>。非聚簇索引也不一定需要回表查询，当查询所需字段全部都在索引中时，直接返回即可。</p>
+<p><strong>MRR</strong> (Multi-Range Read) 是 InnoDB 为了解决回表带来的大量随机 IO 的策略。它会首先把非聚簇索引查到的主键值列表进行排序, 再按顺序去主键索引中批量回表，从而把随机 IO 转换为顺序 IO。</p>
+<p>除此之外, MySQL 还会进行<strong>索引下推</strong>(ICP), 即允许存储引擎在索引遍历的过程中，执行部分 <code>where</code> 条件，直接过滤掉不满足条件的记录，从而减少回表次数。所谓的“下推”其实就是将部分 <code>server</code> 层负责的事情交给了存储引擎层提前处理。</p>
 <h4 id="覆盖索引"><a href="#覆盖索引" class="headerlink" title="覆盖索引"></a>覆盖索引</h4><p>覆盖索引，即需要查询的字段正好是索引的字段，那么直接根据该索引，就可以查到数据了，不需要回表查询。</p>
-<h4 id="联合索引"><a href="#联合索引" class="headerlink" title="联合索引"></a>联合索引</h4><p>使用表中的多个字段创建索引，就是联合索引。如</p>
+<h4 id="联合索引"><a href="#联合索引" class="headerlink" title="联合索引"></a>联合索引</h4><div class="note note-danger">
+            <p>腾讯微信支付 - 实习, 一面.</p>
+          </div>
+
+<div class="note note-danger">
+            <p>美团后台开发 - 暑期实习, 一面.</p>
+          </div>
+
+<div class="note note-danger">
+            <p>OPPO 后端工程师 - 实习, 一面</p>
+          </div>
+
+
+<p>使用表中的多个字段创建索引，就是联合索引。如</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">ALTER TABLE</span> `cus_order` <span class="hljs-keyword">ADD</span> INDEX id_score_name(score, name);<br></code></pre></td></tr></table></figure>
 
 <p>使用时需要注意：</p>
@@ -501,8 +506,6 @@
 <div class="note note-info">
             <p>在操作符左右两边的数据类型不一致时，就会发生隐式转换。在<code>where</code>查询时操作符左边为数值类型时若发生隐式转换还好，但左边为字符类型时就会导致索引失效。而将字符串转换为数值类型时，非数字开头的字符串会化为0，以数组开头的字符串会截取从第一个字符到第一个非数字内容为止的值作为转化结果。</p>
           </div>
-
-<h3 id="索引下推"><a href="#索引下推" class="headerlink" title="索引下推"></a>索引下推</h3><p>索引下推(<code>ICP</code>)是一项索引优化功能，它允许存储引擎在索引遍历的过程中，执行部分<code>where</code>字句的判断条件，直接过滤掉不满足条件的记录，从而减少回表次数。所谓的“下推”其实就是将部分<code>server</code>层负责的事情交给了存储引擎层去处理。</p>
 
                 
               </div>

@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://ivanclf.github.io/2025/09/29/concurrent/status.png">
 <meta property="article:published_time" content="2025-09-29T07:47:15.000Z">
-<meta property="article:modified_time" content="2026-03-21T09:24:23.558Z">
+<meta property="article:modified_time" content="2026-04-02T15:13:00.934Z">
 <meta property="article:author" content="Ivan Chan">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary_large_image">
@@ -237,7 +237,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.3k 字
+          6.6k 字
         
       </span>
     
@@ -292,14 +292,41 @@
 <li><a target="_blank" rel="noopener" href="https://tech.meituan.com/2020/04/02/java-pooling-pratice-in-meituan.html">https://tech.meituan.com/2020/04/02/java-pooling-pratice-in-meituan.html</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/341005993/answer/128919891202">https://www.zhihu.com/question/341005993/answer/128919891202</a></li>
 </ul>
-<div class="note note-success">
-            <p>并行与并发的区别在于，并行是同一时刻真正同时执行多个任务，并发是在一段时间内交替处理多个任务、看起来像是同时运行。</p><p>在单核CPU上的多线程程序与js在浏览器中的异步操作为并发但不并行的操作，多核CPU上的Web服务器与分布式系统上的微服务即为既并发又并行的场景。</p>
+<h2 id="概念辨析"><a href="#概念辨析" class="headerlink" title="概念辨析"></a>概念辨析</h2><h3 id="并行与并发"><a href="#并行与并发" class="headerlink" title="并行与并发"></a>并行与并发</h3><p>并行与并发的区别在于，并行是同一时刻真正同时执行多个任务，并发是在一段时间内交替处理多个任务、看起来像是同时运行。</p>
+<p>在单核CPU上的多线程程序与js在浏览器中的异步操作为并发但不并行的操作，多核CPU上的Web服务器与分布式系统上的微服务即为既并发又并行的场景。</p>
+<h3 id="异步与并发"><a href="#异步与并发" class="headerlink" title="异步与并发"></a>异步与并发</h3><p>异步和并发的区别在于，异步在意“等待”，允许任务在等待时不阻碍主线程；并发在乎“同时发生”，指多个任务在重叠的时间段内开始、运行和完成，但不一定在同一瞬间内完成。</p>
+<p>异步和同步的区别在于，在发出调用后，异步返回结果前返回调用，而同步在没有得到结果前一直不反回调用。</p>
+<h3 id="同步-异步-阻塞-非阻塞"><a href="#同步-异步-阻塞-非阻塞" class="headerlink" title="同步, 异步, 阻塞, 非阻塞"></a>同步, 异步, 阻塞, 非阻塞</h3><div class="note note-danger">
+            <p>美团后台开发 - 暑期实习, 一面.</p>
           </div>
 
-<div class="note note-success">
-            <p>异步和并发的区别在于，异步在意“等待”，允许任务在等待时不阻碍主线程；并发在乎“同时发生”，指多个任务在重叠的时间段内开始、运行和完成，但不一定在同一瞬间内完成。</p><p>异步和同步的区别在于，在发出调用后，异步返回结果前返回调用，而同步在没有得到结果前一直不反回调用。</p>
-          </div>
-
+<p>这里实际上是两个维度: 同步和异步, 阻塞和非阻塞.</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>含义</th>
+<th>关键问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>同步&#x2F;异步</td>
+<td>调用方如何得知结果</td>
+<td>同步时, 调用方主动等结果<br>异步时, 调用方等回应方通知</td>
+</tr>
+<tr>
+<td>阻塞&#x2F;非阻塞</td>
+<td>在等待结果时, 当前线程能不能干其他事</td>
+<td>阻塞时, 线程会挂起等待<br>非阻塞时, 线程能立刻返回, 干点别的</td>
+</tr>
+</tbody></table>
+<p>以上两种维度, 可以派生出四种组合:</p>
+<ol>
+<li>同步阻塞<br> 最传统的方式, 调用方发起请求, 然后一直等, 线程挂起, 知道结果返回.</li>
+<li>同步非阻塞<br> 调用方发起请求. 如果结果没准备好, 则立刻返回. 线程不挂起. 在一定时间过后, 会主动再问一次.<br> 例子: 在一个 spring task 中每隔一段时间轮询所有数据, 看里面有数据准备好了没.</li>
+<li>异步阻塞<br> 一般少见. 调用方发起异步操作后, 立刻去等那个结果. 线程挂起直到结果返回.</li>
+<li>异步非阻塞<br> 最理想的模型. 调用方发起请求后立即返回, 不等待结果. 当结果准备好时, 系统通过<strong>回调, 事件, 信号</strong>等方式通知调用方. 整个过程中调用方线程从未挂起.<br> 例子: 一般大模型, ASR 等处理都需要时间, 因此在一些 SaaS 服务中可以提供回调服务.</li>
+</ol>
 <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>JDK 1.2 之前，Java 线程就是用户线程。JDK 1.2 后，Java 采用一对一内核线程映射模型，每创建一个 Thread 对象并调用 start() 方法时，JVM 会通过操作系统原生 API 向内核申请创建对应的原生操作系统线程，Java 线程的生命周期、调度完全交由操作系统内核调度器管理。</p>
 <p>Java 的线程和普通线程一样，<a href="https://ivanclf.github.io/2025/05/14/os/#Implementation-of-Processes">也需要存储一些私有数据</a>，程序计数器用于线程切换后能恢复到正确是执行位置，虚拟机栈用于存储局部变量表和常量池引用等信息，本地方法栈用于存储虚拟机使用到的 native 方法。</p>
 <h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><p>线程的创建有三种方式。</p>
@@ -400,11 +427,11 @@
 <li>对于线程独立的数据，可以使用<code>ThreadLocal</code>类来存储和访问这些数据。</li>
 <li>对于需要并发容器的地方，可以使用<code>ConcurrentHashMap</code>、<code>CopyOnWriteArrayList</code>等线程安全的集合类。</li>
 </ul>
-<div class="note note-success">
-            <p>spring 中的 bean 注入需要实现<a href="https://ivanclf.github.io/2025/10/29/spring/#%E4%BD%9C%E7%94%A8%E5%9F%9F">单例</a></p><p>如果多个线程同时尝试创建实例，单例类必须确保只创建一个，并提供一个全局访问点。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Singleton</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Singleton</span> <span class="hljs-variable">instance</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Singleton</span>();<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-title function_">Singleton</span><span class="hljs-params">()</span> &#123;&#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Singleton <span class="hljs-title function_">getInstance</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> instance;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>另一种方式则在第一次使用时初始化单例对象，这种方式需要使用双重检查锁定来确保线程安全。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Singleton</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">volatile</span> Singleton instance;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-title function_">Singleton</span><span class="hljs-params">()</span> &#123;&#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Singleton <span class="hljs-title function_">getInstance</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">if</span> (instance == <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">synchronized</span> (Singleton.class) &#123;<br>                <span class="hljs-keyword">if</span> (instance == <span class="hljs-literal">null</span>) &#123;<br>                    instance = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Singleton</span>();<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> instance;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a><code>ThreadLocal</code></h2><div class="note note-danger">
+            <p>字节跳动, 中国交易与广告 - 实习, 一面</p>
           </div>
 
-<h2 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a><code>ThreadLocal</code></h2><p><code>ThreadLocal</code> 提供线程本地存储机制，为每个线程创建变量的独立副本，从而避免多线程环境下的数据竞争问题。</p>
+<p><code>ThreadLocal</code> 提供线程本地存储机制，为每个线程创建变量的独立副本，从而避免多线程环境下的数据竞争问题。</p>
 <p>对 <code>ThreadLocal</code> 的操作有4种方法：</p>
 <ol>
 <li><code>set(T value)</code>：设置当前线程的局部变量值。</li>
@@ -422,8 +449,9 @@
 <ol>
 <li>获取当前线程 <code>Thread</code> 对象。</li>
 <li>获取当前 <code>Thread</code> 对象内部的 <code>ThreadLocalMap</code>，若没有则创建一个。</li>
-<li>以 <code>threadLocal</code> 对象本身作为 Key，要存储的 <code>value</code> 作为 Value，存放到当前线程的 <code>ThreadLocalMap</code> 中。而这个 key 实际上是 <code>ThreadLocal</code> 对象的弱引用，但 <code>value</code> 作为真正 set 进去的值，是强引用。</li>
+<li>以 <code>threadLocal</code> 对象本身作为 Key，要存储的 <code>value</code> 作为 Value，存放到当前线程的 <code>ThreadLocalMap</code> 中。</li>
 </ol>
+<p>这里作为 key 的 <code>ThreadLocal</code> 对象，<code>ThreadLocalMap</code> 对它的引用是弱引用；而我们要存的 value（实际数据），<code>ThreadLocalMap</code> 对它的引用是强引用. 这也是后面会发生内存泄漏的核心原因.</p>
 <p>当我们调用 <code>threadLocal.get()</code> 方法时，实际发生了以下事情</p>
 <ol>
 <li>获取当前线程的 <code>Thread</code> 对象。</li>
@@ -540,12 +568,6 @@
 <p><code>ThreadPoolExecutor</code> 默认不会回收核心线程。要是实在需要回收核心线程，可以考虑将 <code>allowCoreThreadTimeout(boolean value)</code> 设置为 true，这样就会回收空闲的核心线程了，其时间间隔由 <code>keepAliveTime</code> 指定。</p>
 <p>核心线程在空闲时，会处于 WAITING 状态，当队列中有可用任务时，会唤醒被阻塞的线程，线程的状态会由 WAITING 状态变为 RUNNABLE 状态，之后去执行对应的任务。</p>
 <p>要设计一个根据任务的优先级来执行的线程池，可以考虑使用 <code>PriorityBlockingQueue</code> 作为任务队列。当然，使用优先队列实现对任务的排序，传入其中的任务必须是具备排序能力的，因此需要提交到线程池的任务实现 <code>Comparable</code> 接口或 <code>Comparator</code> 接口。并且为了避免 OOM 问题，最好重写一下 <code>offer</code> 方法的逻辑，在元素数量超过指定值时返回 false。</p>
-<p><strong>线程池调优</strong></p>
-<ul>
-<li>根据任务类型设置核心线程数参数。</li>
-<li>结合线程池动态调整的能力，在流量波动时通过 <code>setCorePoolSize</code> 平滑扩容，或者直接使用 <code>DynamicTp</code> 实现线程池参数的自动化调整。</li>
-<li>通过内置的监控指标建立容量预警机制。比如通过 JMX 监控线程池的运行状态，设置阈值，当线程池的任务队列长度超过阈值时，触发告警。</li>
-</ul>
 
                 
               </div>

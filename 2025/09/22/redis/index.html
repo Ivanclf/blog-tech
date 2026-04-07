@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://ivanclf.github.io/2025/09/22/redis/202401222005436.png">
 <meta property="article:published_time" content="2025-09-22T11:19:32.000Z">
-<meta property="article:modified_time" content="2025-11-18T02:24:43.278Z">
+<meta property="article:modified_time" content="2026-03-31T05:19:05.862Z">
 <meta property="article:author" content="Ivan Chan">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="redis">
@@ -238,7 +238,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.9k 字
+          4.6k 字
         
       </span>
     
@@ -293,10 +293,6 @@
 <p>Spring的底层Servlet中，一个请求对应一个线程。为了提高网页响应速度，提供缓存并进行维护，使得缓存满足高并发状态下的请求，就显得非常重要。此处使用redis，解决部分高并发问题。</p>
 <p>redis核心就是单线程，不容易出现线程问题。但redis也采用了多线程的IO多路复用技术，可以在只有一个线程的情况下同时监听多个客户端链接。</p>
 <p>redis 4.0后，redis引入了多线程机制，用于清理脏数据、释放无用链接、删除大key.而redis 6.0后，多线程仅用于把网络IO和命令执行分开，将网络IO交给线程池来处理。从而提高性能。</p>
-<div class="note note-success">
-            <p>IO多路复用的核心思想是，让单个线程可以等待多个文件描述符就绪，然后对就绪的描述符进行操作。这样就可以在不使用多线程的情况下进行并发连接。其主要的实现机制包括select、poll、epoll、kqueue和IOCP等</p><ul><li>select的缺点是单个进程能远程监视的文件描述符数量有限，一般为1024个，并且每次调用都需要将文件描述符集合从用户态复制到内核态，然后遍历找出就绪的描述符，性能较差</li><li>poll的优点是没有大文件描述符数量的限制，但仍然涉及内核态，和遍历，性能较差</li><li>epoll是Linux独有的机制，其工作原理是将文件描述符注册到多核中，然后通过时间通知机制来处理就绪的文件描述符，不需要轮询，所以性能非常高</li><li>kqueue是BSD&#x2F;macOS系统下的IO多路复用机制，与epoll类似</li><li>IOCP是Windows系统下的IO多路复用机制，使用完成端口模型而非事件通知</li></ul>
-          </div>
-
 <p>单线程的redis其QPS通常可以达到每秒10万左右。</p>
 <div class="note note-info">
             <p><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/redis-tutorial.html">点击这里</a>学redis基础操作。在Java中，涉及redis的操作一般可以通过特定形式的API解决。</p>
@@ -314,7 +310,6 @@ fronted[fronted]--&gt;|step 1|backend[backend]--&gt;|step 2|database[database]
 <li>存在redis中的token: 在用户登录时，后端将随机token发送给用户，同时存一份到Redis中。客户在后续的请求中带上token。</li>
 </ul>
 <p>后一种能够实现主动登出服务，并且对有效期的管理更加灵活（例如在用户发送请求时由redis动态调整有效期），在某些需求下更受青睐。</p>
-<h2 id="为什么是redis"><a href="#为什么是redis" class="headerlink" title="为什么是redis"></a>为什么是redis</h2><p>分布式缓存除了redis，还有Memcacheed方案，这种在分布式缓存最开始兴起那会常用，但现在用得不多。其他的分布式缓存方案也比较多，例如<code>Dragonfliy</code>、<code>KeyDB</code>等。</p>
 <h2 id="redis数据类型指北"><a href="#redis数据类型指北" class="headerlink" title="redis数据类型指北"></a>redis数据类型指北</h2><ul>
 <li><p><code>String</code>可以把序列化后的对象存进去，最大容量是512Mb。</p>
 </li>
@@ -336,10 +331,47 @@ fronted[fronted]--&gt;|step 1|backend[backend]--&gt;|step 2|database[database]
 <li><p><code>ZSet</code>的底层基于跳表实现。</p>
 </li>
 </ul>
-<div class="note note-info">
-            <p>当有序集合元素小于64字节，且个数小于128时，会使用<code>ziplist</code>（压缩列表），这两个阈值的配置为</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">zset-max-ziplist-value 64<br>zset-max-ziplist-entries 128<br></code></pre></td></tr></table></figure><p>压缩链表是redis为了节省内存而设计的一种紧凑型数据结构，它会把所有数据连续存储在一块内存中。每个结构包含总字节数、尾部偏移量、节点数量等数据。每个节点包含前一个节点的长度、编码的类型和实际的数据。不过这种压缩列表可能会导致插入或删除节点时连锁更新后续节点数据的问题，导致算法复杂度可能退化到$O(n^2)$</p><p>一旦超过其中的一个阈值，就会变为<code>skiplist</code>（跳表，但实际上是字典+跳表，使用字典来提高获取速率）。跳表可以在链表的基础上，建立多级索引，将增删改查的时间复杂度变为$O(\log n)$</p><p>跳表节点的定义如下</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">skiplistNode</span> &#123;</span><br>    <span class="hljs-type">double</span> score;                    <span class="hljs-comment">// 分值（用于排序）</span><br>    robj *obj;                      <span class="hljs-comment">// 数据对象</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">skiplistNode</span> *<span class="hljs-title">backward</span>;</span>   <span class="hljs-comment">// 后退指针</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">skiplistLevel</span> &#123;</span><br>        <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">skiplistNode</span> *<span class="hljs-title">forward</span>;</span> <span class="hljs-comment">// 前进指针</span><br>        <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> span;           <span class="hljs-comment">// 跨度（到下个节点的距离）</span><br>    &#125; level[];                      <span class="hljs-comment">// 层级数组</span><br>&#125; skiplistNode;<br></code></pre></td></tr></table></figure><p>跳表本身的定义如下</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">skiplist</span> &#123;</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">skiplistNode</span> *<span class="hljs-title">header</span>, *<span class="hljs-title">tail</span>;</span> <span class="hljs-comment">// 头尾节点</span><br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> length;               <span class="hljs-comment">// 节点数量</span><br>    <span class="hljs-type">int</span> level;                         <span class="hljs-comment">// 最大层数</span><br>&#125; skiplist;<br></code></pre></td></tr></table></figure><p>以下图为例</p><p><img src="202401222005436.png" srcset="/img/loading.gif" lazyload alt="展开来看就很容易看懂了"></p><p>假如我们需要查询元素 6，其工作流程如下：</p><ol><li>从 2 级索引开始，先来到节点 4。</li><li>查看 4 的后继节点，是 8 的 2 级索引，这个值大于 6，说明 2 级索引后续的索引都是大于 6 的，没有再往后搜寻的必要，我们索引向下查找。</li><li>来到 4 的 1 级索引，比对其后继节点为 6，查找结束。</li></ol><p>理想状态下，每一层索引都是下一层元素个数的二分之一。其高度生成算法如下</p><ol><li>链表的高度为1。</li><li>进行一次随机运算，数值范围为0.5。若随机数大于0.5则为当前元素增加以及索引。同理索引也这么操作。</li></ol><p>于是插入算法可以如下操作</p><ol><li>查找前置节点</li><li>随机生成层级</li><li>链接节点</li></ol><p>删除操作如下</p><ol><li>查找目标节点及其前置节点</li><li>解除链接</li><li>更新跳表层数</li></ol><p>为什么有序集合使用跳表，而非平衡树、红黑树或者B+树呢？相比平衡树，跳表使用概率平衡而非严格强制的平衡，因此跳表的插入和删除算法相比平衡树的算法高效得多；相比红黑树，跳表按照区间查找的速率更高；相比B+树，跳表能节省更多的内存。</p>
+<h3 id="压缩列表"><a href="#压缩列表" class="headerlink" title="压缩列表"></a>压缩列表</h3><p>当有序集合元素小于64字节，且个数小于128时，会使用<code>ziplist</code>（压缩列表），这两个阈值的配置为</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">zset-max-ziplist-value 64<br>zset-max-ziplist-entries 128<br></code></pre></td></tr></table></figure>
+
+<p>压缩链表是redis为了节省内存而设计的一种紧凑型数据结构，它会把所有数据连续存储在一块内存中。每个结构包含总字节数、尾部偏移量、节点数量等数据。每个节点包含前一个节点的长度、编码的类型和实际的数据。不过这种压缩列表可能会导致插入或删除节点时连锁更新后续节点数据的问题，导致算法复杂度可能退化到$O(n^2)$</p>
+<h3 id="跳表"><a href="#跳表" class="headerlink" title="跳表"></a>跳表</h3><div class="note note-danger">
+            <p>腾讯混元 - 实习, 一面.</p>
           </div>
 
+<p>一旦超过其中的一个阈值，就会变为<code>skiplist</code>（跳表，但实际上是字典+跳表，使用字典来提高获取速率）。跳表可以在链表的基础上，建立多级索引，将增删改查的时间复杂度变为$O(\log n)$</p>
+<p>跳表节点的定义如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">skiplistNode</span> &#123;</span><br>    <span class="hljs-type">double</span> score;                    <span class="hljs-comment">// 分值（用于排序）</span><br>    robj *obj;                      <span class="hljs-comment">// 数据对象</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">skiplistNode</span> *<span class="hljs-title">backward</span>;</span>   <span class="hljs-comment">// 后退指针</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">skiplistLevel</span> &#123;</span><br>        <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">skiplistNode</span> *<span class="hljs-title">forward</span>;</span> <span class="hljs-comment">// 前进指针</span><br>        <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> span;           <span class="hljs-comment">// 跨度（到下个节点的距离）</span><br>    &#125; level[];                      <span class="hljs-comment">// 层级数组</span><br>&#125; skiplistNode;<br></code></pre></td></tr></table></figure>
+
+<p>跳表本身的定义如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">skiplist</span> &#123;</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">skiplistNode</span> *<span class="hljs-title">header</span>, *<span class="hljs-title">tail</span>;</span> <span class="hljs-comment">// 头尾节点</span><br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> length;               <span class="hljs-comment">// 节点数量</span><br>    <span class="hljs-type">int</span> level;                         <span class="hljs-comment">// 最大层数</span><br>&#125; skiplist;<br></code></pre></td></tr></table></figure>
+
+<p>以下图为例</p>
+<p><img src="202401222005436.png" srcset="/img/loading.gif" lazyload alt="展开来看就很容易看懂了"></p>
+<p>假如我们需要查询元素 6，其工作流程如下：</p>
+<ol>
+<li>从 2 级索引开始，先来到节点 4。</li>
+<li>查看 4 的后继节点，是 8 的 2 级索引，这个值大于 6，说明 2 级索引后续的索引都是大于 6 的，没有再往后搜寻的必要，我们索引向下查找。</li>
+<li>来到 4 的 1 级索引，比对其后继节点为 6，查找结束。</li>
+</ol>
+<p>理想状态下，每一层索引都是下一层元素个数的二分之一。其高度生成算法如下</p>
+<ol>
+<li>链表的高度为1。</li>
+<li>进行一次随机运算，数值范围为0.5。若随机数大于0.5则为当前元素增加以及索引。同理索引也这么操作。</li>
+</ol>
+<p>于是插入算法可以如下操作</p>
+<ol>
+<li>查找前置节点</li>
+<li>随机生成层级</li>
+<li>链接节点</li>
+</ol>
+<p>删除操作如下</p>
+<ol>
+<li>查找目标节点及其前置节点</li>
+<li>解除链接</li>
+<li>更新跳表层数</li>
+</ol>
+<p>为什么有序集合使用跳表，而非平衡树、红黑树或者B+树呢？相比平衡树，跳表使用概率平衡而非严格强制的平衡，因此跳表的插入和删除算法相比平衡树的算法高效得多；相比红黑树，跳表按照区间查找的速率更高；相比B+树，跳表能节省更多的内存。</p>
 <ul>
 <li>redis的字典分为三层，最外层是一个dict结构，包含两个哈希表<code>ht[0]</code> <code>ht[1]</code>，用于存储键值对。每个哈希表都由数组的链表组成。</li>
 </ul>
