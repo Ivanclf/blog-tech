@@ -22,23 +22,23 @@
     <meta name="description" content="参考书籍：UNIX网络编程卷1：套接字联网API（第3版） 参考文献  https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;367591714 https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1qJ411w7du  基本 TCP 套接字编程 sockaddr 结构体往下的 sockaddr 为一个通用的地址结构体，为多种通信域提供一个统一的接口。我们一般使用它的”子类”。它">
 <meta property="og:type" content="article">
 <meta property="og:title" content="操作系统额外内容 - 基本 TCP 套接字编程">
-<meta property="og:url" content="https://ivanclf.github.io/2026/03/16/os-ex2/index.html">
-<meta property="og:site_name" content="Ivan的博客">
+<meta property="og:url" content="https://tech.ivanclf.com/2026/03/16/os-ex2/index.html">
+<meta property="og:site_name" content="Ivan的技术笔记">
 <meta property="og:description" content="参考书籍：UNIX网络编程卷1：套接字联网API（第3版） 参考文献  https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;367591714 https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1qJ411w7du  基本 TCP 套接字编程 sockaddr 结构体往下的 sockaddr 为一个通用的地址结构体，为多种通信域提供一个统一的接口。我们一般使用它的”子类”。它">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://ivanclf.github.io/2026/03/16/os-ex2/socket-function.png">
-<meta property="og:image" content="https://ivanclf.github.io/2026/03/16/os-ex2/example1.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2026/03/16/os-ex2/socket-function.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2026/03/16/os-ex2/example1.png">
 <meta property="article:published_time" content="2026-03-16T05:47:06.000Z">
 <meta property="article:modified_time" content="2026-03-31T05:39:52.152Z">
 <meta property="article:author" content="Ivan Chan">
 <meta property="article:tag" content="碎片知识">
 <meta property="article:tag" content="日常">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://ivanclf.github.io/2026/03/16/os-ex2/socket-function.png">
+<meta name="twitter:image" content="https://tech.ivanclf.com/2026/03/16/os-ex2/socket-function.png">
   
   
   
-  <title>操作系统额外内容 - 基本 TCP 套接字编程 - Ivan的博客</title>
+  <title>操作系统额外内容 - 基本 TCP 套接字编程 - Ivan的技术笔记</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -76,7 +76,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"ivanclf.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -102,7 +102,7 @@
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="../../../../index.html">
-      <strong>Ivan的博客</strong>
+      <strong>Ivan的技术笔记</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -381,7 +381,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;sys/socket.h&gt;</span></span><br><span class="hljs-type">int</span> <span class="hljs-title function_">connect</span> <span class="hljs-params">(</span><br><span class="hljs-params">    <span class="hljs-type">int</span> sockfd, <span class="hljs-comment">// socket 函数返回的套接字描述符</span></span><br><span class="hljs-params">    <span class="hljs-type">const</span> <span class="hljs-keyword">struct</span> sockaddr *sockaddr, <span class="hljs-comment">// 套接字地址结构的指针</span></span><br><span class="hljs-params">    <span class="hljs-type">socklen_t</span> addrlen <span class="hljs-comment">// 该结构的大小</span></span><br><span class="hljs-params">)</span>;<br></code></pre></td></tr></table></figure>
 
 <p>函数若成功则返回0；出错则返回-1。</p>
-<p>客户端在调用 connect 函数前不一定需要调用 bind 函数，因为内核会确定源 IP 地址并选择一个临时端口作为源端口。如果是 TCP，该函数将激发 <a href="https://ivanclf.github.io/2025/11/15/networking-3/#%E5%BB%BA%E7%AB%8B%E9%93%BE%E6%8E%A5">TCP 的三次握手过程</a>，并且在建立成功或出错后才返回。</p>
+<p>客户端在调用 connect 函数前不一定需要调用 bind 函数，因为内核会确定源 IP 地址并选择一个临时端口作为源端口。如果是 TCP，该函数将激发 <a target="_blank" rel="noopener" href="https://ivanclf.github.io/2025/11/15/networking-3/#%E5%BB%BA%E7%AB%8B%E9%93%BE%E6%8E%A5">TCP 的三次握手过程</a>，并且在建立成功或出错后才返回。</p>
 <ol>
 <li>若 TCP 客户没有收到 SYN 报文段的回应，则在一定时间后重发。重发一定次数后仍未回应，则返回 <code>ETIMEDOUT</code> 错误。</li>
 <li>若对 SYN 的响应是 RST （复位），则表明服务器主机在我们指定的端口上没有进程，则立即返回 <code>ECONNREFUSED</code> 错误。</li>
@@ -638,7 +638,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>操作系统额外内容 - 基本 TCP 套接字编程</div>
-      <div>https://ivanclf.github.io/2026/03/16/os-ex2/</div>
+      <div>https://tech.ivanclf.com/2026/03/16/os-ex2/</div>
     </div>
     <div class="license-meta">
       

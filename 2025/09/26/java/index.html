@@ -22,23 +22,23 @@
     <meta name="description" content="参考文献  https:&#x2F;&#x2F;javabetter.cn&#x2F;sidebar&#x2F;sanfene&#x2F;javase.html https:&#x2F;&#x2F;javaguide.cn&#x2F;java&#x2F;basis&#x2F;java-basic-questions-01.html https:&#x2F;&#x2F;javaguide.cn&#x2F;java&#x2F;io&#x2F;nio-basis.html 阿里巴巴 Java 开发手册（黄山版）  基本知识             &amp;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java高级特性与特殊规约">
-<meta property="og:url" content="https://ivanclf.github.io/2025/09/26/java/index.html">
-<meta property="og:site_name" content="Ivan的博客">
+<meta property="og:url" content="https://tech.ivanclf.com/2025/09/26/java/index.html">
+<meta property="og:site_name" content="Ivan的技术笔记">
 <meta property="og:description" content="参考文献  https:&#x2F;&#x2F;javabetter.cn&#x2F;sidebar&#x2F;sanfene&#x2F;javase.html https:&#x2F;&#x2F;javaguide.cn&#x2F;java&#x2F;basis&#x2F;java-basic-questions-01.html https:&#x2F;&#x2F;javaguide.cn&#x2F;java&#x2F;io&#x2F;nio-basis.html 阿里巴巴 Java 开发手册（黄山版）  基本知识             &amp;">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://ivanclf.github.io/2025/09/26/java/stream.png">
-<meta property="og:image" content="https://ivanclf.github.io/2025/09/26/java/channel-buffer-selector.png">
-<meta property="og:image" content="https://ivanclf.github.io/2025/09/26/java/rpc.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2025/09/26/java/stream.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2025/09/26/java/channel-buffer-selector.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2025/09/26/java/rpc.png">
 <meta property="article:published_time" content="2025-09-26T00:40:25.000Z">
 <meta property="article:modified_time" content="2026-03-03T06:22:05.951Z">
 <meta property="article:author" content="Ivan Chan">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://ivanclf.github.io/2025/09/26/java/stream.png">
+<meta name="twitter:image" content="https://tech.ivanclf.com/2025/09/26/java/stream.png">
   
   
   
-  <title>Java高级特性与特殊规约 - Ivan的博客</title>
+  <title>Java高级特性与特殊规约 - Ivan的技术笔记</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -76,7 +76,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"ivanclf.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -102,7 +102,7 @@
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="../../../../index.html">
-      <strong>Ivan的博客</strong>
+      <strong>Ivan的技术笔记</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -299,12 +299,12 @@
           </div>
 
 <div class="note note-success">
-            <ul><li>JVM: Java Virtual Machine，详见<a href="https://ivanclf.github.io/2025/10/06/jvm/">另一篇</a>。</li><li>JRE: Java Runtime Environment，Java 基础环境和类库。在 JDK 9 后，就不需要区分 JDK 和 JRE 的关系了&#x2F;</li><li>JDK: Java Development Kit，是一个功能齐全的 Java 开发工具包，用于创建和编译 Java 程序。</li></ul>
+            <ul><li>JVM: Java Virtual Machine，详见<a target="_blank" rel="noopener" href="https://ivanclf.github.io/2025/10/06/jvm/">另一篇</a>。</li><li>JRE: Java Runtime Environment，Java 基础环境和类库。在 JDK 9 后，就不需要区分 JDK 和 JRE 的关系了&#x2F;</li><li>JDK: Java Development Kit，是一个功能齐全的 Java 开发工具包，用于创建和编译 Java 程序。</li></ul>
           </div>
 
 <p>源码运行时，首先 <code>javac</code> 会将 <code>.java</code> 文件编译成 <code>.class</code> 文件，然后解释器或 JIT 再将 <code>.class</code> 文件转换成机器可理解的代码。</p>
 <div class="note note-info">
-            <p><code>javac</code> 作为前端的编译器，任务是将 Java 类代码编译成 JVM 可理解的、平台中立的 <code>.class</code> 文件。两种文件其实差别不太大，因此主要进行以下操作</p><ul><li>语法糖解糖，如将 <code>foreach</code> 转换为传统的 <code>for</code> 循环</li><li>常量折叠，如将 <code>int a = 1 + 2</code> 转换为 <code>int a = 3</code></li><li>进行简单的语法检查</li></ul><p>后端的 JIT 编译器详见 <a href="https://ivanclf.github.io/2025/10/06/jvm/">JVM 的文章</a></p>
+            <p><code>javac</code> 作为前端的编译器，任务是将 Java 类代码编译成 JVM 可理解的、平台中立的 <code>.class</code> 文件。两种文件其实差别不太大，因此主要进行以下操作</p><ul><li>语法糖解糖，如将 <code>foreach</code> 转换为传统的 <code>for</code> 循环</li><li>常量折叠，如将 <code>int a = 1 + 2</code> 转换为 <code>int a = 3</code></li><li>进行简单的语法检查</li></ul><p>后端的 JIT 编译器详见 <a target="_blank" rel="noopener" href="https://ivanclf.github.io/2025/10/06/jvm/">JVM 的文章</a></p>
           </div>
 
 <div class="note note-success">
@@ -639,7 +639,7 @@
 <p>Channel 是一个通道，建立了与数据源（如文件、网络套接字）之间的链接，可以利用它来读写数据。Channel 是全双工的。在读数据时，将 Channel 中的数据填充到 Buffer 中，而写操作时将 Buffer 数据写入到 Channel 中。</p>
 <p>Selector，即选择器，是 NIO 中的一个关键组件，用于轮询注册在其上的 Channel，并在链接时轮询到就绪的 Channel 进行对应的 IO 操作。</p>
 <h3 id="序列化和反序列化"><a href="#序列化和反序列化" class="headerlink" title="序列化和反序列化"></a>序列化和反序列化</h3><p>普通的对象要想转换成流，需要先进行<strong>序列化</strong>。序列化是指将对象转换为字节流的过程，而反序列化是将字节流转换回对象的过程。若希望将某个对象序列化，需要使用 <code>Serializable</code> 接口进行标记。</p>
-<p>序列化是 Java 对象脱离 Java 运行环境的一种手段。序列化协议属于 <a href="https://ivanclf.github.io/2025/11/13/networking/#TCP-IP-%E5%8D%8F%E8%AE%AE%E7%B0%87">TCP&#x2F;IP 协议</a>中的应用层，因为这是应用程序特有的数据表示方式，不属于底层通信协议。</p>
+<p>序列化是 Java 对象脱离 Java 运行环境的一种手段。序列化协议属于 <a target="_blank" rel="noopener" href="https://ivanclf.github.io/2025/11/13/networking/#TCP-IP-%E5%8D%8F%E8%AE%AE%E7%B0%87">TCP&#x2F;IP 协议</a>中的应用层，因为这是应用程序特有的数据表示方式，不属于底层通信协议。</p>
 <p><code>serialVersionUID</code> 是Java序列化机制种用于标识类版本的唯一标识符，该标识符要求在序列化和反序列化中保持一致，用于在序列化和反序列化的过程中，类的版本是兼容的。该标识符可以自己设定，可以由 IDEA 自动生成，也可以交由 Java 自动生成。反序列化时会检查这个 UID 是否和当前类的 UID 一致，不一致则会抛异常 <code>InvalidClassException</code>。</p>
 <p>Java 序列化不包含静态变量。这是因为序列化机制只保存对象的状态，而静态变量属于类的状态。也可以用 <code>transient</code> 关键字修饰不像想被序列化的变量。</p>
 <div class="note note-info">
@@ -715,7 +715,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 接口定义</span><br><span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserService</span> &#123;<br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">save</span><span class="hljs-params">()</span>;<br>&#125;<br><br><span class="hljs-comment">// 实现类，也是目标类</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">UserServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">UserService</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">save</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;保存用户&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 静态代理类</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">UserServiceProxy</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">UserService</span> &#123;<br>    <span class="hljs-keyword">private</span> UserService target;<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">UserServiceProxy</span><span class="hljs-params">(UserService target)</span> &#123;<br>        <span class="hljs-built_in">this</span>.target = target;<br>    &#125;<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">save</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;前置处理&quot;</span>);<br>        target.save();  <span class="hljs-comment">// 调用目标方法</span><br>        System.out.println(<span class="hljs-string">&quot;后置处理&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 使用</span><br><span class="hljs-type">UserService</span> <span class="hljs-variable">proxy</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UserServiceProxy</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">UserServiceImpl</span>());<br>proxy.save();<br></code></pre></td></tr></table></figure>
 
 <h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><p>动态代理相比静态代理更加灵活，我们不需要针对每个目标类都单独创建一个代理类，也不需要我们必须实现接口。从 JVM 的角度来说，动态代理是在运行时动态生成字节码，并加载到 JVM 中的。</p>
-<p>具体应用有 JDK 代理和 CGLib 代理两种，<a href="https://ivanclf.github.io/2025/10/29/spring/#AOP">主要应用于 AOP 中</a></p>
+<p>具体应用有 JDK 代理和 CGLib 代理两种，<a target="_blank" rel="noopener" href="https://ivanclf.github.io/2025/10/29/spring/#AOP">主要应用于 AOP 中</a></p>
 <h2 id="Unsafe"><a href="#Unsafe" class="headerlink" title="Unsafe"></a>Unsafe</h2><p>Unsafe 是位于 sun.misc 包下的一个类，主要提供一些执行低级别、不安全操作的方法，入直接访问内存、自主管理内存资源等，以提升 Java 运行效率。</p>
 <p>Unsafe 提供的功能实现需要依赖本地方法。</p>
 <p>Unsafe 中的方法是实现整个 JUC (Java.util.concurrent) 的基石。然而业务代码无法直接使用。普通代码想拿到它只能通过反射拿到单例字段。</p>
@@ -780,7 +780,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>Java高级特性与特殊规约</div>
-      <div>https://ivanclf.github.io/2025/09/26/java/</div>
+      <div>https://tech.ivanclf.com/2025/09/26/java/</div>
     </div>
     <div class="license-meta">
       

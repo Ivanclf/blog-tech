@@ -22,21 +22,21 @@
     <meta name="description" content="参考文献  https:&#x2F;&#x2F;javabetter.cn&#x2F;sidebar&#x2F;sanfene&#x2F;javathread.html https:&#x2F;&#x2F;javaguide.cn&#x2F;java&#x2F;concurrent&#x2F;java-concurrent-questions-01.html https:&#x2F;&#x2F;tech.meituan.com&#x2F;2020&#x2F;04&#x2F;02&#x2F;java-pooling-pratice-in-meituan.h">
 <meta property="og:type" content="article">
 <meta property="og:title" content="并发基础 - 1">
-<meta property="og:url" content="https://ivanclf.github.io/2025/09/29/concurrent/index.html">
-<meta property="og:site_name" content="Ivan的博客">
+<meta property="og:url" content="https://tech.ivanclf.com/2025/09/29/concurrent/index.html">
+<meta property="og:site_name" content="Ivan的技术笔记">
 <meta property="og:description" content="参考文献  https:&#x2F;&#x2F;javabetter.cn&#x2F;sidebar&#x2F;sanfene&#x2F;javathread.html https:&#x2F;&#x2F;javaguide.cn&#x2F;java&#x2F;concurrent&#x2F;java-concurrent-questions-01.html https:&#x2F;&#x2F;tech.meituan.com&#x2F;2020&#x2F;04&#x2F;02&#x2F;java-pooling-pratice-in-meituan.h">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://ivanclf.github.io/2025/09/29/concurrent/status.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2025/09/29/concurrent/status.png">
 <meta property="article:published_time" content="2025-09-29T07:47:15.000Z">
 <meta property="article:modified_time" content="2026-04-02T15:13:00.934Z">
 <meta property="article:author" content="Ivan Chan">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://ivanclf.github.io/2025/09/29/concurrent/status.png">
+<meta name="twitter:image" content="https://tech.ivanclf.com/2025/09/29/concurrent/status.png">
   
   
   
-  <title>并发基础 - 1 - Ivan的博客</title>
+  <title>并发基础 - 1 - Ivan的技术笔记</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -74,7 +74,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"ivanclf.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -100,7 +100,7 @@
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="../../../../index.html">
-      <strong>Ivan的博客</strong>
+      <strong>Ivan的技术笔记</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -328,7 +328,7 @@
 <li>异步非阻塞<br> 最理想的模型. 调用方发起请求后立即返回, 不等待结果. 当结果准备好时, 系统通过<strong>回调, 事件, 信号</strong>等方式通知调用方. 整个过程中调用方线程从未挂起.<br> 例子: 一般大模型, ASR 等处理都需要时间, 因此在一些 SaaS 服务中可以提供回调服务.</li>
 </ol>
 <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>JDK 1.2 之前，Java 线程就是用户线程。JDK 1.2 后，Java 采用一对一内核线程映射模型，每创建一个 Thread 对象并调用 start() 方法时，JVM 会通过操作系统原生 API 向内核申请创建对应的原生操作系统线程，Java 线程的生命周期、调度完全交由操作系统内核调度器管理。</p>
-<p>Java 的线程和普通线程一样，<a href="https://ivanclf.github.io/2025/05/14/os/#Implementation-of-Processes">也需要存储一些私有数据</a>，程序计数器用于线程切换后能恢复到正确是执行位置，虚拟机栈用于存储局部变量表和常量池引用等信息，本地方法栈用于存储虚拟机使用到的 native 方法。</p>
+<p>Java 的线程和普通线程一样，<a target="_blank" rel="noopener" href="https://ivanclf.github.io/2025/05/14/os/#Implementation-of-Processes">也需要存储一些私有数据</a>，程序计数器用于线程切换后能恢复到正确是执行位置，虚拟机栈用于存储局部变量表和常量池引用等信息，本地方法栈用于存储虚拟机使用到的 native 方法。</p>
 <h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><p>线程的创建有三种方式。</p>
 <p>第一种是重写父类Thread的<code>run()</code>方法，并且调用<code>start()</code>方法启动线程。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">ThreadTask</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Thread</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// ...</span><br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">ThreadTask</span> <span class="hljs-variable">task</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ThreadTask</span>();<br>        task.start();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -397,7 +397,7 @@
 <li>等待 &#x2F; 唤醒操作依赖共享对象锁，等待会释放锁、休眠不释放锁，是核心差异点；</li>
 <li>中断仅修改状态不终止线程，守护线程为服务型线程，随非守护线程结束而退出。</li>
 </ol>
-<h3 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h3><p>和<a href="https://ivanclf.github.io/2025/05/14/os/">OS课</a>上的不大一样，Java中管理线程有6种状态</p>
+<h3 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h3><p>和<a target="_blank" rel="noopener" href="https://ivanclf.github.io/2025/05/14/os/">OS课</a>上的不大一样，Java中管理线程有6种状态</p>
 <p><img src="status.png" srcset="/img/loading.gif" lazyload alt="6种状态变化"></p>
 <h3 id="上下文切换"><a href="#上下文切换" class="headerlink" title="上下文切换"></a>上下文切换</h3><p><strong>上下文</strong>是指线程在执行过程中自己的运行条件和状态，比如程序计数器，栈信息等。当线程从占用 CPU 状态退出时（终止运行除外），OS 需要保存当前线程的上下文以留待下次使用，并加载下一个将要占用的 CPU 线程上下文。这就是所谓的上下文切换。</p>
 <h2 id="通信"><a href="#通信" class="headerlink" title="通信"></a>通信</h2><h3 id="阻塞队列"><a href="#阻塞队列" class="headerlink" title="阻塞队列"></a>阻塞队列</h3><p>这是最常用的通信方式（毕竟用上消息队列就得上 redis 或者各种 MQ 了）。可以简单实现生产者消费者模式。</p>
@@ -614,7 +614,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>并发基础 - 1</div>
-      <div>https://ivanclf.github.io/2025/09/29/concurrent/</div>
+      <div>https://tech.ivanclf.com/2025/09/29/concurrent/</div>
     </div>
     <div class="license-meta">
       

@@ -22,35 +22,35 @@
     <meta name="description" content="No Memory AbstractionThe simplest memory abstraction is to have no abstraction at all. Even with no memory abstraction, it is possible to run multiple programs at the same time. What the operating sys">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Memory Management - Modern Operating System">
-<meta property="og:url" content="https://ivanclf.github.io/2025/05/22/os-2/index.html">
-<meta property="og:site_name" content="Ivan的博客">
+<meta property="og:url" content="https://tech.ivanclf.com/2025/05/22/os-2/index.html">
+<meta property="og:site_name" content="Ivan的技术笔记">
 <meta property="og:description" content="No Memory AbstractionThe simplest memory abstraction is to have no abstraction at all. Even with no memory abstraction, it is possible to run multiple programs at the same time. What the operating sys">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://ivanclf.github.io/2025/05/22/os-2/3-2.png">
-<meta property="og:image" content="https://ivanclf.github.io/2025/05/22/os-2/3-4.png">
-<meta property="og:image" content="https://ivanclf.github.io/2025/05/22/os-2/3-6.png">
-<meta property="og:image" content="https://ivanclf.github.io/2025/05/22/os-2/3-8.png">
-<meta property="og:image" content="https://ivanclf.github.io/2025/05/22/os-2/3-9.png">
-<meta property="og:image" content="https://ivanclf.github.io/2025/05/22/os-2/3-10.png">
-<meta property="og:image" content="https://ivanclf.github.io/2025/05/22/os-2/3-11.png">
-<meta property="og:image" content="https://ivanclf.github.io/2025/05/22/os-2/3-13.png">
-<meta property="og:image" content="https://ivanclf.github.io/2025/05/22/os-2/3-14.png">
-<meta property="og:image" content="https://ivanclf.github.io/2025/05/22/os-2/3-15.png">
-<meta property="og:image" content="https://ivanclf.github.io/2025/05/22/os-2/3-16.png">
-<meta property="og:image" content="https://ivanclf.github.io/2025/05/22/os-2/3-17.png">
-<meta property="og:image" content="https://ivanclf.github.io/2025/05/22/os-2/3-25.png">
-<meta property="og:image" content="https://ivanclf.github.io/2025/05/22/os-2/3-26.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2025/05/22/os-2/3-2.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2025/05/22/os-2/3-4.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2025/05/22/os-2/3-6.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2025/05/22/os-2/3-8.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2025/05/22/os-2/3-9.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2025/05/22/os-2/3-10.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2025/05/22/os-2/3-11.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2025/05/22/os-2/3-13.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2025/05/22/os-2/3-14.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2025/05/22/os-2/3-15.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2025/05/22/os-2/3-16.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2025/05/22/os-2/3-17.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2025/05/22/os-2/3-25.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2025/05/22/os-2/3-26.png">
 <meta property="article:published_time" content="2025-05-22T06:11:26.000Z">
 <meta property="article:modified_time" content="2025-11-18T02:24:43.205Z">
 <meta property="article:author" content="Ivan Chan">
 <meta property="article:tag" content="复习">
 <meta property="article:tag" content="日常">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://ivanclf.github.io/2025/05/22/os-2/3-2.png">
+<meta name="twitter:image" content="https://tech.ivanclf.com/2025/05/22/os-2/3-2.png">
   
   
   
-  <title>Memory Management - Modern Operating System - Ivan的博客</title>
+  <title>Memory Management - Modern Operating System - Ivan的技术笔记</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -88,7 +88,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"ivanclf.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -114,7 +114,7 @@
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="../../../../index.html">
-      <strong>Ivan的博客</strong>
+      <strong>Ivan的技术笔记</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -460,7 +460,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>Memory Management - Modern Operating System</div>
-      <div>https://ivanclf.github.io/2025/05/22/os-2/</div>
+      <div>https://tech.ivanclf.com/2025/05/22/os-2/</div>
     </div>
     <div class="license-meta">
       

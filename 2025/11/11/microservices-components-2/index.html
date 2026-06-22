@@ -22,11 +22,11 @@
     <meta name="description" content="参考文献  https:&#x2F;&#x2F;javaguide.cn&#x2F;distributed-system&#x2F;api-gateway.html https:&#x2F;&#x2F;javabetter.cn&#x2F;sidebar&#x2F;sanfene&#x2F;weifuwu.html https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1LQ4y127n4 https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;715997276  服务">
 <meta property="og:type" content="article">
 <meta property="og:title" content="微服务系统组件 - 2">
-<meta property="og:url" content="https://ivanclf.github.io/2025/11/11/microservices-components-2/index.html">
-<meta property="og:site_name" content="Ivan的博客">
+<meta property="og:url" content="https://tech.ivanclf.com/2025/11/11/microservices-components-2/index.html">
+<meta property="og:site_name" content="Ivan的技术笔记">
 <meta property="og:description" content="参考文献  https:&#x2F;&#x2F;javaguide.cn&#x2F;distributed-system&#x2F;api-gateway.html https:&#x2F;&#x2F;javabetter.cn&#x2F;sidebar&#x2F;sanfene&#x2F;weifuwu.html https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1LQ4y127n4 https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;715997276  服务">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://ivanclf.github.io/2025/11/11/microservices-components-2/up-35e102c633bbe8e0dea1e075ea3fee5dcfb.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2025/11/11/microservices-components-2/up-35e102c633bbe8e0dea1e075ea3fee5dcfb.png">
 <meta property="article:published_time" content="2025-11-11T06:51:08.000Z">
 <meta property="article:modified_time" content="2026-04-03T09:02:44.915Z">
 <meta property="article:author" content="Ivan Chan">
@@ -38,11 +38,11 @@
 <meta property="article:tag" content="链路追踪">
 <meta property="article:tag" content="Elasticsearch">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://ivanclf.github.io/2025/11/11/microservices-components-2/up-35e102c633bbe8e0dea1e075ea3fee5dcfb.png">
+<meta name="twitter:image" content="https://tech.ivanclf.com/2025/11/11/microservices-components-2/up-35e102c633bbe8e0dea1e075ea3fee5dcfb.png">
   
   
   
-  <title>微服务系统组件 - 2 - Ivan的博客</title>
+  <title>微服务系统组件 - 2 - Ivan的技术笔记</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -80,7 +80,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"ivanclf.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -106,7 +106,7 @@
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="../../../../index.html">
-      <strong>Ivan的博客</strong>
+      <strong>Ivan的技术笔记</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -323,7 +323,7 @@
           </div>
 
 <p>要实现网关的动态路由，一般是通过 Nacos 动态配置来做。</p>
-<p>网关过滤器有三种，分别是 默认过滤器、路由过滤器、全局过滤器。每一个过滤器都必须指定一个 int 类型的 order 值（可以是负数），order 值最小，优先级越高，执行顺序约靠前。在全局过滤器中，这个 order 可以通过<a href="https://ivanclf.github.io/2025/10/29/spring/#%E9%80%9A%E7%9F%A5">注解</a>或者实现接口的方式指定；而路由过滤器的顺序由 Spring 指定，默认是按照声明顺序从1指定。当过滤器的 order 值一样时，会按照 默认过滤器 &gt; 路由过滤器 &gt; 全局过滤器的顺序进行。</p>
+<p>网关过滤器有三种，分别是 默认过滤器、路由过滤器、全局过滤器。每一个过滤器都必须指定一个 int 类型的 order 值（可以是负数），order 值最小，优先级越高，执行顺序约靠前。在全局过滤器中，这个 order 可以通过<a target="_blank" rel="noopener" href="https://ivanclf.github.io/2025/10/29/spring/#%E9%80%9A%E7%9F%A5">注解</a>或者实现接口的方式指定；而路由过滤器的顺序由 Spring 指定，默认是按照声明顺序从1指定。当过滤器的 order 值一样时，会按照 默认过滤器 &gt; 路由过滤器 &gt; 全局过滤器的顺序进行。</p>
 <p>在 Spring Boot 项目中我们捕获全局异常只需要在项目中配置 <code>@RestControllerAdvice</code> 和 <code>ExceptionHandler</code> 即可。而在 Spring Cloud Gateway 中，比较常用的是实现 <code>ErrorWebExceptionHandler</code> 并重写其中的 <code>handle</code> 方法。</p>
 <h3 id="OpenResty"><a href="#OpenResty" class="headerlink" title="OpenResty"></a>OpenResty</h3><p>这个基于 Nginx + Lua，并发能力较好，但二次开发门槛较高。</p>
 <h3 id="Kong"><a href="#Kong" class="headerlink" title="Kong"></a>Kong</h3><p>这个基于 OpenResty，支持多种插件和扩展，可以满足不同的 API 管理需求。</p>
@@ -610,7 +610,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>微服务系统组件 - 2</div>
-      <div>https://ivanclf.github.io/2025/11/11/microservices-components-2/</div>
+      <div>https://tech.ivanclf.com/2025/11/11/microservices-components-2/</div>
     </div>
     <div class="license-meta">
       

@@ -22,26 +22,26 @@
     <meta name="description" content="UDP、TCP传输层向上面的应用层提供通信服务，同时也是用户功能中的最底层。传输层负责进程到进程的传递。传输层需要两种不同的协议，即面向链接的 TCP 和无连接的 UDP。 端口号用于标识计算机应用层中的各进程，是一个 16 bit 的数字。在因特网中不同计算机的相同端口号是没有联系的。              IANA 是互联网号码分配机构，它统一管理和协调全球互联网的一些关键资源数据，如 I">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算机通信与网络 - 3">
-<meta property="og:url" content="https://ivanclf.github.io/2025/11/15/networking-3/index.html">
-<meta property="og:site_name" content="Ivan的博客">
+<meta property="og:url" content="https://tech.ivanclf.com/2025/11/15/networking-3/index.html">
+<meta property="og:site_name" content="Ivan的技术笔记">
 <meta property="og:description" content="UDP、TCP传输层向上面的应用层提供通信服务，同时也是用户功能中的最底层。传输层负责进程到进程的传递。传输层需要两种不同的协议，即面向链接的 TCP 和无连接的 UDP。 端口号用于标识计算机应用层中的各进程，是一个 16 bit 的数字。在因特网中不同计算机的相同端口号是没有联系的。              IANA 是互联网号码分配机构，它统一管理和协调全球互联网的一些关键资源数据，如 I">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://ivanclf.github.io/2025/11/15/networking-3/udp.png">
-<meta property="og:image" content="https://ivanclf.github.io/2025/11/15/networking-3/tcp.png">
-<meta property="og:image" content="https://ivanclf.github.io/2025/11/15/networking-3/3times.png">
-<meta property="og:image" content="https://ivanclf.github.io/2025/11/15/networking-3/cache.png">
-<meta property="og:image" content="https://ivanclf.github.io/2025/11/15/networking-3/slow-start.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2025/11/15/networking-3/udp.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2025/11/15/networking-3/tcp.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2025/11/15/networking-3/3times.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2025/11/15/networking-3/cache.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2025/11/15/networking-3/slow-start.png">
 <meta property="article:published_time" content="2025-11-15T07:17:21.000Z">
 <meta property="article:modified_time" content="2026-04-02T15:24:02.443Z">
 <meta property="article:author" content="Ivan Chan">
 <meta property="article:tag" content="复习">
 <meta property="article:tag" content="日常">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://ivanclf.github.io/2025/11/15/networking-3/udp.png">
+<meta name="twitter:image" content="https://tech.ivanclf.com/2025/11/15/networking-3/udp.png">
   
   
   
-  <title>计算机通信与网络 - 3 - Ivan的博客</title>
+  <title>计算机通信与网络 - 3 - Ivan的技术笔记</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -79,7 +79,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"ivanclf.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -105,7 +105,7 @@
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="../../../../index.html">
-      <strong>Ivan的博客</strong>
+      <strong>Ivan的技术笔记</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -410,7 +410,7 @@
 <h3 id="SMTP-与-MIME"><a href="#SMTP-与-MIME" class="headerlink" title="SMTP 与 MIME"></a>SMTP 与 MIME</h3><p>基于 TCP 协议的发送电子邮箱的协议。注意：SMTP 只负责邮件的发送，而不是接收。要从邮件服务器接收邮件，需要使用 POP3 或 IMAP 协议。二者的区别在于，POP3 协议会将邮件下载到本地，然后通常在服务器上删除，适合单设备管理邮件；而 IMAP 将邮件保留到服务器上，客户端进行的所有操作都会和服务器同步。</p>
 <p>MIME 是多用途互联网邮件扩展协议。它不是传输协议，而是一个内容格式标准。它通过在邮件头中添加一系列字段，使SMTP协议能够传输非ASCII字符（如中文）、富文本（HTML）以及二进制文件（如图片、音频、文档等附件）。</p>
 <div class="note note-info">
-            <p>这里的定义老旧得被气笑了。MIME 更广泛的用法<a href="https://ivanclf.github.io/2024/08/01/internet-1/#MIME%E7%AE%80%E8%BF%B0">在以前的文章</a>。它定义的 <code>Content-Type</code> 标准（即“媒体类型”）实在是太有用了，因此被直接采纳并应用于 WWW 或其他互联网协议中。</p>
+            <p>这里的定义老旧得被气笑了。MIME 更广泛的用法<a target="_blank" rel="noopener" href="https://ivanclf.github.io/2024/08/01/internet-1/#MIME%E7%AE%80%E8%BF%B0">在以前的文章</a>。它定义的 <code>Content-Type</code> 标准（即“媒体类型”）实在是太有用了，因此被直接采纳并应用于 WWW 或其他互联网协议中。</p>
           </div>
 
 <h3 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h3><p>HTTP (Hypertext Transfer Protocol) 超文本传输协议，基于 TCP 协议，用于传输超文本和多媒体内容的协议，主要用于 web 浏览器和服务器的设计中。</p>
@@ -463,7 +463,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>计算机通信与网络 - 3</div>
-      <div>https://ivanclf.github.io/2025/11/15/networking-3/</div>
+      <div>https://tech.ivanclf.com/2025/11/15/networking-3/</div>
     </div>
     <div class="license-meta">
       

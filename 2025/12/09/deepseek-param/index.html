@@ -22,8 +22,8 @@
     <meta name="description" content="在 Ollama 下，deepseek 常用参数有以下几项    参数名 描述 推荐值范围 适用场景    temperature 控制输出的随机性与创造力，值越高随机性越高 0.3~0.7 代码任务控制在 0.1 到 0.3写作任务控制在 0.6 到 0.8   top-p 核采样，控制候选词的范围，值越高词汇越多样 0.85~0.95 与 temperature 搭配，平衡生成质量   num">
 <meta property="og:type" content="article">
 <meta property="og:title" content="deepseek 调参">
-<meta property="og:url" content="https://ivanclf.github.io/2025/12/09/deepseek-param/index.html">
-<meta property="og:site_name" content="Ivan的博客">
+<meta property="og:url" content="https://tech.ivanclf.com/2025/12/09/deepseek-param/index.html">
+<meta property="og:site_name" content="Ivan的技术笔记">
 <meta property="og:description" content="在 Ollama 下，deepseek 常用参数有以下几项    参数名 描述 推荐值范围 适用场景    temperature 控制输出的随机性与创造力，值越高随机性越高 0.3~0.7 代码任务控制在 0.1 到 0.3写作任务控制在 0.6 到 0.8   top-p 核采样，控制候选词的范围，值越高词汇越多样 0.85~0.95 与 temperature 搭配，平衡生成质量   num">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-12-09T14:29:30.000Z">
@@ -34,7 +34,7 @@
   
   
   
-  <title>deepseek 调参 - Ivan的博客</title>
+  <title>deepseek 调参 - Ivan的技术笔记</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -72,7 +72,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"ivanclf.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -98,7 +98,7 @@
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="../../../../index.html">
-      <strong>Ivan的博客</strong>
+      <strong>Ivan的技术笔记</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -352,7 +352,7 @@
 
 <p>然后构建并运行该自定义模型</p>
 <div class="note note-info">
-            <p>浓浓的 <a href="https://ivanclf.github.io/2024/11/16/order-set/#Docker">Docker</a> 味。</p>
+            <p>浓浓的 <a target="_blank" rel="noopener" href="https://ivanclf.github.io/2024/11/16/order-set/#Docker">Docker</a> 味。</p>
           </div>
 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ollama create my-deepseek-8b -f ./Modelfile<br>ollama run my-deepseek-8b<br></code></pre></td></tr></table></figure>
@@ -381,7 +381,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>deepseek 调参</div>
-      <div>https://ivanclf.github.io/2025/12/09/deepseek-param/</div>
+      <div>https://tech.ivanclf.com/2025/12/09/deepseek-param/</div>
     </div>
     <div class="license-meta">
       
