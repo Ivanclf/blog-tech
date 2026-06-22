@@ -19,13 +19,15 @@
   <meta name="author" content="Ivan Chan">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
+    <meta name="description" content="什么是促销业务在淘宝、京东、美团的商品页面上，往往会有逻辑复杂的优惠项，比如单纯的折扣，或者满件赠、满额赠等。复杂的优惠事项可以实现精准的筛选——有钱的客户一般没有时间，也就没有机会拿到优惠，从而赚取更多的钱；没钱的客户对价格更加敏感，也就更有时间和精力研究优惠项，从而获取更多优惠。这样，无论贫穷或富有，都能将货卖出去，赚取对应的成本。 然而这一套规则过于复杂，光靠一个单一的商城系统加模块是无法维">
+<meta property="og:type" content="article">
 <meta property="og:title" content="促销系统业务模型 - 1">
 <meta property="og:url" content="https://tech.ivanclf.com/2026/06/18/promotion-1/index.html">
 <meta property="og:site_name" content="Ivan的技术笔记">
+<meta property="og:description" content="什么是促销业务在淘宝、京东、美团的商品页面上，往往会有逻辑复杂的优惠项，比如单纯的折扣，或者满件赠、满额赠等。复杂的优惠事项可以实现精准的筛选——有钱的客户一般没有时间，也就没有机会拿到优惠，从而赚取更多的钱；没钱的客户对价格更加敏感，也就更有时间和精力研究优惠项，从而获取更多优惠。这样，无论贫穷或富有，都能将货卖出去，赚取对应的成本。 然而这一套规则过于复杂，光靠一个单一的商城系统加模块是无法维">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-06-18T06:50:44.000Z">
-<meta property="article:modified_time" content="2026-06-18T07:19:31.585Z">
+<meta property="article:modified_time" content="2026-06-22T12:04:48.072Z">
 <meta property="article:author" content="Ivan Chan">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary_large_image">
@@ -233,7 +235,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          1.1k 字
         
       </span>
     
@@ -281,7 +283,97 @@
             
               <div class="markdown-body">
                 
-                
+                <h2 id="什么是促销业务"><a href="#什么是促销业务" class="headerlink" title="什么是促销业务"></a>什么是促销业务</h2><p>在淘宝、京东、美团的商品页面上，往往会有逻辑复杂的优惠项，比如单纯的折扣，或者满件赠、满额赠等。复杂的优惠事项可以实现精准的筛选——有钱的客户一般没有时间，也就没有机会拿到优惠，从而赚取更多的钱；没钱的客户对价格更加敏感，也就更有时间和精力研究优惠项，从而获取更多优惠。这样，无论贫穷或富有，都能将货卖出去，赚取对应的成本。</p>
+<p>然而这一套规则过于复杂，光靠一个单一的商城系统加模块是无法维护的，因此需要在后台新建一个促销管理模块，由运营填充促销相关信息。</p>
+<h2 id="领域模型设计"><a href="#领域模型设计" class="headerlink" title="领域模型设计"></a>领域模型设计</h2><h3 id="活动模型设计"><a href="#活动模型设计" class="headerlink" title="活动模型设计"></a>活动模型设计</h3><p>一项优惠活动应该关注哪些维度呢？</p>
+<p>促销活动领域核心的操作单元是促销品，从实际业务场景来看，无论是业务场景还是消费者最终面向的都是促销品，运营投入的补贴、设定的限制、指定的规则以及消费者最终享受的优惠，实际都是作用在促销品上。围绕促销品，不同的角色有不同的关注点，消费者更多是关注省了多少钱（优惠了多少），运营更多是关注花了多少钱（补贴了多少），同时辅以限制和门槛来保证一定的企业营收和业务增长。</p>
+<p>结合上述分析，以促销品为核心抽象促销活动领域的关键几个领域概念：补贴、限制、门槛、优惠、促销品（商品、虚拟卡等均可以被称为促销品）。</p>
+<p>最终领域图如下（使用mermaid的普通流程图模拟）</p>
+<pre><code class=" mermaid">graph LR
+
+promotion[促销品]
+
+operator(运营)
+consumer1(消费者)
+consumer2(消费者)
+consumer3(消费者)
+
+subgraph Rebate[补贴]
+    takeover[预算承担方补贴]
+    supplier[供应商补差补贴]
+end
+
+subgraph Limit[限制]
+    channel[渠道]
+    region[区域]
+    time[时间]
+    customerGroup[客群]
+end
+
+subgraph Barrier[门槛]
+    quantity[数量]
+    amount[金额]
+    no[无门槛]
+    sequence[第N件]
+end
+subgraph Offer[优惠]
+    discount[折扣]
+    gift[赠品]
+    fixedPrice[特价]
+    redeem[换购]
+    reduce[减免]
+end
+
+consumer2--&gt;|谁能参加|Limit
+Limit--&gt;promotion
+operator--&gt;Rebate--&gt;promotion--&gt;Offer--&gt;|享受优惠|consumer1
+consumer3--&gt;|怎么参加|Barrier
+Barrier--&gt;promotion
+</code></pre>
+
+<h4 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h4><p>限制是参加促销活动的准入条件，通过限制决定谁来参加，只有符合促销活动准入条件才有资格享受促销优惠</p>
+<ul>
+<li>渠道：通过什么方式查看促销的，如APP、微信&#x2F;支付宝小程序、网页等</li>
+<li>区域：门店维度或者城市维度。用于区分该活动是全城市通用还是特定的门店通用</li>
+<li>时间：单次活动，或者是一周固定时日生效，或者是一天固定时间段生效</li>
+<li>客群：不同的客人显示不同的优惠，如新客往往优惠幅度更大<ul>
+<li>普通客群，分为新客、幸运客或普通客人</li>
+<li>会员，分为老客与新客</li>
+</ul>
+</li>
+</ul>
+<h4 id="门槛"><a href="#门槛" class="headerlink" title="门槛"></a>门槛</h4><p><strong>达到限制条件后</strong>，通过门槛来决定顾客应该怎么参加活动。只有符合促销规则的条件才能享受优惠</p>
+<ul>
+<li>无门槛：无门槛也是一种门槛，没有任何限制</li>
+<li>数量：满X件</li>
+<li>价格：满X元</li>
+<li>第N件</li>
+</ul>
+<h4 id="优惠"><a href="#优惠" class="headerlink" title="优惠"></a>优惠</h4><p>满足限制与门槛后，用户可以享受到的优惠</p>
+<ul>
+<li>特价：多个SKU总价优惠或单个SKU价格优惠</li>
+<li>折扣</li>
+<li>减额：总金额减免价格或每个SKU都减免一定价格</li>
+<li>赠品：更关注能免费送几个</li>
+<li>换购：更关注多少钱换购</li>
+</ul>
+<h4 id="补贴"><a href="#补贴" class="headerlink" title="补贴"></a>补贴</h4><p>促销活动是要花钱的，这笔钱该谁来出？这就是补贴需要关注的问题</p>
+<ul>
+<li>预算承担方补贴</li>
+<li>供应商补差补贴</li>
+</ul>
+<h4 id="促销品"><a href="#促销品" class="headerlink" title="促销品"></a>促销品</h4><p>促销品有两类，一种是参与品，一种是促销品，门槛作用在参与品上，优惠作用在优惠品上，即购买参与品到达一定门槛后可以享受优惠品的优惠。一个促销的<strong>规则</strong>，就基于门槛和优惠。</p>
+<p>促销活动的各种玩法的实现在于门槛和优惠的组合方式，复杂之处也在于多种门槛和多种优惠的组合。门槛和优惠组合才能决定一种促销玩法，两者存在强关联关系。</p>
+<pre><code class=" mermaid">graph TD
+sku((参与品))
+gift((优惠品))
+barrier[门槛]
+offer[优惠]
+rule((优惠))
+sku--&gt;barrier--&gt;rule
+gift--&gt;offer--&gt;rule
+</code></pre>
+
                 
               </div>
             
