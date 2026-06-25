@@ -19,12 +19,12 @@
   <meta name="author" content="Ivan Chan">
   <meta name="keywords" content="">
   
-    <meta name="description" content="As the final exam use English as its language, I shall try my best to edit it in English.             IntroductionDefinitionWhat is an operating system?  It can be a extended machine that">
+    <meta name="description" content="As the final exam use English as its language, I shall try my best to edit it in English.              IntroductionDefinitionWhat is an operating system?  It can be a extended machine tha">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Processes and Threads - Modern Operating System">
 <meta property="og:url" content="https://tech.ivanclf.com/2025/05/14/os/index.html">
 <meta property="og:site_name" content="Ivan的技术笔记">
-<meta property="og:description" content="As the final exam use English as its language, I shall try my best to edit it in English.             IntroductionDefinitionWhat is an operating system?  It can be a extended machine that">
+<meta property="og:description" content="As the final exam use English as its language, I shall try my best to edit it in English.              IntroductionDefinitionWhat is an operating system?  It can be a extended machine tha">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://tech.ivanclf.com/2025/05/14/os/1-24.png">
 <meta property="og:image" content="https://tech.ivanclf.com/2025/05/14/os/1-25.png">
@@ -88,7 +88,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -110,11 +110,11 @@
   <header>
     
 
-<div class="header-inner" style="height: 80vh;">
+<div class="header-inner" style="height: 60vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="../../../../index.html">
-      <strong>Ivan的技术笔记</strong>
+      <strong>Ivan 的技术笔记</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -123,7 +123,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -219,16 +219,133 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../index.html" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../links/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>友链</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
-<div id="banner" class="banner" parallax=true
-     style="background: url('../../../../img/banner-page.jpg') no-repeat center center; background-size: cover;">
+<div id="banner" class="banner" parallax=true data-random-banner='../../../../img/random/IMG_20190815_195026.jpg,../../../../img/random/IMG_20191109_224459.jpg,../../../../img/random/IMG_20230830_182827.jpg,../../../../img/random/IMG_20240326_184147.jpg,../../../../img/random/IMG_20240706_181124.jpg,../../../../img/random/IMG_20240711_110928.jpg,../../../../img/random/IMG_20240803_141801.jpg,../../../../img/random/IMG_20240916_095049.jpg,../../../../img/random/IMG_20250112_125329.jpg,../../../../img/random/IMG_20250705_170737.jpg,../../../../img/random/IMG_20250707_104356.jpg,../../../../img/random/IMG_20250707_172618.jpg,../../../../img/random/IMG_20260211_080308.jpg,../../../../img/random/IMG_20260522_184054.jpg,../../../../img/random/IMG_20260524_141524.jpg'
+     style="background: url('../../../../../../../../img/random/IMG_20190815_195026.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.5)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Processes and Threads - Modern Operating System"></span>
+            <span id="subtitle">Processes and Threads - Modern Operating System</span>
           
         </div>
 
@@ -251,11 +368,20 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          26k 字
         
       </span>
     
 
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          213 分钟
+        
+      </span>
     
 
     
@@ -267,13 +393,24 @@
       </div>
 
       
-        <div class="scroll-down-bar">
-          <i class="iconfont icon-arrowdown"></i>
-        </div>
-      
     </div>
   </div>
 </div>
+
+
+  <script>
+    (function() {
+      var banner = document.getElementById('banner');
+      if (!banner) return;
+      var list = banner.getAttribute('data-random-banner');
+      if (!list) return;
+      list = list.split(',').filter(Boolean);
+      if (list.length === 0) return;
+      var pick = list[Math.floor(Math.random() * list.length)];
+      banner.style.backgroundImage = "url('" + pick + "')";
+    })();
+  </script>
+
 
 </div>
 
@@ -300,7 +437,7 @@
               <div class="markdown-body">
                 
                 <div class="note note-success">
-            <p>As the final exam use English as its language, I shall try my best to edit it in English.</p>
+            <p>As the final exam use English as its language, I shall try my best to edit it in English.</p> 
           </div>
 
 <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p>What is an operating system?</p>
@@ -396,7 +533,7 @@
 <li>When there is substantial computing and also substantial I&#x2F;O, having threads allows these activities to overlap, thus speeding up the application.<br>  <em>补充：大量 IO 的场景下线程仍然太过笨重，可以考虑协程。</em></li>
 </ul>
 <div class="note note-info">
-            <p>Though threads can share same memories, each thread has its own stack.</p><p><em>补充：进程是资源调度的最小单位，线程是 CPU调度的最小单位。</em></p>
+            <p>Though threads can share same memories, each thread has its own stack.</p> <p><em>补充：进程是资源调度的最小单位，线程是 CPU调度的最小单位。</em></p> 
           </div>
 
 <h3 id="The-Classical-Thread-Model"><a href="#The-Classical-Thread-Model" class="headerlink" title="The Classical Thread Model"></a>The Classical Thread Model</h3><p>What threads add to the process model is to allow multiple executions to take place in the same process environment, to a large degree independent of one another. When multithreading is present, processes usually start with a single thread present.</p>
@@ -413,7 +550,7 @@
 <li>No process should have to wait forever to enter its critical region.</li>
 </ol>
 <div class="note note-info">
-            <p>中文译文：</p><ol><li>临界区不能被两个进程同时进入。</li><li>不能提前预设CPU的数量。</li><li>不涉及临界区时，该进程不能阻挡其他进程运行。</li><li>不能发生进程永久等待以进入临界区的情况。</li></ol>
+            <p>中文译文：</p> <ol> <li>临界区不能被两个进程同时进入。</li> <li>不能提前预设CPU的数量。</li> <li>不涉及临界区时，该进程不能阻挡其他进程运行。</li> <li>不能发生进程永久等待以进入临界区的情况。</li> </ol> 
           </div>
 
 <h3 id="Mutual-Exclusion-with-Busy-Waiting"><a href="#Mutual-Exclusion-with-Busy-Waiting" class="headerlink" title="Mutual Exclusion with Busy Waiting"></a>Mutual Exclusion with Busy Waiting</h3><ul>
@@ -443,7 +580,7 @@
 <p>Checking the value, changing it, and possibly going to sleep, are all done as a single, indivisible <strong>atomic action</strong>. It is guaranteed that once a semaphore operation has started, no other process can access the semaphore until the operation has completed or blocked. We can imitate this action via using various locks.</p>
 <p>The up operation (also calls <strong>V operation</strong>) increments the value of the semaphore addressed. If one or more processes were sleeping on that semaphore, unable to complete an earlier down operation, one of them is chosen by the system (e.g., at random) and is allowed to complete its down.</p>
 <div class="note note-info">
-            <p>Semaphore has no concepts like “possession”, so any process waiting for critical region might get resource.</p>
+            <p>Semaphore has no concepts like “possession”, so any process waiting for critical region might get resource.</p> 
           </div>
 
 <p>using semaphores, we can resolve the producer-consumer problem</p>
@@ -456,25 +593,25 @@
 <li>full: A record of existing produce, when consumer is going to consume but the full semaphore is empty, it is blocked.</li>
 </ul>
 <h3 id="Mutexes"><a href="#Mutexes" class="headerlink" title="Mutexes"></a>Mutexes</h3><div class="note note-info">
-            <p>If mutex is like a key that who takes it will enter critical region, the semaphore might like a parking lot that have $N$ position: P operation, semaphore minus 1, stands cars waiting for a position and the position number minus 1. V operation, add 1, calling cars that are waiting are able to stop</p>
+            <p>If mutex is like a key that who takes it will enter critical region, the semaphore might like a parking lot that have $N$ position: P operation, semaphore minus 1, stands cars waiting for a position and the position number minus 1. V operation, add 1, calling cars that are waiting are able to stop</p> 
           </div>
 
 <p>A <strong>mutex</strong> is a simplified version of the semaphore, and it is a share variable that can be in two states: unlocked or locked.</p>
 <p><img src="2-29.png" srcset="/img/loading.gif" lazyload alt="a possible implementation of mutex"></p>
 <div class="note note-info">
-            <p>System call <code>thread_yield</code> is just a call to the scheduler in user space.</p>
+            <p>System call <code>thread_yield</code> is just a call to the scheduler in user space.</p> 
           </div>
 
 <p>Pthreads provides a number of functions that can be used to synchronize threads.</p>
 <p><img src="2-30.png" srcset="/img/loading.gif" lazyload alt="major calls relating to mutexes"></p>
 <div class="note note-info">
-            <p>If call <code>Pthread_mutex_lock</code> cannot lock, the thread will sleep;<br>if call <code>Pthread_mutex_trylock</code> cannot lock, it will return <code>false</code>.</p>
+            <p>If call <code>Pthread_mutex_lock</code> cannot lock, the thread will sleep;<br>if call <code>Pthread_mutex_trylock</code> cannot lock, it will return <code>false</code>.</p> 
           </div>
 
 <p>In addition to mutexes, Pthreads offers a second synchronization mechanism: <strong>condition variables</strong>. Mutexes are good for allowing or blocking access to a critical region. Condition variables allow threads to block due to some condition not being met. Almost always the two methods are used together.</p>
 <p><img src="2-31.png" srcset="/img/loading.gif" lazyload alt="the most important calls related to condition variables"></p>
 <div class="note note-info">
-            <p>when a call <code>Pthread_cond_wait</code> execute, it will give up the lock at the same time.</p>
+            <p>when a call <code>Pthread_cond_wait</code> execute, it will give up the lock at the same time.</p> 
           </div>
 
 <p>using mutex, we can also solve producer-consumer problem</p>
@@ -516,7 +653,7 @@
 <h2 id="Deadlock"><a href="#Deadlock" class="headerlink" title="Deadlock"></a>Deadlock</h2><p><strong>Resource deadlock</strong> is a common type of deadlock. A resource deadlock is a situation where two or more processes are blocked because each process is holding a resource and waiting for another resource acquired by some other process. Without external intervention, none of these processes can proceed further.</p>
 <p>In simple terms, it occurs when multiple processes are waiting for each other to release resources, but since all processes are waiting and none releases their resources, they all remain stuck indefinitely.</p>
 <h3 id="Conditions-for-Resource-Deadlocks"><a href="#Conditions-for-Resource-Deadlocks" class="headerlink" title="Conditions for Resource Deadlocks"></a>Conditions for Resource Deadlocks</h3><div class="note note-danger">
-            <p>JDY 测试开发, 二面.</p>
+            <p>JDY 测试开发, 二面.</p> 
           </div>
 
 <p>four conditions must hold for there to be a (resource) deadlock:</p>
@@ -531,11 +668,11 @@
 </li>
 </ol>
 <div class="note note-info">
-            <p>死锁的4个必要条件（中文译文）</p><ol><li>互斥。每份资源要么已分配到进程中，要么处于可用状态。</li><li>持有并等待。允许进程在持有先前已分配的资源的情况下请求新资源。</li><li>非抢占。已授予的资源不能被强制从进程中收回，必须由持有它们的进程显式释放。</li><li>环路等待。必须存在2个以上的进程构成的环路链，每个进程都在等待链条上的另一个进程持有的资源。</li></ol>
+            <p>死锁的4个必要条件（中文译文）</p> <ol> <li>互斥。每份资源要么已分配到进程中，要么处于可用状态。</li> <li>持有并等待。允许进程在持有先前已分配的资源的情况下请求新资源。</li> <li>非抢占。已授予的资源不能被强制从进程中收回，必须由持有它们的进程显式释放。</li> <li>环路等待。必须存在2个以上的进程构成的环路链，每个进程都在等待链条上的另一个进程持有的资源。</li> </ol> 
           </div>
 
 <div class="note note-success">
-            <p>以下是一个会发生死锁的例子</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DeadlockDemo</span> &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Object</span> <span class="hljs-variable">lockA</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>();<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Object</span> <span class="hljs-variable">lockB</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>();<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">Thread</span> <span class="hljs-variable">thread1</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(() -&gt; &#123;<br>            <span class="hljs-keyword">synchronized</span> (lockA) &#123;<br>                System.out.println(<span class="hljs-string">&quot;线程1 获取了 lockA&quot;</span>);<br>                <span class="hljs-keyword">try</span> &#123;<br>                    <span class="hljs-comment">// 睡眠一段时间，确保线程2能获取到lockB</span><br>                    Thread.sleep(<span class="hljs-number">100</span>);<br>                &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                    e.printStackTrace();<br>                &#125;<br>                <span class="hljs-keyword">synchronized</span> (lockB) &#123;<br>                    System.out.println(<span class="hljs-string">&quot;线程1 获取了 lockB&quot;</span>);<br>                &#125;<br>            &#125;<br>        &#125;);<br><br>        <span class="hljs-type">Thread</span> <span class="hljs-variable">thread2</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(() -&gt; &#123;<br>            <span class="hljs-keyword">synchronized</span> (lockB) &#123;<br>                System.out.println(<span class="hljs-string">&quot;线程2 获取了 lockB&quot;</span>);<br>                <span class="hljs-keyword">try</span> &#123;<br>                    <span class="hljs-comment">// 睡眠一段时间，确保线程1能获取到lockA</span><br>                    Thread.sleep(<span class="hljs-number">100</span>);<br>                &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                    e.printStackTrace();<br>                &#125;<br>                <span class="hljs-keyword">synchronized</span> (lockA) &#123;<br>                    System.out.println(<span class="hljs-string">&quot;线程2 获取了 lockA&quot;</span>);<br>                &#125;<br>            &#125;<br>        &#125;);<br><br>        thread1.start();<br>        thread2.start();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>这样，线程 1 和 2 都在等待对方的 Object，从而产生了死锁。在这个程序中，要想避免死锁的问题。可以要求程序在获取另一个 Object 前先释放自己手里的 Object，或者让这两个程序用相同的顺序来获取锁。</p>
+            <p>以下是一个会发生死锁的例子</p> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DeadlockDemo</span> &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Object</span> <span class="hljs-variable">lockA</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>();<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Object</span> <span class="hljs-variable">lockB</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>();<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">Thread</span> <span class="hljs-variable">thread1</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(() -&gt; &#123;<br>            <span class="hljs-keyword">synchronized</span> (lockA) &#123;<br>                System.out.println(<span class="hljs-string">&quot;线程1 获取了 lockA&quot;</span>);<br>                <span class="hljs-keyword">try</span> &#123;<br>                    <span class="hljs-comment">// 睡眠一段时间，确保线程2能获取到lockB</span><br>                    Thread.sleep(<span class="hljs-number">100</span>);<br>                &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                    e.printStackTrace();<br>                &#125;<br>                <span class="hljs-keyword">synchronized</span> (lockB) &#123;<br>                    System.out.println(<span class="hljs-string">&quot;线程1 获取了 lockB&quot;</span>);<br>                &#125;<br>            &#125;<br>        &#125;);<br><br>        <span class="hljs-type">Thread</span> <span class="hljs-variable">thread2</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(() -&gt; &#123;<br>            <span class="hljs-keyword">synchronized</span> (lockB) &#123;<br>                System.out.println(<span class="hljs-string">&quot;线程2 获取了 lockB&quot;</span>);<br>                <span class="hljs-keyword">try</span> &#123;<br>                    <span class="hljs-comment">// 睡眠一段时间，确保线程1能获取到lockA</span><br>                    Thread.sleep(<span class="hljs-number">100</span>);<br>                &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                    e.printStackTrace();<br>                &#125;<br>                <span class="hljs-keyword">synchronized</span> (lockA) &#123;<br>                    System.out.println(<span class="hljs-string">&quot;线程2 获取了 lockA&quot;</span>);<br>                &#125;<br>            &#125;<br>        &#125;);<br><br>        thread1.start();<br>        thread2.start();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>  <p>这样，线程 1 和 2 都在等待对方的 Object，从而产生了死锁。在这个程序中，要想避免死锁的问题。可以要求程序在获取另一个 Object 前先释放自己手里的 Object，或者让这两个程序用相同的顺序来获取锁。</p> 
           </div>
 
 <h3 id="Deadlock-Prevention"><a href="#Deadlock-Prevention" class="headerlink" title="Deadlock Prevention"></a>Deadlock Prevention</h3><p>The key to break deadlock is to break one of the 4 conditions.</p>
@@ -561,14 +698,14 @@
 <h3 id="Deadlock-Detection-and-Recovery"><a href="#Deadlock-Detection-and-Recovery" class="headerlink" title="Deadlock Detection and Recovery"></a>Deadlock Detection and Recovery</h3><h4 id="Deadlock-Detection-with-Multiple-Resources-of-Each-Type"><a href="#Deadlock-Detection-with-Multiple-Resources-of-Each-Type" class="headerlink" title="Deadlock Detection with Multiple Resources of Each Type"></a>Deadlock Detection with Multiple Resources of Each Type</h4><p>We will now present a matrix-based algorithm for detecting deadlock among $n$ processes, $P_1$ through $P_n$.</p>
 <p>Let the number of resource classes be $m$, with $E_i$ resources of class i (1 ≤ i ≤ m). And $E$ is the <strong>existing resource vector</strong>. It gives the total number of instances of each resource in existence.</p>
 <div class="note note-info">
-            <p>For example, if class 1 is tape drives, then $E_1&#x3D;2$ means the system has two tape drives.</p>
+            <p>For example, if class 1 is tape drives, then $E_1&#x3D;2$ means the system has two tape drives.</p> 
           </div>
 
 <p>Resources in existence</p>
 <p>$$<br>E(E_1,E_2,E_3,\cdots ,E_m)<br>$$</p>
 <p>Let $A$ be the <strong>available resource vector</strong>, with $A_i$ giving the number of instances of resource i that are currently available.</p>
 <div class="note note-info">
-            <p>If both of our two tape drives are assigned, $A_i$ will be 0.</p>
+            <p>If both of our two tape drives are assigned, $A_i$ will be 0.</p> 
           </div>
 
 <p>Resources available</p>
@@ -588,7 +725,7 @@
 </ol>
 <p>When the algorithm finishes, all the unmarked processes, if any, are deadlocked.</p>
 <div class="note note-success">
-            <p>使用中文解释一遍书中的例题。<br>假设存在的资源为</p><p>$$<br>E&#x3D;(4\quad 2\quad 3\quad 1)<br>$$</p><p>目前资源的分配矩阵为</p><p>$$<br>\begin{array}{c}<br>\text{Current allocation matrix} \<br>C&#x3D;\begin{bmatrix}<br>0 &amp; 0 &amp; 1 &amp; 0 \ 2 &amp; 0 &amp; 0 &amp; 1 \ 0 &amp; 1 &amp; 2 &amp; 0<br>\end{bmatrix}<br>\end{array}<br>$$</p><p>请求矩阵为</p><p>$$<br>\begin{array}{c}<br>\text{Resource matrix} \<br>C&#x3D;\begin{bmatrix}<br>2 &amp; 0 &amp; 0 &amp; 1 \ 1 &amp; 0 &amp; 1 &amp; 0 \ 2 &amp; 1 &amp; 0 &amp; 0<br>\end{bmatrix}<br>\end{array}<br>$$</p><p>现在，只有线程3（第3行）能够匹配向量$A$，因此让线程3先使用资源，再释放。然后向量$A$的值变为（注意加上矩阵$C$中对应的值）</p><p>$$<br>A&#x3D;(4\quad 2\quad 2\quad 0)<br>$$</p><p>然后线程2符合条件，$A$的值变为</p><p>$$<br>A&#x3D;(4\quad 2\quad 2\quad 1)<br>$$</p><p>线程1符合条件。</p><p>至此，所有的线程均可以访问到资源，不会造成死锁。如果存在某线程无法分配到资源，则会发生死锁。</p>
+            <p>使用中文解释一遍书中的例题。<br>假设存在的资源为</p> <p>$$<br>E&#x3D;(4\quad 2\quad 3\quad 1)<br>$$</p> <p>目前资源的分配矩阵为</p> <p>$$<br>\begin{array}{c}<br>\text{Current allocation matrix} \<br>C&#x3D;\begin{bmatrix}<br>0 &amp; 0 &amp; 1 &amp; 0 \ 2 &amp; 0 &amp; 0 &amp; 1 \ 0 &amp; 1 &amp; 2 &amp; 0<br>\end{bmatrix}<br>\end{array}<br>$$</p> <p>请求矩阵为</p> <p>$$<br>\begin{array}{c}<br>\text{Resource matrix} \<br>C&#x3D;\begin{bmatrix}<br>2 &amp; 0 &amp; 0 &amp; 1 \ 1 &amp; 0 &amp; 1 &amp; 0 \ 2 &amp; 1 &amp; 0 &amp; 0<br>\end{bmatrix}<br>\end{array}<br>$$</p> <p>现在，只有线程3（第3行）能够匹配向量$A$，因此让线程3先使用资源，再释放。然后向量$A$的值变为（注意加上矩阵$C$中对应的值）</p> <p>$$<br>A&#x3D;(4\quad 2\quad 2\quad 0)<br>$$</p> <p>然后线程2符合条件，$A$的值变为</p> <p>$$<br>A&#x3D;(4\quad 2\quad 2\quad 1)<br>$$</p> <p>线程1符合条件。</p> <p>至此，所有的线程均可以访问到资源，不会造成死锁。如果存在某线程无法分配到资源，则会发生死锁。</p> 
           </div>
 
 <h3 id="Deadlock-Avoidance"><a href="#Deadlock-Avoidance" class="headerlink" title="Deadlock Avoidance"></a>Deadlock Avoidance</h3><p>We can also use similar algorithm to avoid deadlock.</p>
@@ -766,7 +903,7 @@
 
   <script>
   Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
-    mermaid.initialize({"theme":"default","securityLevel":"loose"});
+    mermaid.initialize({"theme":"default"});
 
     Fluid.utils.listenDOMLoaded(function() {
       Fluid.events.registerRefreshCallback(function() {
@@ -851,21 +988,6 @@
 <script  src="../../../../js/plugins.js" ></script>
 
 
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
 
 
 
@@ -884,7 +1006,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -895,10 +1073,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -910,6 +1094,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });

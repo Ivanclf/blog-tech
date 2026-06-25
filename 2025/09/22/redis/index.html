@@ -19,12 +19,12 @@
   <meta name="author" content="Ivan Chan">
   <meta name="keywords" content="">
   
-    <meta name="description" content="https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1cr4y1671thttps:&#x2F;&#x2F;javabetter.cn&#x2F;sidebar&#x2F;sanfene&#x2F;redis.htmlhttps:&#x2F;&#x2F;javaguide.cn&#x2F;database&#x2F;redis&#x2F;redis-questions-01.html             Spring的底层Servlet中，一个请求对应">
+    <meta name="description" content="https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1cr4y1671t https:&#x2F;&#x2F;javabetter.cn&#x2F;sidebar&#x2F;sanfene&#x2F;redis.html https:&#x2F;&#x2F;javaguide.cn&#x2F;database&#x2F;redis&#x2F;redis-questions-01.html              Spring的底层Servlet中，一个请">
 <meta property="og:type" content="article">
 <meta property="og:title" content="高并发下的 redis 缓存策略 - 1">
 <meta property="og:url" content="https://tech.ivanclf.com/2025/09/22/redis/index.html">
 <meta property="og:site_name" content="Ivan的技术笔记">
-<meta property="og:description" content="https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1cr4y1671thttps:&#x2F;&#x2F;javabetter.cn&#x2F;sidebar&#x2F;sanfene&#x2F;redis.htmlhttps:&#x2F;&#x2F;javaguide.cn&#x2F;database&#x2F;redis&#x2F;redis-questions-01.html             Spring的底层Servlet中，一个请求对应">
+<meta property="og:description" content="https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1cr4y1671t https:&#x2F;&#x2F;javabetter.cn&#x2F;sidebar&#x2F;sanfene&#x2F;redis.html https:&#x2F;&#x2F;javaguide.cn&#x2F;database&#x2F;redis&#x2F;redis-questions-01.html              Spring的底层Servlet中，一个请">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://tech.ivanclf.com/2025/09/22/redis/202401222005436.png">
 <meta property="article:published_time" content="2025-09-22T11:19:32.000Z">
@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -97,11 +97,11 @@
   <header>
     
 
-<div class="header-inner" style="height: 80vh;">
+<div class="header-inner" style="height: 60vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="../../../../index.html">
-      <strong>Ivan的技术笔记</strong>
+      <strong>Ivan 的技术笔记</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -110,7 +110,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -206,16 +206,133 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../index.html" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../links/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>友链</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
-<div id="banner" class="banner" parallax=true
-     style="background: url('../../../../img/banner-page.jpg') no-repeat center center; background-size: cover;">
+<div id="banner" class="banner" parallax=true data-random-banner='../../../../img/random/IMG_20190815_195026.jpg,../../../../img/random/IMG_20191109_224459.jpg,../../../../img/random/IMG_20230830_182827.jpg,../../../../img/random/IMG_20240326_184147.jpg,../../../../img/random/IMG_20240706_181124.jpg,../../../../img/random/IMG_20240711_110928.jpg,../../../../img/random/IMG_20240803_141801.jpg,../../../../img/random/IMG_20240916_095049.jpg,../../../../img/random/IMG_20250112_125329.jpg,../../../../img/random/IMG_20250705_170737.jpg,../../../../img/random/IMG_20250707_104356.jpg,../../../../img/random/IMG_20250707_172618.jpg,../../../../img/random/IMG_20260211_080308.jpg,../../../../img/random/IMG_20260522_184054.jpg,../../../../img/random/IMG_20260524_141524.jpg'
+     style="background: url('../../../../../../../../img/random/IMG_20190815_195026.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.5)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="高并发下的 redis 缓存策略 - 1"></span>
+            <span id="subtitle">高并发下的 redis 缓存策略 - 1</span>
           
         </div>
 
@@ -238,11 +355,20 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.6k 字
+          7.5k 字
         
       </span>
     
 
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          63 分钟
+        
+      </span>
     
 
     
@@ -254,13 +380,24 @@
       </div>
 
       
-        <div class="scroll-down-bar">
-          <i class="iconfont icon-arrowdown"></i>
-        </div>
-      
     </div>
   </div>
 </div>
+
+
+  <script>
+    (function() {
+      var banner = document.getElementById('banner');
+      if (!banner) return;
+      var list = banner.getAttribute('data-random-banner');
+      if (!list) return;
+      list = list.split(',').filter(Boolean);
+      if (list.length === 0) return;
+      var pick = list[Math.floor(Math.random() * list.length)];
+      banner.style.backgroundImage = "url('" + pick + "')";
+    })();
+  </script>
+
 
 </div>
 
@@ -287,7 +424,7 @@
               <div class="markdown-body">
                 
                 <div class="note note-info">
-            <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1cr4y1671t">https://www.bilibili.com/video/BV1cr4y1671t</a></p><p><a target="_blank" rel="noopener" href="https://javabetter.cn/sidebar/sanfene/redis.html">https://javabetter.cn/sidebar/sanfene/redis.html</a></p><p><a target="_blank" rel="noopener" href="https://javaguide.cn/database/redis/redis-questions-01.html">https://javaguide.cn/database/redis/redis-questions-01.html</a></p>
+            <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1cr4y1671t">https://www.bilibili.com/video/BV1cr4y1671t</a></p> <p><a target="_blank" rel="noopener" href="https://javabetter.cn/sidebar/sanfene/redis.html">https://javabetter.cn/sidebar/sanfene/redis.html</a></p> <p><a target="_blank" rel="noopener" href="https://javaguide.cn/database/redis/redis-questions-01.html">https://javaguide.cn/database/redis/redis-questions-01.html</a></p> 
           </div>
 
 <p>Spring的底层Servlet中，一个请求对应一个线程。为了提高网页响应速度，提供缓存并进行维护，使得缓存满足高并发状态下的请求，就显得非常重要。此处使用redis，解决部分高并发问题。</p>
@@ -295,7 +432,7 @@
 <p>redis 4.0后，redis引入了多线程机制，用于清理脏数据、释放无用链接、删除大key.而redis 6.0后，多线程仅用于把网络IO和命令执行分开，将网络IO交给线程池来处理。从而提高性能。</p>
 <p>单线程的redis其QPS通常可以达到每秒10万左右。</p>
 <div class="note note-info">
-            <p><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/redis-tutorial.html">点击这里</a>学redis基础操作。在Java中，涉及redis的操作一般可以通过特定形式的API解决。</p>
+            <p><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/redis-tutorial.html">点击这里</a>学redis基础操作。在Java中，涉及redis的操作一般可以通过特定形式的API解决。</p> 
           </div>
 
 <h2 id="为什么需要缓存？"><a href="#为什么需要缓存？" class="headerlink" title="为什么需要缓存？"></a>为什么需要缓存？</h2><p>一般的前后端分离项目中，遵循以下结构</p>
@@ -336,7 +473,7 @@ fronted[fronted]--&gt;|step 1|backend[backend]--&gt;|step 2|database[database]
 
 <p>压缩链表是redis为了节省内存而设计的一种紧凑型数据结构，它会把所有数据连续存储在一块内存中。每个结构包含总字节数、尾部偏移量、节点数量等数据。每个节点包含前一个节点的长度、编码的类型和实际的数据。不过这种压缩列表可能会导致插入或删除节点时连锁更新后续节点数据的问题，导致算法复杂度可能退化到$O(n^2)$</p>
 <h3 id="跳表"><a href="#跳表" class="headerlink" title="跳表"></a>跳表</h3><div class="note note-danger">
-            <p>腾讯混元 - 实习, 一面.</p>
+            <p>腾讯混元 - 实习, 一面.</p> 
           </div>
 
 <p>一旦超过其中的一个阈值，就会变为<code>skiplist</code>（跳表，但实际上是字典+跳表，使用字典来提高获取速率）。跳表可以在链表的基础上，建立多级索引，将增删改查的时间复杂度变为$O(\log n)$</p>
@@ -376,26 +513,26 @@ fronted[fronted]--&gt;|step 1|backend[backend]--&gt;|step 2|database[database]
 <li>redis的字典分为三层，最外层是一个dict结构，包含两个哈希表<code>ht[0]</code> <code>ht[1]</code>，用于存储键值对。每个哈希表都由数组的链表组成。</li>
 </ul>
 <div class="note note-info">
-            <p>字典最核心的特点是渐进式rehash。当负载因子大于等于1或小于0.1时，会触发rehash。平时不启用的<code>ht[1]</code>开始启用。扩展时的<code>ht[1]</code>的大小为<code>ht[0]</code>的两倍，缩小时的大小为<code>ht[0]</code>的一半，然后将<code>rehashidx</code>设置为0。接下来，redis不会一次性把所有的数据从哈希表中迁移，而是在每次操作字典时，顺便迁移<code>ht[0]</code>中<code>rehashidx</code>位置上的所有键值对。迁移完一个槽位后，<code>rehashidx</code>递增，直到整个哈希表0都迁移完成。</p>
+            <p>字典最核心的特点是渐进式rehash。当负载因子大于等于1或小于0.1时，会触发rehash。平时不启用的<code>ht[1]</code>开始启用。扩展时的<code>ht[1]</code>的大小为<code>ht[0]</code>的两倍，缩小时的大小为<code>ht[0]</code>的一半，然后将<code>rehashidx</code>设置为0。接下来，redis不会一次性把所有的数据从哈希表中迁移，而是在每次操作字典时，顺便迁移<code>ht[0]</code>中<code>rehashidx</code>位置上的所有键值对。迁移完一个槽位后，<code>rehashidx</code>递增，直到整个哈希表0都迁移完成。</p> 
           </div>
 
 <div class="note note-info">
-            <p>redis中过期key的删除策略有以下4种</p><ul><li>惰性删除<br>  只有在取出&#x2F;查询的key的时候才对数据进行过期检查，对CPU友好，对内存不友好</li><li>定期删除<br>  周期性随机抽查一批，检查是否过期，对CPU不太友好，对内存较友好</li><li>延迟队列<br>  设置过期时间的key放到一个延迟队列里，到期就删除key，但维护延迟队列太麻烦，队列本身也占用资源</li><li>定时删除<br>  到达时间后立即被删除，对CPU压力最大，因为要为每个键都设置一个定时器</li></ul><p>redis中采用定期删除+惰性删除的方式。其中定期删除会受到其他影响</p><ul><li>执行时间超过了阈值，那么就中断这一次定期删除循环</li><li>过期key的比例超过阈值，就会重复执行定期删除流程。若过期key比例低于阈值，就会中断定期删除循环。</li></ul><p>在redis 7.2中执行时间阈值为25ms，过期key比例设定值为10%。定期检查时，随机抽查的数量为20，频率为每秒10次，也可以通过开启<code>dynamic-hz</code>动态改变抽查次数。</p>
+            <p>redis中过期key的删除策略有以下4种</p> <ul> <li>惰性删除<br>  只有在取出&#x2F;查询的key的时候才对数据进行过期检查，对CPU友好，对内存不友好</li> <li>定期删除<br>  周期性随机抽查一批，检查是否过期，对CPU不太友好，对内存较友好</li> <li>延迟队列<br>  设置过期时间的key放到一个延迟队列里，到期就删除key，但维护延迟队列太麻烦，队列本身也占用资源</li> <li>定时删除<br>  到达时间后立即被删除，对CPU压力最大，因为要为每个键都设置一个定时器</li> </ul> <p>redis中采用定期删除+惰性删除的方式。其中定期删除会受到其他影响</p> <ul> <li>执行时间超过了阈值，那么就中断这一次定期删除循环</li> <li>过期key的比例超过阈值，就会重复执行定期删除流程。若过期key比例低于阈值，就会中断定期删除循环。</li> </ul> <p>在redis 7.2中执行时间阈值为25ms，过期key比例设定值为10%。定期检查时，随机抽查的数量为20，频率为每秒10次，也可以通过开启<code>dynamic-hz</code>动态改变抽查次数。</p> 
           </div>
 
 <div class="note note-success">
-            <p>很短时间内被访问频繁的键可能会称为热key。大量请求集中到同一个键可能会导致该redis节点的CPU使用率飙升。响应时间变长。可以使用<code>redis-cli -h &lt;address&gt; -p &lt;port&gt; -a&lt;password&gt; — hotkey</code>监控热key。</p><p>一般可以将热key缓存到本地内存中，或者将某些特别热的key拆分成多个子key，然后随机分布到不同的redis节点上。</p><p>占用较大内存的缓存键称大key，比如超过10M的键值对。可以使用<code>redis-cli -h &lt;address&gt; -p &lt;port&gt; -a&lt;password&gt; --bigkeys</code>查找</p><p>对于大key，最根本的方法是拆分成多个小key存储，对于JSON数据可以进行Gzip压缩后再存储。</p>
+            <p>很短时间内被访问频繁的键可能会称为热key。大量请求集中到同一个键可能会导致该redis节点的CPU使用率飙升。响应时间变长。可以使用<code>redis-cli -h &lt;address&gt; -p &lt;port&gt; -a&lt;password&gt; — hotkey</code>监控热key。</p> <p>一般可以将热key缓存到本地内存中，或者将某些特别热的key拆分成多个子key，然后随机分布到不同的redis节点上。</p> <p>占用较大内存的缓存键称大key，比如超过10M的键值对。可以使用<code>redis-cli -h &lt;address&gt; -p &lt;port&gt; -a&lt;password&gt; --bigkeys</code>查找</p> <p>对于大key，最根本的方法是拆分成多个小key存储，对于JSON数据可以进行Gzip压缩后再存储。</p> 
           </div>
 
 <h2 id="缓存更新"><a href="#缓存更新" class="headerlink" title="缓存更新"></a>缓存更新</h2><p>既然是把同一份数据存了两遍。那么当数据库中的某些数据已经更改，redis中的数据应该在什么时候更新呢？为了保证数据库与redis的高一致性，每次更新数据库后，都需要同步对redis进行操作。</p>
 <div class="note note-info">
-            <p>除了每次更新数据库都同步更新外，还有其他办法。例如将缓存与数据库合并成一个服务，再插入一个中间件；或者使用写回法，调用者只操作缓存，由其他线程将缓存数据持久化到数据库中。</p>
+            <p>除了每次更新数据库都同步更新外，还有其他办法。例如将缓存与数据库合并成一个服务，再插入一个中间件；或者使用写回法，调用者只操作缓存，由其他线程将缓存数据持久化到数据库中。</p> 
           </div>
 
 <p>更新缓存时可能会产生无效更新，且可能导致线程安全问题，因此在更新数据库时直接删除redis中的相关条目。这样，当用户查询到这条数据时，就可以直接查数据库，从而同步到redis中。</p>
 <p>如何保证缓存和数据库的操作同时成功或失败呢？对于单体系统，可以将缓存与数据库放在一个事务中。而在分布式系统中，可以利用TCC等分布式解决方案。</p>
 <div class="note note-info">
-            <p>事务是MySQL中的一个概念，用于将多个操作合并为一个独立的工作单元。事务必须满足四个特性(ACID)：原子性、一致性、隔离性、持久性。该特性用于保证成批的SQL语句一起执行——即要么全部执行成功、要么全部执行失败。Spring中也借用了这一概念。</p><p><a target="_blank" rel="noopener" href="https://ivanclf.github.io/2025/11/08/distributed/#TCC">TCC (Try-Confirm-Cancel)</a>用于解决分布式系统中传统的数据库ACID事务只能保证单个数据库的原子性问题。首先在Try阶段创建一个状态为“待确认”的订单。若所有的Try操作都成功，则跳转至Confirm阶段，将订单状态从“待确认”更新为“已确认”；若任何一个Try操作失败，则执行Cancel操作，将订单状态更新为“已取消”，回滚语句并释放资源。</p><p>而在redis中，也支持简单的事务处理</p><ul><li><code>multi</code> 开始事务</li><li><code>exec</code> 执行事务</li><li><code>discard</code> 取消事务，清空事务队列中保存的所有命令</li><li><code>watch</code> 监听指定的key，若事务在执行时，监听的key被其他客户端修改，则事务不会被执行（但若watch和事务在同一个Session中，则事务是可以被执行成功的）</li></ul><p>由于redis的单线程特性，事务的执行过程不会被其他命令打断，也就不会被其他事务打断。但需要注意的是，redis的事务不支持回滚，即使有些命令执行失败。因此可以使用Lua脚本代替事务。但Lua脚本中途结束后不会执行后续操作，也不会回滚，分布式系统下的原子性也保证不了。</p>
+            <p>事务是MySQL中的一个概念，用于将多个操作合并为一个独立的工作单元。事务必须满足四个特性(ACID)：原子性、一致性、隔离性、持久性。该特性用于保证成批的SQL语句一起执行——即要么全部执行成功、要么全部执行失败。Spring中也借用了这一概念。</p> <p><a target="_blank" rel="noopener" href="https://ivanclf.github.io/2025/11/08/distributed/#TCC">TCC (Try-Confirm-Cancel)</a>用于解决分布式系统中传统的数据库ACID事务只能保证单个数据库的原子性问题。首先在Try阶段创建一个状态为“待确认”的订单。若所有的Try操作都成功，则跳转至Confirm阶段，将订单状态从“待确认”更新为“已确认”；若任何一个Try操作失败，则执行Cancel操作，将订单状态更新为“已取消”，回滚语句并释放资源。</p> <p>而在redis中，也支持简单的事务处理</p> <ul> <li><code>multi</code> 开始事务</li> <li><code>exec</code> 执行事务</li> <li><code>discard</code> 取消事务，清空事务队列中保存的所有命令</li> <li><code>watch</code> 监听指定的key，若事务在执行时，监听的key被其他客户端修改，则事务不会被执行（但若watch和事务在同一个Session中，则事务是可以被执行成功的）</li> </ul> <p>由于redis的单线程特性，事务的执行过程不会被其他命令打断，也就不会被其他事务打断。但需要注意的是，redis的事务不支持回滚，即使有些命令执行失败。因此可以使用Lua脚本代替事务。但Lua脚本中途结束后不会执行后续操作，也不会回滚，分布式系统下的原子性也保证不了。</p> 
           </div>
 
 <p>先操作缓存还是先操作数据库呢？这个需要考虑读写线程可能引起的并发问题。</p>
@@ -430,7 +567,7 @@ fronted[fronted]--&gt;|step 1|backend[backend]--&gt;|step 2|database[database]
 <h2 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h2><p>当客户端请求的数据不存在时，缓存永远都不会生效，而且这些请求都会打到数据库上。这样要是有大量重复的数据打进来，服务就崩了。</p>
 <p>解决缓存穿透的办法有两个：一个是在第一次发现不存在时，向redis写入一个空对象，这样简单好用，但会造成额外的内存开销与短时间的不一致问题。另一种是使用布隆过滤器，通过过滤器的请求才能进入到redis中，这样不需要太多额外内存，也不会产生不一致问题，但可能会误判，并且删除数据较为困难。</p>
 <div class="note note-info">
-            <p>布隆过滤器是一大串位列表。将数据添加到布隆过滤器时，我们提供数个不同的哈希函数中，将各自算出的值置为1。当请求获得的哈希值与布隆过滤器不匹配时拒绝，并返回空对象，反之放行。当某个空对象刚好能匹配先前其他元素生成过的1时，它也能透过过滤器。</p><p>而且，布隆过滤器并不支持删除操作，若真想实现删除操作，可以使用计数布隆过滤器，但这样会增加内存开销。</p>
+            <p>布隆过滤器是一大串位列表。将数据添加到布隆过滤器时，我们提供数个不同的哈希函数中，将各自算出的值置为1。当请求获得的哈希值与布隆过滤器不匹配时拒绝，并返回空对象，反之放行。当某个空对象刚好能匹配先前其他元素生成过的1时，它也能透过过滤器。</p> <p>而且，布隆过滤器并不支持删除操作，若真想实现删除操作，可以使用计数布隆过滤器，但这样会增加内存开销。</p> 
           </div>
 
 <p>而在实际项目中，还需要在接口层面做一些处理，比如参数校验，拦截不合理的请求，对疑似攻击的IP进行限流或者封禁等。</p>
@@ -442,7 +579,7 @@ fronted[fronted]--&gt;|step 1|backend[backend]--&gt;|step 2|database[database]
 <li>对于刚开机时可能出现的情况，则使用<code>xxl-job</code>或<code>Kafka</code>在缓存中提前放入数据即可。</li>
 </ul>
 <div class="note note-success">
-            <p>若确实存在大量key集中过期的需求，则可以修改<code>redis.conf</code>文件，将<code>lazyfree-lazy-expire</code>参数设置为<code>true</code>。开启后，redis会在后台异步删除过期的key不会阻塞主线程进行。</p>
+            <p>若确实存在大量key集中过期的需求，则可以修改<code>redis.conf</code>文件，将<code>lazyfree-lazy-expire</code>参数设置为<code>true</code>。开启后，redis会在后台异步删除过期的key不会阻塞主线程进行。</p> 
           </div>
 
 <h2 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h2><p>一个高频访问并且重建缓存重建业务较为复杂的key突然失效了，大量的请求会挤进数据库里，并且大量申请写入redis的请求也会形成，从而造成巨大压力。为了防止这种情况，可以使用互斥锁或者逻辑过期方法。</p>
@@ -653,7 +790,7 @@ fronted[fronted]--&gt;|step 1|backend[backend]--&gt;|step 2|database[database]
 
   <script>
   Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
-    mermaid.initialize({"theme":"default","securityLevel":"loose"});
+    mermaid.initialize({"theme":"default"});
 
     Fluid.utils.listenDOMLoaded(function() {
       Fluid.events.registerRefreshCallback(function() {
@@ -738,21 +875,6 @@ fronted[fronted]--&gt;|step 1|backend[backend]--&gt;|step 2|database[database]
 <script  src="../../../../js/plugins.js" ></script>
 
 
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
 
 
 
@@ -771,7 +893,63 @@ fronted[fronted]--&gt;|step 1|backend[backend]--&gt;|step 2|database[database]
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -782,10 +960,16 @@ fronted[fronted]--&gt;|step 1|backend[backend]--&gt;|step 2|database[database]
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -797,6 +981,8 @@ fronted[fronted]--&gt;|step 1|backend[backend]--&gt;|step 2|database[database]
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });

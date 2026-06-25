@@ -80,7 +80,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -102,11 +102,11 @@
   <header>
     
 
-<div class="header-inner" style="height: 80vh;">
+<div class="header-inner" style="height: 60vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="../../../../index.html">
-      <strong>Ivan的技术笔记</strong>
+      <strong>Ivan 的技术笔记</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -115,7 +115,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -211,16 +211,133 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../index.html" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../links/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>友链</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
-<div id="banner" class="banner" parallax=true
-     style="background: url('../../../../img/banner-page.jpg') no-repeat center center; background-size: cover;">
+<div id="banner" class="banner" parallax=true data-random-banner='../../../../img/random/IMG_20190815_195026.jpg,../../../../img/random/IMG_20191109_224459.jpg,../../../../img/random/IMG_20230830_182827.jpg,../../../../img/random/IMG_20240326_184147.jpg,../../../../img/random/IMG_20240706_181124.jpg,../../../../img/random/IMG_20240711_110928.jpg,../../../../img/random/IMG_20240803_141801.jpg,../../../../img/random/IMG_20240916_095049.jpg,../../../../img/random/IMG_20250112_125329.jpg,../../../../img/random/IMG_20250705_170737.jpg,../../../../img/random/IMG_20250707_104356.jpg,../../../../img/random/IMG_20250707_172618.jpg,../../../../img/random/IMG_20260211_080308.jpg,../../../../img/random/IMG_20260522_184054.jpg,../../../../img/random/IMG_20260524_141524.jpg'
+     style="background: url('../../../../../../../../img/random/IMG_20190815_195026.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.5)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="微服务系统组件 - 2"></span>
+            <span id="subtitle">微服务系统组件 - 2</span>
           
         </div>
 
@@ -243,11 +360,20 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.9k 字
+          8.8k 字
         
       </span>
     
 
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          74 分钟
+        
+      </span>
     
 
     
@@ -259,13 +385,24 @@
       </div>
 
       
-        <div class="scroll-down-bar">
-          <i class="iconfont icon-arrowdown"></i>
-        </div>
-      
     </div>
   </div>
 </div>
+
+
+  <script>
+    (function() {
+      var banner = document.getElementById('banner');
+      if (!banner) return;
+      var list = banner.getAttribute('data-random-banner');
+      if (!list) return;
+      list = list.split(',').filter(Boolean);
+      if (list.length === 0) return;
+      var pick = list[Math.floor(Math.random() * list.length)];
+      banner.style.backgroundImage = "url('" + pick + "')";
+    })();
+  </script>
+
 
 </div>
 
@@ -301,7 +438,7 @@
 <h2 id="服务网关"><a href="#服务网关" class="headerlink" title="服务网关"></a>服务网关</h2><p>API 网关是一种中间层服务器，用于集中管理、保护和路由对后端服务的访问。其功能主要包括请求转发+请求过滤，但小型要求不少，包括 请求转发、负载均衡、安全认证（对客户端请求进行身份验证并仅允许可新用户访问 api，并且还能够使用类似 RBAC 等方式来授权）、参数校验（支持参数映射和校验逻辑）、日志记录、监控告警、流量控制、熔断降级、响应缓存、响应聚合、灰度发布、异常处理、API 文档、协议转换、协议转换、证书管理，等等。</p>
 <p><img src="up-35e102c633bbe8e0dea1e075ea3fee5dcfb.png" srcset="/img/loading.gif" lazyload alt="参考链路层"></p>
 <div class="note note-primary">
-            <p>需要注意的是，网关中的校验不能当作安全性的唯一保证，需要有其他手段保证外来用户不能绕过网关。</p>
+            <p>需要注意的是，网关中的校验不能当作安全性的唯一保证，需要有其他手段保证外来用户不能绕过网关。</p> 
           </div>
 
 <h3 id="Netflix-Zuul"><a href="#Netflix-Zuul" class="headerlink" title="Netflix Zuul"></a>Netflix Zuul</h3><p>Zuul 是 Netflix 开发的一款提供动态路由、监控、弹性、安全的网关服务，可以和 Eureka、Ribbon、Hystrix 等组件组合使用。Zuul 主要通过过滤器来过滤请求，从而实现网关的各种功能。</p>
@@ -319,7 +456,7 @@
 <li>响应返回，经过过滤处理的结果返回给客户端</li>
 </ol>
 <div class="note note-info">
-            <p>断言是指对某个表达式的真假判断，若为真则跳转到某个路由。基本的 Predicate 工厂为</p><table><thead><tr><th>名称</th><th>说明</th><th>实例</th></tr></thead><tbody><tr><td>After</td><td>某个时间点后的请求</td><td><code>After=2037-01-20T17:42:47</code></td></tr><tr><td>Before</td><td>某个时间点前的请求</td><td><code>Before=2037-01-20T17:42:47</code></td></tr><tr><td>Between</td><td>某个时间段内的请求</td><td><code>Between=2037-01-20T17:42:47, 2038-01-20T17:42:47</code></td></tr><tr><td>Cookie</td><td>请求必须包括某些 Cookie</td><td><code>Cookie=chocolate,ch.p</code></td></tr><tr><td>Header</td><td>请求必须包括某些 header</td><td><code>Header=X-request-id,\d+</code></td></tr><tr><td>Host</td><td>请求必须是访问某个 Host</td><td><code>Host=**.somehost.org</code></td></tr><tr><td>Method</td><td>请求必须是某种方式</td><td><code>Method=GET,POST</code></td></tr><tr><td>Path</td><td>请求路径必须符合指定规则</td><td><code>Path=/red/**</code></td></tr><tr><td>Query</td><td>请求参数必须包含某些参数</td><td><code>Query=name</code></td></tr><tr><td>RemoteAddr</td><td>请求者的 IP 必须是指定范围</td><td><code>RemoteAddr=192.168.1.1/24</code></td></tr><tr><td>Weight</td><td>权重处理</td><td>&#x2F;</td></tr></tbody></table>
+            <p>断言是指对某个表达式的真假判断，若为真则跳转到某个路由。基本的 Predicate 工厂为</p> <table> <thead> <tr> <th>名称</th> <th>说明</th> <th>实例</th> </tr> </thead> <tbody><tr> <td>After</td> <td>某个时间点后的请求</td> <td><code>After=2037-01-20T17:42:47</code></td> </tr> <tr> <td>Before</td> <td>某个时间点前的请求</td> <td><code>Before=2037-01-20T17:42:47</code></td> </tr> <tr> <td>Between</td> <td>某个时间段内的请求</td> <td><code>Between=2037-01-20T17:42:47, 2038-01-20T17:42:47</code></td> </tr> <tr> <td>Cookie</td> <td>请求必须包括某些 Cookie</td> <td><code>Cookie=chocolate,ch.p</code></td> </tr> <tr> <td>Header</td> <td>请求必须包括某些 header</td> <td><code>Header=X-request-id,\d+</code></td> </tr> <tr> <td>Host</td> <td>请求必须是访问某个 Host</td> <td><code>Host=**.somehost.org</code></td> </tr> <tr> <td>Method</td> <td>请求必须是某种方式</td> <td><code>Method=GET,POST</code></td> </tr> <tr> <td>Path</td> <td>请求路径必须符合指定规则</td> <td><code>Path=/red/**</code></td> </tr> <tr> <td>Query</td> <td>请求参数必须包含某些参数</td> <td><code>Query=name</code></td> </tr> <tr> <td>RemoteAddr</td> <td>请求者的 IP 必须是指定范围</td> <td><code>RemoteAddr=192.168.1.1/24</code></td> </tr> <tr> <td>Weight</td> <td>权重处理</td> <td>&#x2F;</td> </tr> </tbody></table> 
           </div>
 
 <p>要实现网关的动态路由，一般是通过 Nacos 动态配置来做。</p>
@@ -365,7 +502,7 @@
 </tbody></table>
 <h2 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h2><p>Elasticsearch 用于在海量的数据中快速找到需要的内容，Elasticsearch 结合 kibana、Logstash、Beats，形成 elastic stack (ELK)，广泛应用于日志分析，实时监控领域。</p>
 <h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><div class="note note-danger">
-            <p>OPPO 后端工程师 - 实习, 二面</p>
+            <p>OPPO 后端工程师 - 实习, 二面</p> 
           </div>
 
 <p>ES 的底层基于倒排索引实现。</p>
@@ -478,7 +615,7 @@
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs json">POST /heima/_doc/<span class="hljs-number">1</span><br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;info&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;黑马程序员&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;email&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;zy@itcast.cn&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;firstName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;云&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;lastName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;赵&quot;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
 
 <div class="note note-info">
-            <p>定义主键时，都使用字符串类型。不分词，因此最后为 <code>keyword</code>。</p>
+            <p>定义主键时，都使用字符串类型。不分词，因此最后为 <code>keyword</code>。</p> 
           </div>
 
 <p>查询文档则是使用 <code>GET</code> 请求。同理删除文档使用 <code>DELETE</code> 请求。删除时只是进行逻辑删除，并将版本号 +1。</p>
@@ -511,7 +648,7 @@
 <h4 id="复合查询"><a href="#复合查询" class="headerlink" title="复合查询"></a>复合查询</h4><p>将简单查询组合起来，实现更复杂的查询逻辑</p>
 <p><strong><code>function score</code></strong> 算分函数，控制文档相关性打分，以控制文档排名。一般而言文档结果会按照搜索词的关联度打分，返回结果时按照分值降序排列。</p>
 <div class="note note-info">
-            <p>一般情况下，算分值按照 <code>TF</code> （词条频率）算法来计算，即<code>词条出现次数</code>和文档中<code>词条总数</code>的比值。</p><p>然而，为了减少相同词汇的权重，增加相异但符合的词汇的权重，ES 早期（5.0前）采用了 <strong>TF-IDF</strong> 算法，其中 <strong>IDF</strong> 表示逆文档频率</p><p>$$<br>\text{IDF} &#x3D; \log(\frac{文档总数}{包含词条的文档总数})\quad \text{score} &#x3D; \sum^n_i\text{TF}\times \text{IDF}<br>$$</p><p>目前的 ES 主要采用 <strong>BM25</strong> 算法，计算速度较快，受词频影响较少，且可以通过调参来实现不同的查询需求。</p><p>$$<br>\text{score}(d, q) &#x3D; \sum_{t \in q} \text{IDF}(t) \cdot \frac{\text{TF}(t, d) \cdot (k_1 + 1)}{\text{TF}(t, d) + k_1 \cdot (1 - b + b \cdot \frac{|d|}{\text{avgdl}})}<br>$$</p><ul><li>$|d|$ 为文档字段的长度。</li><li>$\text{avgdl}$ 为索引中所有文档的平均字段长度。</li><li>$k_1$ 为控制词频饱和度的参数（默认 1.2）。</li><li>$b$ 为控制字段归一化的参数（默认为 0.75）。</li></ul>
+            <p>一般情况下，算分值按照 <code>TF</code> （词条频率）算法来计算，即<code>词条出现次数</code>和文档中<code>词条总数</code>的比值。</p> <p>然而，为了减少相同词汇的权重，增加相异但符合的词汇的权重，ES 早期（5.0前）采用了 <strong>TF-IDF</strong> 算法，其中 <strong>IDF</strong> 表示逆文档频率</p> <p>$$<br>\text{IDF} &#x3D; \log(\frac{文档总数}{包含词条的文档总数})\quad \text{score} &#x3D; \sum^n_i\text{TF}\times \text{IDF}<br>$$</p> <p>目前的 ES 主要采用 <strong>BM25</strong> 算法，计算速度较快，受词频影响较少，且可以通过调参来实现不同的查询需求。</p> <p>$$<br>\text{score}(d, q) &#x3D; \sum_{t \in q} \text{IDF}(t) \cdot \frac{\text{TF}(t, d) \cdot (k_1 + 1)}{\text{TF}(t, d) + k_1 \cdot (1 - b + b \cdot \frac{|d|}{\text{avgdl}})}<br>$$</p> <ul> <li>$|d|$ 为文档字段的长度。</li> <li>$\text{avgdl}$ 为索引中所有文档的平均字段长度。</li> <li>$k_1$ 为控制词频饱和度的参数（默认 1.2）。</li> <li>$b$ 为控制字段归一化的参数（默认为 0.75）。</li> </ul> 
           </div>
 
 <p>以下的示例中，我们给某个 id 的文档增加权重，从而排到最前面。</p>
@@ -533,7 +670,7 @@
 <li><code>filter</code> 必须匹配，不参与算分</li>
 </ul>
 <div class="note note-info">
-            <p>ES 的过滤性查询会放到缓存里面，在下一次查询时会进一步提升性能。</p>
+            <p>ES 的过滤性查询会放到缓存里面，在下一次查询时会进一步提升性能。</p> 
           </div>
 
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs json">GET /indexName/_search<br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;query&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;bool&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;must&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>        <span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;term&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;city&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;上海&quot;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><br>      <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;should&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>        <span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;term&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;brand&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;希尔顿&quot;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;term&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;brand&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;四季&quot;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><br>      <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;must_not&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>        <span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;range&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;price&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;lte&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">500</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><br>      <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;filter&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>        <span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;range&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;score&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;gte&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">45</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><br>      <span class="hljs-punctuation">]</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
@@ -733,7 +870,7 @@
 
   <script>
   Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
-    mermaid.initialize({"theme":"default","securityLevel":"loose"});
+    mermaid.initialize({"theme":"default"});
 
     Fluid.utils.listenDOMLoaded(function() {
       Fluid.events.registerRefreshCallback(function() {
@@ -818,21 +955,6 @@
 <script  src="../../../../js/plugins.js" ></script>
 
 
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
 
 
 
@@ -851,7 +973,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -862,10 +1040,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -877,6 +1061,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });

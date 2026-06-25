@@ -79,7 +79,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -101,11 +101,11 @@
   <header>
     
 
-<div class="header-inner" style="height: 80vh;">
+<div class="header-inner" style="height: 60vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="../../../../index.html">
-      <strong>Ivan的技术笔记</strong>
+      <strong>Ivan 的技术笔记</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -114,7 +114,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -210,16 +210,133 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../index.html" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../links/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>友链</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
-<div id="banner" class="banner" parallax=true
-     style="background: url('../../../../img/banner-page.jpg') no-repeat center center; background-size: cover;">
+<div id="banner" class="banner" parallax=true data-random-banner='../../../../img/random/IMG_20190815_195026.jpg,../../../../img/random/IMG_20191109_224459.jpg,../../../../img/random/IMG_20230830_182827.jpg,../../../../img/random/IMG_20240326_184147.jpg,../../../../img/random/IMG_20240706_181124.jpg,../../../../img/random/IMG_20240711_110928.jpg,../../../../img/random/IMG_20240803_141801.jpg,../../../../img/random/IMG_20240916_095049.jpg,../../../../img/random/IMG_20250112_125329.jpg,../../../../img/random/IMG_20250705_170737.jpg,../../../../img/random/IMG_20250707_104356.jpg,../../../../img/random/IMG_20250707_172618.jpg,../../../../img/random/IMG_20260211_080308.jpg,../../../../img/random/IMG_20260522_184054.jpg,../../../../img/random/IMG_20260524_141524.jpg'
+     style="background: url('../../../../../../../../img/random/IMG_20190815_195026.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.5)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="数据库底层 - 1"></span>
+            <span id="subtitle">数据库底层 - 1</span>
           
         </div>
 
@@ -242,11 +359,20 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5k 字
+          7.3k 字
         
       </span>
     
 
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          61 分钟
+        
+      </span>
     
 
     
@@ -258,13 +384,24 @@
       </div>
 
       
-        <div class="scroll-down-bar">
-          <i class="iconfont icon-arrowdown"></i>
-        </div>
-      
     </div>
   </div>
 </div>
+
+
+  <script>
+    (function() {
+      var banner = document.getElementById('banner');
+      if (!banner) return;
+      var list = banner.getAttribute('data-random-banner');
+      if (!list) return;
+      list = list.split(',').filter(Boolean);
+      if (list.length === 0) return;
+      var pick = list[Math.floor(Math.random() * list.length)];
+      banner.style.backgroundImage = "url('" + pick + "')";
+    })();
+  </script>
+
 
 </div>
 
@@ -310,7 +447,7 @@
 </ol>
 <p>其中，数据页由7部分构成，分别为文件头、页头、文件尾（这三者大小是固定的，用来标记该页的一些重要信息）、行记录、空闲空间、页目录、空闲空间。每个数据页的文件头都有上一页和下一页的编号，所有的数据页会形成一个双向链表。</p>
 <h2 id="MySQL架构"><a href="#MySQL架构" class="headerlink" title="MySQL架构"></a>MySQL架构</h2><div class="note note-danger">
-            <p>字节跳动, 中国交易与广告 - 实习, 一面</p>
+            <p>字节跳动, 中国交易与广告 - 实习, 一面</p> 
           </div>
 
 <p>MySQL的基础架构如下</p>
@@ -336,11 +473,11 @@
 <li>最后进行执行查询，交给InnoDB处理</li>
 </ul>
 <div class="note note-danger">
-            <p>腾讯混元 - 实习, 一面.</p>
+            <p>腾讯混元 - 实习, 一面.</p> 
           </div>
 
 <div class="note note-danger">
-            <p>OPPO 后端工程师 - 实习, 二面</p>
+            <p>OPPO 后端工程师 - 实习, 二面</p> 
           </div>
 
 <p>而执行<code>update</code>语句的步骤就复杂得多。前面的步骤和<code>select</code>一致，而交由 InnoDB 后</p>
@@ -362,7 +499,7 @@
 <p>在内存在 1GB~4GB RAM 的系统上，默认值为系统 RAM 的25%，在内存超过 4GB 的系统上，默认值为系统 RAM 的50%，但不超过 4GB。最低默认值为 128MB。</p>
 <p>缓存池大小参数为<code>innodb_buffer_pool_size</code></p>
 <div class="note note-success">
-            <p>InnoDB 的缓存对 LRU 进行了优化，目的是挡住一次性或顺序扫描带来的“缓存污染”，让真正的热点留在内存。</p><p>InnoDB将整个 LRU 链表通过<code>midpoint</code>指针切成两段：<code>Young</code>和<code>Old</code>。其中<code>Young</code>靠近链表头，占比63%，而<code>Old</code>占比接近37%。新页永远先放到<code>Old</code>的头部（即<code>midpoint</code>）。当页在<code>Old</code>里首次被访问后，若距离进入时间较短（默认小于1000ms），则不晋升，否则晋升到<code>Young</code>区的头部，与常见 LRU 保持一致。而需要淘汰时，从<code>Old</code>的尾部开始踢。</p><p>两个区比例的参数为<code>innodb_old_blocks_pct</code><br>页的观察时间参数为<code>innodb_old_blocks_time</code></p>
+            <p>InnoDB 的缓存对 LRU 进行了优化，目的是挡住一次性或顺序扫描带来的“缓存污染”，让真正的热点留在内存。</p> <p>InnoDB将整个 LRU 链表通过<code>midpoint</code>指针切成两段：<code>Young</code>和<code>Old</code>。其中<code>Young</code>靠近链表头，占比63%，而<code>Old</code>占比接近37%。新页永远先放到<code>Old</code>的头部（即<code>midpoint</code>）。当页在<code>Old</code>里首次被访问后，若距离进入时间较短（默认小于1000ms），则不晋升，否则晋升到<code>Young</code>区的头部，与常见 LRU 保持一致。而需要淘汰时，从<code>Old</code>的尾部开始踢。</p> <p>两个区比例的参数为<code>innodb_old_blocks_pct</code><br>页的观察时间参数为<code>innodb_old_blocks_time</code></p> 
           </div>
 
 <h2 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h2><p>MySQL中日志种类很多，包括错误日志、查询日志、慢查询日志、事务日志、二进制日志几大类。其中较为重要的是 Server 层通用的 <code>binlog</code> 和 InnoDB 引擎独有的 <code>redo log</code></p>
@@ -390,7 +527,7 @@
 </ul>
 <h3 id="redo-log"><a href="#redo-log" class="headerlink" title="redo log"></a><code>redo log</code></h3><p>该日志让MySQL拥有了崩溃恢复能力，并且保证了事务的持久性。MySQL中的数据以页为单位，每查询一条记录，就会把磁盘中一页数据加载出来，放到缓存池里。更新表数据的时候，都是直接先在缓存池中更新，然后会把“在某个数据页上做了什么修改”记录到日志缓存(<code>redo log buffer</code>)中，接着在合适的时机刷盘到redo log文件中。</p>
 <div class="note note-info">
-            <p>这个“合适的时机”，一般是</p><ul><li>在事务提交的时候。至于事务提交几次看相关参数</li><li>log buffer 写满时</li><li>每秒的定期刷盘</li><li>触发 <code>CheckPoint</code> 时</li><li>正常关闭MySQL时</li></ul>
+            <p>这个“合适的时机”，一般是</p> <ul> <li>在事务提交的时候。至于事务提交几次看相关参数</li> <li>log buffer 写满时</li> <li>每秒的定期刷盘</li> <li>触发 <code>CheckPoint</code> 时</li> <li>正常关闭MySQL时</li> </ul> 
           </div>
 
 <p>当MySQL崩溃重启时，会先检查redo log，对于<strong>未提交</strong>的事务，MySQL会通过undo log回滚这些修改。</p>
@@ -412,7 +549,7 @@
 </ul>
 <p><img src="mysql-20250317155312.png" srcset="/img/loading.gif" lazyload alt="刷盘策略的值"></p>
 <div class="note note-info">
-            <p>预写日志（<code>WAL</code> &#96;Write-Ahead Logging）是InnoDB实现持久事务化的核心，它的思想是先写日志再刷硬盘。<br>在修改数据页前，先将修改记录写入redo log，这样的话，即使数据页尚未写入磁盘，系统崩溃时也能通过redo log恢复数据。</p>
+            <p>预写日志（<code>WAL</code> &#96;Write-Ahead Logging）是InnoDB实现持久事务化的核心，它的思想是先写日志再刷硬盘。<br>在修改数据页前，先将修改记录写入redo log，这样的话，即使数据页尚未写入磁盘，系统崩溃时也能通过redo log恢复数据。</p> 
           </div>
 
 <p>redo log 让 InnoDB 拥有了崩溃恢复能力，binlog 保证了MySQL集群架构的数据一致性。</p>
@@ -420,27 +557,27 @@
 <h3 id="undo-log"><a href="#undo-log" class="headerlink" title="undo log"></a><code>undo log</code></h3><p>每一个事务堆数据的修改都会被记录到undo log，当事务过程中出现错误或者需要执行回滚操作的话，MySQL可以利用undo log将数据恢复到事务开始前的状态。并且 undo log 还是 MVCC 机制的核心。</p>
 <h2 id="Redo-Log-Buffer"><a href="#Redo-Log-Buffer" class="headerlink" title="Redo Log Buffer"></a><code>Redo Log Buffer</code></h2><p><code>redo log buffer</code>一般是连续的内存空间，MySQL将其分为若干个连续的<code>redo log block</code>。为了提高写入效率，该<code>buffer</code>采用了顺序写入的方式，会先往前面的<code>redo log block</code>写入，当写满后再往后面的block写入。</p>
 <div class="note note-success">
-            <p><strong>MTR</strong> (<code>Mini Transaction</code>)是InnoDB内部用于操作数据页的原子操作单元。多个事务的 redo log 会以 MTR 为单位交替写入到redo log buffer中</p><p><img src="mysql-20250318163110.png" srcset="/img/loading.gif" lazyload alt="MTR与redo log buffer的关系"></p><p>一个MTR包含一组redo log记录，是MySQL崩溃后恢复事务的最小执行单元。</p>
+            <p><strong>MTR</strong> (<code>Mini Transaction</code>)是InnoDB内部用于操作数据页的原子操作单元。多个事务的 redo log 会以 MTR 为单位交替写入到redo log buffer中</p> <p><img src="mysql-20250318163110.png" srcset="/img/loading.gif" lazyload alt="MTR与redo log buffer的关系"></p> <p>一个MTR包含一组redo log记录，是MySQL崩溃后恢复事务的最小执行单元。</p> 
           </div>
 
 <p>redo log block由日志头、日志体和日志尾组成，其中日志头占12字节，日志尾占4字节，剩余496字节存储日志体，共512字节。机械硬盘的物理扇区大小通常就是512字节，这样设计可以让redo log block的每次写入都是整数个扇区，减少对齐开销。</p>
 <div class="note note-success">
-            <p><strong>LSN</strong>是一个不断递增的64位无符号整数，代表了InnoDB重做日志系统中的位置标记。主要用于崩溃恢复及数据一致性保证等。</p><p>该数字单调递增，存在于redo log、数据页头部和checkpoint中。</p>
+            <p><strong>LSN</strong>是一个不断递增的64位无符号整数，代表了InnoDB重做日志系统中的位置标记。主要用于崩溃恢复及数据一致性保证等。</p> <p>该数字单调递增，存在于redo log、数据页头部和checkpoint中。</p> 
           </div>
 
 <h2 id="慢SQL优化"><a href="#慢SQL优化" class="headerlink" title="慢SQL优化"></a>慢SQL优化</h2><p>MySQL中有一个叫<code>long_query_time</code>的参数，原则上执行时间超过该值的SQL就是慢SQL，会被记录到慢查询日志中。</p>
 <p>可以使用<code>show processlist</code>命令查看当前正在执行的SQL语句，找出执行时间长的SQL。</p>
 <h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>使用索引可以使查询速度大大加快，但其创建和维护耗时较长，也会有额外的存储花销。</p>
 <div class="note note-info">
-            <p>创建索引时，注意要选择合适的字段，比如频繁出现在<code>where</code> <code>join</code> <code>order by</code> <code>group by</code>中的字段，并优先选择区分度高的字段。并且要控制索引的数量，避免过度索引。不适合在频繁更新的列中创建索引。</p>
+            <p>创建索引时，注意要选择合适的字段，比如频繁出现在<code>where</code> <code>join</code> <code>order by</code> <code>group by</code>中的字段，并优先选择区分度高的字段。并且要控制索引的数量，避免过度索引。不适合在频繁更新的列中创建索引。</p> 
           </div>
 
 <div class="note note-info">
-            <p>在以下情况下，索引会失效</p><ul><li>使用<code>select</code>语句时，查询范围过大</li><li><code>in</code>的取值范围较大</li><li>对索引列使用了函数</li><li>使用通配符开头（<code>%</code>等）进行<code>like</code>模糊查询</li><li>联合索引不满足最左前缀原则</li><li>使用<code>or</code>的时候链接非索引列</li></ul>
+            <p>在以下情况下，索引会失效</p> <ul> <li>使用<code>select</code>语句时，查询范围过大</li> <li><code>in</code>的取值范围较大</li> <li>对索引列使用了函数</li> <li>使用通配符开头（<code>%</code>等）进行<code>like</code>模糊查询</li> <li>联合索引不满足最左前缀原则</li> <li>使用<code>or</code>的时候链接非索引列</li> </ul> 
           </div>
 
 <h3 id="底层结构"><a href="#底层结构" class="headerlink" title="底层结构"></a>底层结构</h3><div class="note note-danger">
-            <p>字节跳动, 中国交易与广告 - 实习, 一面</p>
+            <p>字节跳动, 中国交易与广告 - 实习, 一面</p> 
           </div>
 
 <p>除了哈希索引、BST索引、红黑树索引，目前大部分数据库和文件系统都采用B+树作为索引结构。</p>
@@ -458,7 +595,7 @@
 <h3 id="应用维度"><a href="#应用维度" class="headerlink" title="应用维度"></a>应用维度</h3><h4 id="主键索引"><a href="#主键索引" class="headerlink" title="主键索引"></a>主键索引</h4><p>数据表的主键使用的就是主键索引。在创建主键时，MySQL会自动生成对应的唯一索引。</p>
 <p>在 MySQL 的 InnoDB 表中，若没有指定表的主键时，InnoDB 会自动检查表中是否有唯一索引且不允许有 <code>null</code> 值的字段，有则选择该字段为默认主键、否则 InnoDB 会自动创建一个6字节的自增主键。</p>
 <div class="note note-info">
-            <p>InnoDB在MySQL5.7前将自增值保存在了内存里, 现在则是再每次变更后都写入 <code>redo log</code> 中, 并定期持久化道数据字典(<code>mysql.ibd</code>)里.在以下情况下，自增id可能会不连续:</p><ul><li>事务回滚，事务没有操作，但id增加了. 因为自增值在插入语句执行初期就预分配了, 属于语句级, 非事务级分配.</li><li>插入失败，也是类似的状况</li><li>批量插入失败，同理</li><li>手动指定id值</li></ul>
+            <p>InnoDB在MySQL5.7前将自增值保存在了内存里, 现在则是再每次变更后都写入 <code>redo log</code> 中, 并定期持久化道数据字典(<code>mysql.ibd</code>)里.在以下情况下，自增id可能会不连续:</p> <ul> <li>事务回滚，事务没有操作，但id增加了. 因为自增值在插入语句执行初期就预分配了, 属于语句级, 非事务级分配.</li> <li>插入失败，也是类似的状况</li> <li>批量插入失败，同理</li> <li>手动指定id值</li> </ul> 
           </div>
 
 <h4 id="稀疏索引"><a href="#稀疏索引" class="headerlink" title="稀疏索引"></a>稀疏索引</h4><p>仅为索引列的部分值创建索引项，索引项的数量远少于数据行数。对于<strong>存在大量重复值或大量空值</strong>的列，稀疏索引可以显著减少索引大小。</p>
@@ -482,15 +619,15 @@
 <p>除此之外, MySQL 还会进行<strong>索引下推</strong>(ICP), 即允许存储引擎在索引遍历的过程中，执行部分 <code>where</code> 条件，直接过滤掉不满足条件的记录，从而减少回表次数。所谓的“下推”其实就是将部分 <code>server</code> 层负责的事情交给了存储引擎层提前处理。</p>
 <h4 id="覆盖索引"><a href="#覆盖索引" class="headerlink" title="覆盖索引"></a>覆盖索引</h4><p>覆盖索引，即需要查询的字段正好是索引的字段，那么直接根据该索引，就可以查到数据了，不需要回表查询。</p>
 <h4 id="联合索引"><a href="#联合索引" class="headerlink" title="联合索引"></a>联合索引</h4><div class="note note-danger">
-            <p>腾讯微信支付 - 实习, 一面.</p>
+            <p>腾讯微信支付 - 实习, 一面.</p> 
           </div>
 
 <div class="note note-danger">
-            <p>美团后台开发 - 暑期实习, 一面.</p>
+            <p>美团后台开发 - 暑期实习, 一面.</p> 
           </div>
 
 <div class="note note-danger">
-            <p>OPPO 后端工程师 - 实习, 一面</p>
+            <p>OPPO 后端工程师 - 实习, 一面</p> 
           </div>
 
 
@@ -504,7 +641,7 @@
 <li>适用场景：区分度低的字段（如性别）可与高区分度字段组合成联合索引。</li>
 </ol>
 <div class="note note-info">
-            <p>在操作符左右两边的数据类型不一致时，就会发生隐式转换。在<code>where</code>查询时操作符左边为数值类型时若发生隐式转换还好，但左边为字符类型时就会导致索引失效。而将字符串转换为数值类型时，非数字开头的字符串会化为0，以数组开头的字符串会截取从第一个字符到第一个非数字内容为止的值作为转化结果。</p>
+            <p>在操作符左右两边的数据类型不一致时，就会发生隐式转换。在<code>where</code>查询时操作符左边为数值类型时若发生隐式转换还好，但左边为字符类型时就会导致索引失效。而将字符串转换为数值类型时，非数字开头的字符串会化为0，以数组开头的字符串会截取从第一个字符到第一个非数字内容为止的值作为转化结果。</p> 
           </div>
 
                 
@@ -679,7 +816,7 @@
 
   <script>
   Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
-    mermaid.initialize({"theme":"default","securityLevel":"loose"});
+    mermaid.initialize({"theme":"default"});
 
     Fluid.utils.listenDOMLoaded(function() {
       Fluid.events.registerRefreshCallback(function() {
@@ -764,21 +901,6 @@
 <script  src="../../../../js/plugins.js" ></script>
 
 
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
 
 
 
@@ -797,7 +919,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -808,10 +986,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -823,6 +1007,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });

@@ -26,11 +26,14 @@
 <meta property="og:site_name" content="Ivan的技术笔记">
 <meta property="og:description" content="什么是促销业务在淘宝、京东、美团的商品页面上，往往会有逻辑复杂的优惠项，比如单纯的折扣，或者满件赠、满额赠等。复杂的优惠事项可以实现精准的筛选——有钱的客户一般没有时间，也就没有机会拿到优惠，从而赚取更多的钱；没钱的客户对价格更加敏感，也就更有时间和精力研究优惠项，从而获取更多优惠。这样，无论贫穷或富有，都能将货卖出去，赚取对应的成本。 然而这一套规则过于复杂，光靠一个单一的商城系统加模块是无法维">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tech.ivanclf.com/2026/06/18/promotion-1/domain.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2026/06/18/promotion-1/validate.png">
 <meta property="article:published_time" content="2026-06-18T06:50:44.000Z">
-<meta property="article:modified_time" content="2026-06-22T12:04:48.072Z">
+<meta property="article:modified_time" content="2026-06-25T10:34:49.625Z">
 <meta property="article:author" content="Ivan Chan">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://tech.ivanclf.com/2026/06/18/promotion-1/domain.png">
   
   
   
@@ -72,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -94,11 +97,11 @@
   <header>
     
 
-<div class="header-inner" style="height: 80vh;">
+<div class="header-inner" style="height: 60vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="../../../../index.html">
-      <strong>Ivan的技术笔记</strong>
+      <strong>Ivan 的技术笔记</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -107,7 +110,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -203,16 +206,133 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../index.html" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../links/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>友链</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
-<div id="banner" class="banner" parallax=true
-     style="background: url('../../../../img/banner-page.jpg') no-repeat center center; background-size: cover;">
+<div id="banner" class="banner" parallax=true data-random-banner='../../../../img/random/IMG_20190815_195026.jpg,../../../../img/random/IMG_20191109_224459.jpg,../../../../img/random/IMG_20230830_182827.jpg,../../../../img/random/IMG_20240326_184147.jpg,../../../../img/random/IMG_20240706_181124.jpg,../../../../img/random/IMG_20240711_110928.jpg,../../../../img/random/IMG_20240803_141801.jpg,../../../../img/random/IMG_20240916_095049.jpg,../../../../img/random/IMG_20250112_125329.jpg,../../../../img/random/IMG_20250705_170737.jpg,../../../../img/random/IMG_20250707_104356.jpg,../../../../img/random/IMG_20250707_172618.jpg,../../../../img/random/IMG_20260211_080308.jpg,../../../../img/random/IMG_20260522_184054.jpg,../../../../img/random/IMG_20260524_141524.jpg'
+     style="background: url('../../../../../../../../img/random/IMG_20190815_195026.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.5)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="促销系统业务模型 - 1"></span>
+            <span id="subtitle">促销系统业务模型 - 1</span>
           
         </div>
 
@@ -235,11 +355,20 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          2.1k 字
         
       </span>
     
 
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
     
 
     
@@ -251,13 +380,24 @@
       </div>
 
       
-        <div class="scroll-down-bar">
-          <i class="iconfont icon-arrowdown"></i>
-        </div>
-      
     </div>
   </div>
 </div>
+
+
+  <script>
+    (function() {
+      var banner = document.getElementById('banner');
+      if (!banner) return;
+      var list = banner.getAttribute('data-random-banner');
+      if (!list) return;
+      list = list.split(',').filter(Boolean);
+      if (list.length === 0) return;
+      var pick = list[Math.floor(Math.random() * list.length)];
+      banner.style.backgroundImage = "url('" + pick + "')";
+    })();
+  </script>
+
 
 </div>
 
@@ -288,49 +428,8 @@
 <h2 id="领域模型设计"><a href="#领域模型设计" class="headerlink" title="领域模型设计"></a>领域模型设计</h2><h3 id="活动模型设计"><a href="#活动模型设计" class="headerlink" title="活动模型设计"></a>活动模型设计</h3><p>一项优惠活动应该关注哪些维度呢？</p>
 <p>促销活动领域核心的操作单元是促销品，从实际业务场景来看，无论是业务场景还是消费者最终面向的都是促销品，运营投入的补贴、设定的限制、指定的规则以及消费者最终享受的优惠，实际都是作用在促销品上。围绕促销品，不同的角色有不同的关注点，消费者更多是关注省了多少钱（优惠了多少），运营更多是关注花了多少钱（补贴了多少），同时辅以限制和门槛来保证一定的企业营收和业务增长。</p>
 <p>结合上述分析，以促销品为核心抽象促销活动领域的关键几个领域概念：补贴、限制、门槛、优惠、促销品（商品、虚拟卡等均可以被称为促销品）。</p>
-<p>最终领域图如下（使用mermaid的普通流程图模拟）</p>
-<pre><code class=" mermaid">graph LR
-
-promotion[促销品]
-
-operator(运营)
-consumer1(消费者)
-consumer2(消费者)
-consumer3(消费者)
-
-subgraph Rebate[补贴]
-    takeover[预算承担方补贴]
-    supplier[供应商补差补贴]
-end
-
-subgraph Limit[限制]
-    channel[渠道]
-    region[区域]
-    time[时间]
-    customerGroup[客群]
-end
-
-subgraph Barrier[门槛]
-    quantity[数量]
-    amount[金额]
-    no[无门槛]
-    sequence[第N件]
-end
-subgraph Offer[优惠]
-    discount[折扣]
-    gift[赠品]
-    fixedPrice[特价]
-    redeem[换购]
-    reduce[减免]
-end
-
-consumer2--&gt;|谁能参加|Limit
-Limit--&gt;promotion
-operator--&gt;Rebate--&gt;promotion--&gt;Offer--&gt;|享受优惠|consumer1
-consumer3--&gt;|怎么参加|Barrier
-Barrier--&gt;promotion
-</code></pre>
-
+<p>最终领域图如下</p>
+<p><img src="domain.png" srcset="/img/loading.gif" lazyload alt="使用mermaid模拟"></p>
 <h4 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h4><p>限制是参加促销活动的准入条件，通过限制决定谁来参加，只有符合促销活动准入条件才有资格享受促销优惠</p>
 <ul>
 <li>渠道：通过什么方式查看促销的，如APP、微信&#x2F;支付宝小程序、网页等</li>
@@ -373,6 +472,22 @@ rule((优惠))
 sku--&gt;barrier--&gt;rule
 gift--&gt;offer--&gt;rule
 </code></pre>
+
+<h3 id="校验模型设计"><a href="#校验模型设计" class="headerlink" title="校验模型设计"></a>校验模型设计</h3><p>一个已上线的促销系统，一般有很多种类型，二十多种到三十多种不等，每种类型创建时都要做合法性校验，但不同类型的检查规则是不一样的，怎么设计才能保证不乱呢？</p>
+<p>促销活动校验规则项是相对不变的，但是相同校验规则项是基于不同促销活动类型有不同的规则实现。例如优惠品的数值上限这一字段，一口价允许50个，但秒杀只允许20个。</p>
+<p>因此不太好给每种促销类型写一套促销代码，而是</p>
+<ol>
+<li>所有类型共享同一份检查清单</li>
+<li>如果某个类型不需要某条检查，就把那条检查的开关设置成 false</li>
+<li>如果某个类型需要不同的阈值，就在配置里给这个类型设置它自己的数值</li>
+</ol>
+<p>然后具体的校验行为由各个领域对象的校验器来执行，比如折扣力度的检查对象只管拿到数据去比大小，不关心这个值是一口价的还是秒杀的。配置的单个规则项如下（-1 表示不受限）</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;ruleName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>        <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;source&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">-1</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;promotionTypeList&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-number">1</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;value&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;15&quot;</span><br>        <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>可以看到这里也对来源做了处理，用于保证同一活动统一规则在不同来源下处理的粒度区分。比如同是一口价活动，通过外卖渠道和线下店渠道的校验规则就不一样。各个规则项——如限制条件、补贴配置、参与品、促销规则、价格倒挂、POP配置、线下门店校验等——的校验行为由其所属的领域对象来完成，通过领域服务来编排各个领域对象。</p>
+<p>该架构在未来可能还会出现更多维度组合。与其每来一个新维度就修改配置结构，不如直接引入“场景”这个抽象概念，比如出清秒杀场景、外卖渠道促销场景等。单个规则项可以基于不同的场景由不同的配置值来支持差异化。校验行为本身并不需要感知场景，校验器本身拿到的始终是已解析好的检查清单，场景和校验本身之间完全解耦。</p>
+<p>由于校验事项复杂，可能校验失败的原因较多。为了一次性能将所有的错误原因列出，就需要互斥叠加这一步骤。此处需要注意有哪些场景下的校验是是可以略过的，可以直接return，否则需要抛出异常，在互斥叠加中处理。</p>
+<p><img src="validate.png" srcset="/img/loading.gif" lazyload alt="校验领域示意图"></p>
 
                 
               </div>
@@ -463,6 +578,12 @@ gift--&gt;offer--&gt;rule
                   <article class="post-prev col-6">
                     
                     
+                      <a href="../../25/promotion-2/" title="促销系统业务模型 - 2">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">促销系统业务模型 - 2</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
@@ -536,7 +657,7 @@ gift--&gt;offer--&gt;rule
 
   <script>
   Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
-    mermaid.initialize({"theme":"default","securityLevel":"loose"});
+    mermaid.initialize({"theme":"default"});
 
     Fluid.utils.listenDOMLoaded(function() {
       Fluid.events.registerRefreshCallback(function() {
@@ -621,21 +742,6 @@ gift--&gt;offer--&gt;rule
 <script  src="../../../../js/plugins.js" ></script>
 
 
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
 
 
 
@@ -654,7 +760,63 @@ gift--&gt;offer--&gt;rule
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -665,10 +827,16 @@ gift--&gt;offer--&gt;rule
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -680,6 +848,8 @@ gift--&gt;offer--&gt;rule
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });

@@ -79,7 +79,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -101,11 +101,11 @@
   <header>
     
 
-<div class="header-inner" style="height: 80vh;">
+<div class="header-inner" style="height: 60vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="../../../../index.html">
-      <strong>Ivan的技术笔记</strong>
+      <strong>Ivan 的技术笔记</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -114,7 +114,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -210,16 +210,133 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../index.html" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../links/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>友链</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
-<div id="banner" class="banner" parallax=true
-     style="background: url('../../../../img/banner-page.jpg') no-repeat center center; background-size: cover;">
+<div id="banner" class="banner" parallax=true data-random-banner='../../../../img/random/IMG_20190815_195026.jpg,../../../../img/random/IMG_20191109_224459.jpg,../../../../img/random/IMG_20230830_182827.jpg,../../../../img/random/IMG_20240326_184147.jpg,../../../../img/random/IMG_20240706_181124.jpg,../../../../img/random/IMG_20240711_110928.jpg,../../../../img/random/IMG_20240803_141801.jpg,../../../../img/random/IMG_20240916_095049.jpg,../../../../img/random/IMG_20250112_125329.jpg,../../../../img/random/IMG_20250705_170737.jpg,../../../../img/random/IMG_20250707_104356.jpg,../../../../img/random/IMG_20250707_172618.jpg,../../../../img/random/IMG_20260211_080308.jpg,../../../../img/random/IMG_20260522_184054.jpg,../../../../img/random/IMG_20260524_141524.jpg'
+     style="background: url('../../../../../../../../img/random/IMG_20190815_195026.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.5)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="计算机通信与网络 - 3"></span>
+            <span id="subtitle">计算机通信与网络 - 3</span>
           
         </div>
 
@@ -242,11 +359,20 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.4k 字
+          4.3k 字
         
       </span>
     
 
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          36 分钟
+        
+      </span>
     
 
     
@@ -258,13 +384,24 @@
       </div>
 
       
-        <div class="scroll-down-bar">
-          <i class="iconfont icon-arrowdown"></i>
-        </div>
-      
     </div>
   </div>
 </div>
+
+
+  <script>
+    (function() {
+      var banner = document.getElementById('banner');
+      if (!banner) return;
+      var list = banner.getAttribute('data-random-banner');
+      if (!list) return;
+      list = list.split(',').filter(Boolean);
+      if (list.length === 0) return;
+      var pick = list[Math.floor(Math.random() * list.length)];
+      banner.style.backgroundImage = "url('" + pick + "')";
+    })();
+  </script>
+
 
 </div>
 
@@ -293,7 +430,7 @@
                 <h2 id="UDP、TCP"><a href="#UDP、TCP" class="headerlink" title="UDP、TCP"></a>UDP、TCP</h2><p>传输层向上面的应用层提供通信服务，同时也是用户功能中的最底层。传输层负责进程到进程的传递。传输层需要两种不同的协议，即面向链接的 TCP 和无连接的 UDP。</p>
 <p><strong>端口号</strong>用于标识计算机应用层中的各进程，是一个 16 bit 的数字。在因特网中不同计算机的相同端口号是没有联系的。</p>
 <div class="note note-info">
-            <p>IANA 是互联网号码分配机构，它统一管理和协调全球互联网的一些关键资源数据，如 IP 地址空间，顶级域名，或者端口号等。</p><p>对于端口号的分配，0<del>1023 端口由 IANA 统一分配，&#96;1024</del>49151<code> 端口 IANA 不分配也不控制，可以在 IANA 注册以防止重复，</code>49152~65535&#96; 端口不受控制也不受注册，可作为临时端口。</p>
+            <p>IANA 是互联网号码分配机构，它统一管理和协调全球互联网的一些关键资源数据，如 IP 地址空间，顶级域名，或者端口号等。</p> <p>对于端口号的分配，0<del>1023 端口由 IANA 统一分配，&#96;1024</del>49151<code> 端口 IANA 不分配也不控制，可以在 IANA 注册以防止重复，</code>49152~65535&#96; 端口不受控制也不受注册，可作为临时端口。</p> 
           </div>
 
 <p>进程到进程的传递需要两个标识符，IP 地址和端口号，这两个结合在一起称为了<strong>套接字</strong>。</p>
@@ -314,7 +451,7 @@
 <li>FIN 终止链接</li>
 </ul>
 <h4 id="建立链接"><a href="#建立链接" class="headerlink" title="建立链接"></a>建立链接</h4><div class="note note-danger">
-            <p>字节跳动, 中国交易与广告 - 实习, 一面</p>
+            <p>字节跳动, 中国交易与广告 - 实习, 一面</p> 
           </div>
 
 <p>在发送任何应用数据前，TCP 必须先在客户端和服务器间建立可靠的链接。建立链接需要分三步</p>
@@ -328,7 +465,7 @@
 <p>每个数据段都会被赋予一个唯一的序列号，接收方在成功收到后，会回复一个确认报文，包含它所期望收到的下一个序列号。发送方在发出一个数据段后会启动计时器，诸如此类。同时接收方通过滑动窗口机制来告诉发送方自己还能接收多少数据。</p>
 <p>当隔一个数据没收到时，一般从这个没收到的开始重发。</p>
 <div class="note note-info">
-            <p>TCP 发送的双方都有一个缓冲区。操作系统内核为每个 TCP 内核都预留了一块内存区域，用于临时存放待发送或已接收的数据。这里的缓冲区可以实现重传机制，以及将无序的数据重新组装等功能。</p><p><img src="cache.png" srcset="/img/loading.gif" lazyload alt="缓冲区图示"></p>
+            <p>TCP 发送的双方都有一个缓冲区。操作系统内核为每个 TCP 内核都预留了一块内存区域，用于临时存放待发送或已接收的数据。这里的缓冲区可以实现重传机制，以及将无序的数据重新组装等功能。</p> <p><img src="cache.png" srcset="/img/loading.gif" lazyload alt="缓冲区图示"></p> 
           </div>
 
 <h4 id="断开链接"><a href="#断开链接" class="headerlink" title="断开链接"></a>断开链接</h4><p>数据发送完毕后，需要进行断开操作。该操作分四步</p>
@@ -363,11 +500,11 @@
 <p>利用 <strong>Karn 算法</strong>，报文段每重传一次，就将重传时间增大一些</p>
 <p>$$<br>新的重传时间&#x3D;\gamma \times 旧的重传时间<br>$$</p>
 <div class="note note-primary">
-            <p>在实时性、速度和速率优先的场景下，通常选择 UDP；在数据准确性和完整性比较重要时，通常选择 TCP</p>
+            <p>在实时性、速度和速率优先的场景下，通常选择 UDP；在数据准确性和完整性比较重要时，通常选择 TCP</p> 
           </div>
 
 <h4 id="粘包与拆包"><a href="#粘包与拆包" class="headerlink" title="粘包与拆包"></a>粘包与拆包</h4><div class="note note-danger">
-            <p>字节跳动, 中国交易与广告 - 实习, 一面</p>
+            <p>字节跳动, 中国交易与广告 - 实习, 一面</p> 
           </div>
 
 <p>TCP 是流式协议. 为了提高效率, 发送方可能会把多个数据包合并成一个数据包一起发过去, 于是接收方一次读到多个包. 这种情况叫做’<strong>粘包</strong>; 反之, 发送方一个包很大, 但受限于 MSS(最大报文段大小), 会把它切成好几段发送, 这种情况叫做<strong>拆包</strong>.</p>
@@ -389,7 +526,7 @@
 <li>子域名：自己创建</li>
 </ul>
 <div class="note note-info">
-            <p>域名空间可以分为通用域、国家域和反向域三部分。</p>
+            <p>域名空间可以分为通用域、国家域和反向域三部分。</p> 
           </div>
 
 <p>权威服务器上，域名通过不同类型的记录来定义其功能</p>
@@ -402,7 +539,7 @@
 <li>NS 记录：域名服务器记录</li>
 </ul>
 <div class="note note-success">
-            <p>DNS 劫持是一种网络攻击，它通过修改 DNS 的解析结果，使用户访问的域名指向错误的 IP 地址，从而导致用户无法访问正常的网站。</p>
+            <p>DNS 劫持是一种网络攻击，它通过修改 DNS 的解析结果，使用户访问的域名指向错误的 IP 地址，从而导致用户无法访问正常的网站。</p> 
           </div>
 
 <h2 id="应用层协议"><a href="#应用层协议" class="headerlink" title="应用层协议"></a>应用层协议</h2><p>教学大纲基本不涉及应用层，而且涉及到的都是千禧年代的产物，因此补充的内容特别多，放另几篇上了。</p>
@@ -410,7 +547,7 @@
 <h3 id="SMTP-与-MIME"><a href="#SMTP-与-MIME" class="headerlink" title="SMTP 与 MIME"></a>SMTP 与 MIME</h3><p>基于 TCP 协议的发送电子邮箱的协议。注意：SMTP 只负责邮件的发送，而不是接收。要从邮件服务器接收邮件，需要使用 POP3 或 IMAP 协议。二者的区别在于，POP3 协议会将邮件下载到本地，然后通常在服务器上删除，适合单设备管理邮件；而 IMAP 将邮件保留到服务器上，客户端进行的所有操作都会和服务器同步。</p>
 <p>MIME 是多用途互联网邮件扩展协议。它不是传输协议，而是一个内容格式标准。它通过在邮件头中添加一系列字段，使SMTP协议能够传输非ASCII字符（如中文）、富文本（HTML）以及二进制文件（如图片、音频、文档等附件）。</p>
 <div class="note note-info">
-            <p>这里的定义老旧得被气笑了。MIME 更广泛的用法<a target="_blank" rel="noopener" href="https://ivanclf.github.io/2024/08/01/internet-1/#MIME%E7%AE%80%E8%BF%B0">在以前的文章</a>。它定义的 <code>Content-Type</code> 标准（即“媒体类型”）实在是太有用了，因此被直接采纳并应用于 WWW 或其他互联网协议中。</p>
+            <p>这里的定义老旧得被气笑了。MIME 更广泛的用法<a target="_blank" rel="noopener" href="https://ivanclf.github.io/2024/08/01/internet-1/#MIME%E7%AE%80%E8%BF%B0">在以前的文章</a>。它定义的 <code>Content-Type</code> 标准（即“媒体类型”）实在是太有用了，因此被直接采纳并应用于 WWW 或其他互联网协议中。</p> 
           </div>
 
 <h3 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h3><p>HTTP (Hypertext Transfer Protocol) 超文本传输协议，基于 TCP 协议，用于传输超文本和多媒体内容的协议，主要用于 web 浏览器和服务器的设计中。</p>
@@ -586,7 +723,7 @@
 
   <script>
   Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
-    mermaid.initialize({"theme":"default","securityLevel":"loose"});
+    mermaid.initialize({"theme":"default"});
 
     Fluid.utils.listenDOMLoaded(function() {
       Fluid.events.registerRefreshCallback(function() {
@@ -671,21 +808,6 @@
 <script  src="../../../../js/plugins.js" ></script>
 
 
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
 
 
 
@@ -704,7 +826,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -715,10 +893,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -730,6 +914,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });

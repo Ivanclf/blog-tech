@@ -86,7 +86,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -108,11 +108,11 @@
   <header>
     
 
-<div class="header-inner" style="height: 80vh;">
+<div class="header-inner" style="height: 60vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="../../../../index.html">
-      <strong>Ivan的技术笔记</strong>
+      <strong>Ivan 的技术笔记</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -121,7 +121,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -217,16 +217,133 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../index.html" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../links/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>友链</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
-<div id="banner" class="banner" parallax=true
-     style="background: url('../../../../img/banner-page.jpg') no-repeat center center; background-size: cover;">
+<div id="banner" class="banner" parallax=true data-random-banner='../../../../img/random/IMG_20190815_195026.jpg,../../../../img/random/IMG_20191109_224459.jpg,../../../../img/random/IMG_20230830_182827.jpg,../../../../img/random/IMG_20240326_184147.jpg,../../../../img/random/IMG_20240706_181124.jpg,../../../../img/random/IMG_20240711_110928.jpg,../../../../img/random/IMG_20240803_141801.jpg,../../../../img/random/IMG_20240916_095049.jpg,../../../../img/random/IMG_20250112_125329.jpg,../../../../img/random/IMG_20250705_170737.jpg,../../../../img/random/IMG_20250707_104356.jpg,../../../../img/random/IMG_20250707_172618.jpg,../../../../img/random/IMG_20260211_080308.jpg,../../../../img/random/IMG_20260522_184054.jpg,../../../../img/random/IMG_20260524_141524.jpg'
+     style="background: url('../../../../../../../../img/random/IMG_20190815_195026.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.5)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="leetcode热题100官方题解 - 3"></span>
+            <span id="subtitle">leetcode热题100官方题解 - 3</span>
           
         </div>
 
@@ -249,11 +366,20 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.1k 字
+          22k 字
         
       </span>
     
 
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          186 分钟
+        
+      </span>
     
 
     
@@ -265,13 +391,24 @@
       </div>
 
       
-        <div class="scroll-down-bar">
-          <i class="iconfont icon-arrowdown"></i>
-        </div>
-      
     </div>
   </div>
 </div>
+
+
+  <script>
+    (function() {
+      var banner = document.getElementById('banner');
+      if (!banner) return;
+      var list = banner.getAttribute('data-random-banner');
+      if (!list) return;
+      list = list.split(',').filter(Boolean);
+      if (list.length === 0) return;
+      var pick = list[Math.floor(Math.random() * list.length)];
+      banner.style.backgroundImage = "url('" + pick + "')";
+    })();
+  </script>
+
 
 </div>
 
@@ -315,7 +452,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> TreeNode <span class="hljs-title function_">invertTree</span><span class="hljs-params">(TreeNode root)</span> &#123;<br>        <span class="hljs-keyword">if</span>(root == <span class="hljs-literal">null</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-type">TreeNode</span> <span class="hljs-variable">temp</span> <span class="hljs-operator">=</span> invertTree(root.left);<br>        root.left = invertTree(root.right);<br>        root.right = temp;<br>        <span class="hljs-keyword">return</span> root;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <div class="note note-success">
-            <p>只要能用递归的二叉树都不算难，并且递归都能用队列迭代来替代实现。</p>
+            <p>只要能用递归的二叉树都不算难，并且递归都能用队列迭代来替代实现。</p> 
           </div>
 
 <h4 id="对称二叉树"><a href="#对称二叉树" class="headerlink" title="对称二叉树"></a>对称二叉树</h4><p>给你一个二叉树的根节点 <code>root</code> ， 检查它是否轴对称。</p>
@@ -340,7 +477,7 @@
 <h4 id="将有序数组转换为二叉搜索树"><a href="#将有序数组转换为二叉搜索树" class="headerlink" title="将有序数组转换为二叉搜索树"></a>将有序数组转换为二叉搜索树</h4><p>给你一个整数数组 <code>nums</code> ，其中元素已经按 <strong>升序</strong> 排列，请你将其转换为一棵 <strong>平衡</strong> 二叉搜索树。</p>
 <p>示例：<br><img src="btree1.jpg" srcset="/img/loading.gif" lazyload alt="示例"><br>    输入：<code>nums = [-10,-3,0,5,9]</code><br>    输出：<code>[0,-3,9,-10,null,5]</code><br>    解释：<code>[0,-10,5,null,-3,null,9]</code> 也将被视为正确答案</p>
 <div class="note note-info">
-            <p>平衡二叉树的子树也一定是平衡二叉树，因此可以通过子数列递归实现。就我的通过代码来看，时间最快但空间使用率吓人</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> TreeNode <span class="hljs-title function_">sortedArrayToBST</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">length</span> <span class="hljs-operator">=</span> nums.length, middle = length / <span class="hljs-number">2</span>;<br>        <span class="hljs-type">TreeNode</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeNode</span>(nums[middle]);<br>        <span class="hljs-keyword">if</span>(middle != <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-type">int</span>[] left = Arrays.copyOfRange(nums, <span class="hljs-number">0</span>, middle);<br>            ans.left = sortedArrayToBST(left);<br>        &#125;<br>        <span class="hljs-keyword">if</span>(middle != length - <span class="hljs-number">1</span>) &#123;<br>            <span class="hljs-type">int</span>[] right = Arrays.copyOfRange(nums, middle + <span class="hljs-number">1</span>, length);<br>            ans.right = sortedArrayToBST(right);<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+            <p>平衡二叉树的子树也一定是平衡二叉树，因此可以通过子数列递归实现。就我的通过代码来看，时间最快但空间使用率吓人</p> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> TreeNode <span class="hljs-title function_">sortedArrayToBST</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">length</span> <span class="hljs-operator">=</span> nums.length, middle = length / <span class="hljs-number">2</span>;<br>        <span class="hljs-type">TreeNode</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeNode</span>(nums[middle]);<br>        <span class="hljs-keyword">if</span>(middle != <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-type">int</span>[] left = Arrays.copyOfRange(nums, <span class="hljs-number">0</span>, middle);<br>            ans.left = sortedArrayToBST(left);<br>        &#125;<br>        <span class="hljs-keyword">if</span>(middle != length - <span class="hljs-number">1</span>) &#123;<br>            <span class="hljs-type">int</span>[] right = Arrays.copyOfRange(nums, middle + <span class="hljs-number">1</span>, length);<br>            ans.right = sortedArrayToBST(right);<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure> 
           </div>
 
 <p>按照题解，选择中间靠左、中间靠右、任意数作为根节点都有对应的BST，此处仅选择第一种。此时的根节点下标为（整数除法）<br>$$<br>\text{mid}&#x3D;\frac{\text{left+right}}{2}<br>$$</p>
@@ -374,7 +511,7 @@
 </ul>
 <p>示例：<br><img src="flaten.jpg" srcset="/img/loading.gif" lazyload alt="示例"><br>    输入：<code>root = [1,2,5,3,4,null,6]</code><br>    输出：<code>[1,null,2,null,3,null,4,null,5,null,6]</code></p>
 <div class="note note-info">
-            <p>简简单单的递归</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">flatten</span><span class="hljs-params">(TreeNode root)</span> &#123;<br>        <span class="hljs-keyword">if</span>(root == <span class="hljs-literal">null</span>)<br>            <span class="hljs-keyword">return</span>;<br>        flatten(root.right);<br>        <span class="hljs-keyword">if</span>(root.left == <span class="hljs-literal">null</span>)<br>            <span class="hljs-keyword">return</span>;<br>        flatten(root.left);<br>        <span class="hljs-type">TreeNode</span> <span class="hljs-variable">temp</span> <span class="hljs-operator">=</span> root.left, right = root.right;<br>        <span class="hljs-keyword">while</span>(temp.right != <span class="hljs-literal">null</span>)<br>            temp = temp.right;<br>        root.right = root.left;<br>        root.left = <span class="hljs-literal">null</span>;<br>        temp.right = right;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+            <p>简简单单的递归</p> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">flatten</span><span class="hljs-params">(TreeNode root)</span> &#123;<br>        <span class="hljs-keyword">if</span>(root == <span class="hljs-literal">null</span>)<br>            <span class="hljs-keyword">return</span>;<br>        flatten(root.right);<br>        <span class="hljs-keyword">if</span>(root.left == <span class="hljs-literal">null</span>)<br>            <span class="hljs-keyword">return</span>;<br>        flatten(root.left);<br>        <span class="hljs-type">TreeNode</span> <span class="hljs-variable">temp</span> <span class="hljs-operator">=</span> root.left, right = root.right;<br>        <span class="hljs-keyword">while</span>(temp.right != <span class="hljs-literal">null</span>)<br>            temp = temp.right;<br>        root.right = root.left;<br>        root.left = <span class="hljs-literal">null</span>;<br>        temp.right = right;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure> 
           </div>
 
 <p>最简单的办法就是先序遍历，然后在先序遍历的过程中一个个加链表的值。如果执意要实现$O(1)$空间复杂度的话，就需要寻找前驱节点。<br>前驱节点的具体做法是</p>
@@ -391,7 +528,7 @@
 <p>示例：<br><img src="tree.jpg" srcset="/img/loading.gif" lazyload alt="示例"><br>    输入: <code>preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]</code><br>    输出: <code>[3,9,20,null,null,15,7]</code></p>
 <p>先序遍历的第一个数一定是根节点，中序遍历中根节点的左边一定在左子树上，而这篇数据在先序遍历中也一定是连续的，因此可以通过某种手段将这两个序列分成两半，分别对应左子树和右子树。然后通过递归或迭代生成对应结果。</p>
 <div class="note note-info">
-            <p>先前写的C++的代码。该题不难，主要是比较复杂。学校数据结构oj也有原题，但给的参数是数组，数组的分割和参数传递极其简单，算是给降难度了。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">TreeNode* <span class="hljs-title">buildTree</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; preorder, vector&lt;<span class="hljs-type">int</span>&gt;&amp; inorder)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(preorder.<span class="hljs-built_in">empty</span>() || inorder.<span class="hljs-built_in">empty</span>())<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;<br>        <span class="hljs-type">int</span> root_val = preorder[<span class="hljs-number">0</span>];<br>        <span class="hljs-keyword">auto</span> it_in = inorder.<span class="hljs-built_in">begin</span>(), it_pre = preorder.<span class="hljs-built_in">begin</span>() + <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(; *it_in != root_val; ++it_in);<br>        vector&lt;<span class="hljs-type">int</span>&gt; left_inorder, right_inorder, left_preorder, right_preorder;<br>        <span class="hljs-keyword">if</span>(it_in != inorder.<span class="hljs-built_in">begin</span>())<br>            left_inorder.<span class="hljs-built_in">insert</span>(left_inorder.<span class="hljs-built_in">end</span>(), inorder.<span class="hljs-built_in">begin</span>(), it_in);<br>        <span class="hljs-keyword">if</span>(it_in != inorder.<span class="hljs-built_in">end</span>() - <span class="hljs-number">1</span>)<br>            right_inorder.<span class="hljs-built_in">insert</span>(right_inorder.<span class="hljs-built_in">end</span>(), it_in + <span class="hljs-number">1</span>, inorder.<span class="hljs-built_in">end</span>());<br>        left_preorder.<span class="hljs-built_in">insert</span>(left_preorder.<span class="hljs-built_in">end</span>(), it_pre, it_pre + left_inorder.<span class="hljs-built_in">size</span>());<br>        <span class="hljs-keyword">if</span>(it_pre != preorder.<span class="hljs-built_in">end</span>())<br>            right_preorder.<span class="hljs-built_in">insert</span>(right_preorder.<span class="hljs-built_in">end</span>(), it_pre + left_inorder.<span class="hljs-built_in">size</span>(), preorder.<span class="hljs-built_in">end</span>());<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TreeNode</span>(root_val, <span class="hljs-built_in">buildTree</span>(left_preorder, left_inorder), <span class="hljs-built_in">buildTree</span>(right_preorder, right_inorder));<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+            <p>先前写的C++的代码。该题不难，主要是比较复杂。学校数据结构oj也有原题，但给的参数是数组，数组的分割和参数传递极其简单，算是给降难度了。</p> <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">TreeNode* <span class="hljs-title">buildTree</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; preorder, vector&lt;<span class="hljs-type">int</span>&gt;&amp; inorder)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(preorder.<span class="hljs-built_in">empty</span>() || inorder.<span class="hljs-built_in">empty</span>())<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;<br>        <span class="hljs-type">int</span> root_val = preorder[<span class="hljs-number">0</span>];<br>        <span class="hljs-keyword">auto</span> it_in = inorder.<span class="hljs-built_in">begin</span>(), it_pre = preorder.<span class="hljs-built_in">begin</span>() + <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(; *it_in != root_val; ++it_in);<br>        vector&lt;<span class="hljs-type">int</span>&gt; left_inorder, right_inorder, left_preorder, right_preorder;<br>        <span class="hljs-keyword">if</span>(it_in != inorder.<span class="hljs-built_in">begin</span>())<br>            left_inorder.<span class="hljs-built_in">insert</span>(left_inorder.<span class="hljs-built_in">end</span>(), inorder.<span class="hljs-built_in">begin</span>(), it_in);<br>        <span class="hljs-keyword">if</span>(it_in != inorder.<span class="hljs-built_in">end</span>() - <span class="hljs-number">1</span>)<br>            right_inorder.<span class="hljs-built_in">insert</span>(right_inorder.<span class="hljs-built_in">end</span>(), it_in + <span class="hljs-number">1</span>, inorder.<span class="hljs-built_in">end</span>());<br>        left_preorder.<span class="hljs-built_in">insert</span>(left_preorder.<span class="hljs-built_in">end</span>(), it_pre, it_pre + left_inorder.<span class="hljs-built_in">size</span>());<br>        <span class="hljs-keyword">if</span>(it_pre != preorder.<span class="hljs-built_in">end</span>())<br>            right_preorder.<span class="hljs-built_in">insert</span>(right_preorder.<span class="hljs-built_in">end</span>(), it_pre + left_inorder.<span class="hljs-built_in">size</span>(), preorder.<span class="hljs-built_in">end</span>());<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TreeNode</span>(root_val, <span class="hljs-built_in">buildTree</span>(left_preorder, left_inorder), <span class="hljs-built_in">buildTree</span>(right_preorder, right_inorder));<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure> 
           </div>
 
 <p>在中序遍历中对根节点进行定位时，一种简单的方法是直接扫描整个中序遍历的结果并找出根节点，但这样做的时间复杂度较高。我们可以考虑使用哈希表来帮助我们快速地定位根节点。对于哈希映射中的每个键值对，键表示一个元素（节点的值），值表示其在中序遍历中的出现位置。在构造二叉树的过程之前，我们可以对中序遍历的列表进行一遍扫描，就可以构造出这个哈希映射。在此后构造二叉树的过程中，我们就只需要 $O(1)$ 的时间对根节点进行定位了。</p>
@@ -399,7 +536,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">private</span> Map&lt;Integer, Integer&gt; indexMap;<br><br>    <span class="hljs-keyword">public</span> TreeNode <span class="hljs-title function_">myBuildTree</span><span class="hljs-params">(<span class="hljs-type">int</span>[] preorder, <span class="hljs-type">int</span>[] inorder, <span class="hljs-type">int</span> preorder_left, <span class="hljs-type">int</span> preorder_right, <span class="hljs-type">int</span> inorder_left, <span class="hljs-type">int</span> inorder_right)</span> &#123;<br>        <span class="hljs-keyword">if</span> (preorder_left &gt; preorder_right)<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br><br>        <span class="hljs-type">int</span> <span class="hljs-variable">preorder_root</span> <span class="hljs-operator">=</span> preorder_left;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">inorder_root</span> <span class="hljs-operator">=</span> indexMap.get(preorder[preorder_root]);<br>        <br>        <span class="hljs-type">TreeNode</span> <span class="hljs-variable">root</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeNode</span>(preorder[preorder_root]);<br>        <span class="hljs-type">int</span> <span class="hljs-variable">size_left_subtree</span> <span class="hljs-operator">=</span> inorder_root - inorder_left;<br>        root.left = myBuildTree(preorder, inorder, preorder_left + <span class="hljs-number">1</span>, preorder_left + size_left_subtree, inorder_left, inorder_root - <span class="hljs-number">1</span>);<br>        root.right = myBuildTree(preorder, inorder, preorder_left + size_left_subtree + <span class="hljs-number">1</span>, preorder_right, inorder_root + <span class="hljs-number">1</span>, inorder_right);<br>        <span class="hljs-keyword">return</span> root;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> TreeNode <span class="hljs-title function_">buildTree</span><span class="hljs-params">(<span class="hljs-type">int</span>[] preorder, <span class="hljs-type">int</span>[] inorder)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> preorder.length;<br>        indexMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;Integer, Integer&gt;();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++)<br>            indexMap.put(inorder[i], i);<br>        <span class="hljs-keyword">return</span> myBuildTree(preorder, inorder, <span class="hljs-number">0</span>, n - <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, n - <span class="hljs-number">1</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <div class="note note-success">
-            <p>看到题解的递归传参也这么丑陋我就放心了</p>
+            <p>看到题解的递归传参也这么丑陋我就放心了</p> 
           </div>
 
 <p>以下为迭代法</p>
@@ -482,7 +619,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span>[] topKFrequent(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> k) &#123;<br>        Map&lt;Integer, Integer&gt; occurrences = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;Integer, Integer&gt;();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> num : nums)<br>            occurrences.put(num, occurrences.getOrDefault(num, <span class="hljs-number">0</span>) + <span class="hljs-number">1</span>);<br><br>        <span class="hljs-comment">// int[] 的第一个元素代表数组的值，第二个元素代表了该值出现的次数</span><br>        PriorityQueue&lt;<span class="hljs-type">int</span>[]&gt; queue = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>&lt;<span class="hljs-type">int</span>[]&gt;(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Comparator</span>&lt;<span class="hljs-type">int</span>[]&gt;() &#123;<br>            <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">compare</span><span class="hljs-params">(<span class="hljs-type">int</span>[] m, <span class="hljs-type">int</span>[] n)</span> &#123;<br>                <span class="hljs-keyword">return</span> m[<span class="hljs-number">1</span>] - n[<span class="hljs-number">1</span>];<br>            &#125;<br>        &#125;);<br>        <span class="hljs-keyword">for</span> (Map.Entry&lt;Integer, Integer&gt; entry : occurrences.entrySet()) &#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">num</span> <span class="hljs-operator">=</span> entry.getKey(), count = entry.getValue();<br>            <span class="hljs-keyword">if</span> (queue.size() == k)<br>                <span class="hljs-keyword">if</span> (queue.peek()[<span class="hljs-number">1</span>] &lt; count) &#123;<br>                    queue.poll();<br>                    queue.offer(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;num, count&#125;);<br>                &#125;<br>            <span class="hljs-keyword">else</span><br>                queue.offer(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;num, count&#125;);<br>        &#125;<br>        <span class="hljs-type">int</span>[] ret = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[k];<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; k; ++i)<br>            ret[i] = queue.poll()[<span class="hljs-number">0</span>];<br>        <span class="hljs-keyword">return</span> ret;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <div class="note note-success">
-            <p><code>PriorityQueue</code>是一个优先队列，在Java中默认是一个小顶堆，中间的<code>Comparator&lt;int[]&gt;</code>是其优先级插队规则（按出现次数排序）<br><code>Map.Entry&lt;Integer, Integer&gt; entry</code>表示<code>Map</code>的一个键值对</p>
+            <p><code>PriorityQueue</code>是一个优先队列，在Java中默认是一个小顶堆，中间的<code>Comparator&lt;int[]&gt;</code>是其优先级插队规则（按出现次数排序）<br><code>Map.Entry&lt;Integer, Integer&gt; entry</code>表示<code>Map</code>的一个键值对</p> 
           </div>
 
 <h5 id="快排-1"><a href="#快排-1" class="headerlink" title="快排"></a>快排</h5><p>在进行划分时，根据k与左侧子数组的长度<code>q - i</code>的大小关系</p>
@@ -502,7 +639,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MedianFinder</span> &#123;<br>    PriorityQueue&lt;Integer&gt; queMin;<br>    PriorityQueue&lt;Integer&gt; queMax;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">MedianFinder</span><span class="hljs-params">()</span> &#123;<br>        queMin = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>&lt;Integer&gt;((a, b) -&gt; (b - a));<br>        queMax = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>&lt;Integer&gt;((a, b) -&gt; (a - b));<br>    &#125;<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addNum</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span> &#123;<br>        <span class="hljs-comment">// 符合条件则放数字到小顶堆</span><br>        <span class="hljs-keyword">if</span> (queMin.isEmpty() || num &lt;= queMin.peek()) &#123;<br>            queMin.offer(num);<br>            <span class="hljs-comment">// 判断是否两个堆失衡, 失衡则放一个数到大于的堆里</span><br>            <span class="hljs-keyword">if</span> (queMax.size() + <span class="hljs-number">1</span> &lt; queMin.size())<br>                queMax.offer(queMin.poll());<br>        <span class="hljs-comment">// 放到大于的堆</span><br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            queMax.offer(num);<br>            <span class="hljs-comment">// 判断是否失衡</span><br>            <span class="hljs-keyword">if</span> (queMax.size() &gt; queMin.size())<br>                queMin.offer(queMax.poll());<br>        &#125;<br>    &#125;<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">findMedian</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">if</span> (queMin.size() &gt; queMax.size())<br>            <span class="hljs-keyword">return</span> queMin.peek();<br>        <span class="hljs-keyword">return</span> (queMin.peek() + queMax.peek()) / <span class="hljs-number">2.0</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h3 id="非-hot-100"><a href="#非-hot-100" class="headerlink" title="非 hot 100"></a>非 hot 100</h3><h4 id="求根节点到叶子节点数据之和"><a href="#求根节点到叶子节点数据之和" class="headerlink" title="求根节点到叶子节点数据之和"></a>求根节点到叶子节点数据之和</h4><div class="note note-danger">
-            <p>美团后台开发 - 暑期实习, 二面</p>
+            <p>美团后台开发 - 暑期实习, 二面</p> 
           </div>
 
 <p>给你一个二叉树的根节点 root ，树中每个节点都存放有一个 0 到 9 之间的数字。每条从根节点到叶节点的路径都代表一个数字：例如，从根节点到叶节点的路径 <code>1 -&gt; 2 -&gt; 3</code> 表示数字 <code>123</code> 。</p>
@@ -680,7 +817,7 @@
 
   <script>
   Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
-    mermaid.initialize({"theme":"default","securityLevel":"loose"});
+    mermaid.initialize({"theme":"default"});
 
     Fluid.utils.listenDOMLoaded(function() {
       Fluid.events.registerRefreshCallback(function() {
@@ -765,21 +902,6 @@
 <script  src="../../../../js/plugins.js" ></script>
 
 
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
 
 
 
@@ -798,7 +920,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -809,10 +987,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -824,6 +1008,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });

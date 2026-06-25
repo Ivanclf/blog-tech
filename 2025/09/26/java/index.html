@@ -76,7 +76,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -98,11 +98,11 @@
   <header>
     
 
-<div class="header-inner" style="height: 80vh;">
+<div class="header-inner" style="height: 60vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="../../../../index.html">
-      <strong>Ivan的技术笔记</strong>
+      <strong>Ivan 的技术笔记</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -111,7 +111,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -207,16 +207,133 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../index.html" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../links/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>友链</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
-<div id="banner" class="banner" parallax=true
-     style="background: url('../../../../img/banner-page.jpg') no-repeat center center; background-size: cover;">
+<div id="banner" class="banner" parallax=true data-random-banner='../../../../img/random/IMG_20190815_195026.jpg,../../../../img/random/IMG_20191109_224459.jpg,../../../../img/random/IMG_20230830_182827.jpg,../../../../img/random/IMG_20240326_184147.jpg,../../../../img/random/IMG_20240706_181124.jpg,../../../../img/random/IMG_20240711_110928.jpg,../../../../img/random/IMG_20240803_141801.jpg,../../../../img/random/IMG_20240916_095049.jpg,../../../../img/random/IMG_20250112_125329.jpg,../../../../img/random/IMG_20250705_170737.jpg,../../../../img/random/IMG_20250707_104356.jpg,../../../../img/random/IMG_20250707_172618.jpg,../../../../img/random/IMG_20260211_080308.jpg,../../../../img/random/IMG_20260522_184054.jpg,../../../../img/random/IMG_20260524_141524.jpg'
+     style="background: url('../../../../../../../../img/random/IMG_20190815_195026.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.5)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Java高级特性与特殊规约"></span>
+            <span id="subtitle">Java高级特性与特殊规约</span>
           
         </div>
 
@@ -239,11 +356,20 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.5k 字
+          15k 字
         
       </span>
     
 
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          124 分钟
+        
+      </span>
     
 
     
@@ -255,13 +381,24 @@
       </div>
 
       
-        <div class="scroll-down-bar">
-          <i class="iconfont icon-arrowdown"></i>
-        </div>
-      
     </div>
   </div>
 </div>
+
+
+  <script>
+    (function() {
+      var banner = document.getElementById('banner');
+      if (!banner) return;
+      var list = banner.getAttribute('data-random-banner');
+      if (!list) return;
+      list = list.split(',').filter(Boolean);
+      if (list.length === 0) return;
+      var pick = list[Math.floor(Math.random() * list.length)];
+      banner.style.backgroundImage = "url('" + pick + "')";
+    })();
+  </script>
+
 
 </div>
 
@@ -295,101 +432,101 @@
 <li>阿里巴巴 Java 开发手册（黄山版）</li>
 </ul>
 <h2 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h2><div class="note note-info">
-            <p><code>&gt;&gt;</code> 为带符号右移，符号位为1时高位补1，反之补0；<code>&gt;&gt;&gt;</code> 为无符号右移，空位都以1补齐。</p>
+            <p><code>&gt;&gt;</code> 为带符号右移，符号位为1时高位补1，反之补0；<code>&gt;&gt;&gt;</code> 为无符号右移，空位都以1补齐。</p> 
           </div>
 
 <div class="note note-success">
-            <ul><li>JVM: Java Virtual Machine，详见<a target="_blank" rel="noopener" href="https://ivanclf.github.io/2025/10/06/jvm/">另一篇</a>。</li><li>JRE: Java Runtime Environment，Java 基础环境和类库。在 JDK 9 后，就不需要区分 JDK 和 JRE 的关系了&#x2F;</li><li>JDK: Java Development Kit，是一个功能齐全的 Java 开发工具包，用于创建和编译 Java 程序。</li></ul>
+            <ul> <li>JVM: Java Virtual Machine，详见<a target="_blank" rel="noopener" href="https://ivanclf.github.io/2025/10/06/jvm/">另一篇</a>。</li> <li>JRE: Java Runtime Environment，Java 基础环境和类库。在 JDK 9 后，就不需要区分 JDK 和 JRE 的关系了&#x2F;</li> <li>JDK: Java Development Kit，是一个功能齐全的 Java 开发工具包，用于创建和编译 Java 程序。</li> </ul> 
           </div>
 
 <p>源码运行时，首先 <code>javac</code> 会将 <code>.java</code> 文件编译成 <code>.class</code> 文件，然后解释器或 JIT 再将 <code>.class</code> 文件转换成机器可理解的代码。</p>
 <div class="note note-info">
-            <p><code>javac</code> 作为前端的编译器，任务是将 Java 类代码编译成 JVM 可理解的、平台中立的 <code>.class</code> 文件。两种文件其实差别不太大，因此主要进行以下操作</p><ul><li>语法糖解糖，如将 <code>foreach</code> 转换为传统的 <code>for</code> 循环</li><li>常量折叠，如将 <code>int a = 1 + 2</code> 转换为 <code>int a = 3</code></li><li>进行简单的语法检查</li></ul><p>后端的 JIT 编译器详见 <a target="_blank" rel="noopener" href="https://ivanclf.github.io/2025/10/06/jvm/">JVM 的文章</a></p>
+            <p><code>javac</code> 作为前端的编译器，任务是将 Java 类代码编译成 JVM 可理解的、平台中立的 <code>.class</code> 文件。两种文件其实差别不太大，因此主要进行以下操作</p> <ul> <li>语法糖解糖，如将 <code>foreach</code> 转换为传统的 <code>for</code> 循环</li> <li>常量折叠，如将 <code>int a = 1 + 2</code> 转换为 <code>int a = 3</code></li> <li>进行简单的语法检查</li> </ul> <p>后端的 JIT 编译器详见 <a target="_blank" rel="noopener" href="https://ivanclf.github.io/2025/10/06/jvm/">JVM 的文章</a></p> 
           </div>
 
 <div class="note note-success">
-            <p>程序将实参传递给方法的方式有两种：值传递和引用传递。前者接收实参值的拷贝，后者传递实参的地址。在 Java 中，严格来说只有值传递，因为对象名中存储的是示例的地址，而传递参数的时候也只是传递地址这个值。而这个值也是传递了一个副本，也就是指针的副本。</p>
+            <p>程序将实参传递给方法的方式有两种：值传递和引用传递。前者接收实参值的拷贝，后者传递实参的地址。在 Java 中，严格来说只有值传递，因为对象名中存储的是示例的地址，而传递参数的时候也只是传递地址这个值。而这个值也是传递了一个副本，也就是指针的副本。</p> 
           </div>
 
 <h3 id="规约"><a href="#规约" class="headerlink" title="规约"></a>规约</h3><div class="note note-primary">
-            <p>防止 NPE 是调用者的责任。</p>
+            <p>防止 NPE 是调用者的责任。</p> 
           </div>
 
 <div class="note note-success">
-            <p>领域模型命名规约</p><ul><li>数据对象 <code>xxxDO</code>，xxx 为数据表名。</li><li>数据传输对象 <code>xxxDTO</code>，xxx 为业务领域相关名称。</li><li>展示对象 <code>xxxVO</code>，xxx 一般为网页名称。</li><li>POJO 是 DO&#x2F;DTO&#x2F;BO&#x2F;VO 的统称，因此禁止命名为 <code>xxxPOJO</code>。</li></ul>
+            <p>领域模型命名规约</p> <ul> <li>数据对象 <code>xxxDO</code>，xxx 为数据表名。</li> <li>数据传输对象 <code>xxxDTO</code>，xxx 为业务领域相关名称。</li> <li>展示对象 <code>xxxVO</code>，xxx 一般为网页名称。</li> <li>POJO 是 DO&#x2F;DTO&#x2F;BO&#x2F;VO 的统称，因此禁止命名为 <code>xxxPOJO</code>。</li> </ul> 
           </div>
 
 <div class="note note-danger">
-            <p>POJO 类中任何布尔类型的变量都不要加 <code>is</code> 前缀，否则部分框架解析时会引起序列化错误。但在数据库规约中，表达布尔值的变量都采用 <code>is_xxx</code> 的命名方式，因此需要在 <code>&lt;resultMap&gt;</code> 中设置 <code>is_xxx</code> 到 <code>xxx</code> 的映射关系。</p>
+            <p>POJO 类中任何布尔类型的变量都不要加 <code>is</code> 前缀，否则部分框架解析时会引起序列化错误。但在数据库规约中，表达布尔值的变量都采用 <code>is_xxx</code> 的命名方式，因此需要在 <code>&lt;resultMap&gt;</code> 中设置 <code>is_xxx</code> 到 <code>xxx</code> 的映射关系。</p> 
           </div>
 
 <div class="note note-danger">
-            <p>Long 类型初始化用 <code>L</code> 不用 <code>l</code>，同理还有 Double 的 <code>D</code>、Float 的 <code>F</code>。</p>
+            <p>Long 类型初始化用 <code>L</code> 不用 <code>l</code>，同理还有 Double 的 <code>D</code>、Float 的 <code>F</code>。</p> 
           </div>
 
 <div class="note note-warning">
-            <ul><li>任何元素在命名时都要使用完整的单词组合来表示，不应该采用 <code>int a</code> 这种定义方式。</li><li>变量和常量在命名时，表示类型的名词放在词尾。</li><li>模块、接口、类、方法中使用了设计模式时，在命名时要体现出来，如 <code>xxxFactory</code>、<code>xxxProxy</code> 等。</li><li>接口中的方法和属性不要加任何修饰符号。JDK 8 中允许有默认实现，该实现应该对所有实现类都有价值。</li></ul>
+            <ul> <li>任何元素在命名时都要使用完整的单词组合来表示，不应该采用 <code>int a</code> 这种定义方式。</li> <li>变量和常量在命名时，表示类型的名词放在词尾。</li> <li>模块、接口、类、方法中使用了设计模式时，在命名时要体现出来，如 <code>xxxFactory</code>、<code>xxxProxy</code> 等。</li> <li>接口中的方法和属性不要加任何修饰符号。JDK 8 中允许有默认实现，该实现应该对所有实现类都有价值。</li> </ul> 
           </div>
 
 <div class="note note-warning">
-            <p>常量的服用层次有5层</p><ol><li>跨应用共享常量：放置在二方库中，通常是 <code>client.jar</code> 中的 constant 目录下。</li><li>应用内共享常量：放置在一方库中，通常是子模块中的 constant 目录下。<br> 易懂常量也要统一定义成应用内共享常量。</li><li>子工程内部共享常量：即在当前子工程的 constant 目录下。</li><li>包内共享常量：即在当前包下单独的 constant 目录下。</li><li>类内共享常量：直接在类内部 <code>private static final</code> 定义。</li></ol>
+            <p>常量的服用层次有5层</p> <ol> <li>跨应用共享常量：放置在二方库中，通常是 <code>client.jar</code> 中的 constant 目录下。</li> <li>应用内共享常量：放置在一方库中，通常是子模块中的 constant 目录下。<br> 易懂常量也要统一定义成应用内共享常量。</li> <li>子工程内部共享常量：即在当前子工程的 constant 目录下。</li> <li>包内共享常量：即在当前包下单独的 constant 目录下。</li> <li>类内共享常量：直接在类内部 <code>private static final</code> 定义。</li> </ol> 
           </div>
 
 <div class="note note-danger">
-            <p>IDE 的 text file encoding 设置为 UTF-8，IDE 中文件的换行符使用 UNIX 而非 Windows 格式。</p>
+            <p>IDE 的 text file encoding 设置为 UTF-8，IDE 中文件的换行符使用 UNIX 而非 Windows 格式。</p> 
           </div>
 
 <div class="note note-warning">
-            <p>单个方法不超过 80 行。</p>
+            <p>单个方法不超过 80 行。</p> 
           </div>
 
 <div class="note note-danger">
-            <p>switch 括号内的变量类型为 String 且此变量为外部参数时，必须先进行 null 判断。当字符串为 null 时，不会跳到任意分支，而是直接抛出 NPE。</p>
+            <p>switch 括号内的变量类型为 String 且此变量为外部参数时，必须先进行 null 判断。当字符串为 null 时，不会跳到任意分支，而是直接抛出 NPE。</p> 
           </div>
 
 <div class="note note-danger">
-            <p>if&#x2F;else&#x2F;for&#x2F;while&#x2F;do 语句必须用大括号。</p>
+            <p>if&#x2F;else&#x2F;for&#x2F;while&#x2F;do 语句必须用大括号。</p> 
           </div>
 
 <div class="note note-danger">
-            <p>三目运算中需要注意自动装拆箱导致的 NPE。</p>
+            <p>三目运算中需要注意自动装拆箱导致的 NPE。</p> 
           </div>
 
 <div class="note note-danger">
-            <p>高并发下避免使用“等于”判断作为中断或退出的条件，避免因为“击穿”导致无法中断。</p>
+            <p>高并发下避免使用“等于”判断作为中断或退出的条件，避免因为“击穿”导致无法中断。</p> 
           </div>
 
 <div class="note note-warning">
-            <p>方法代码总行数超过10行时，return&#x2F;throw 等中断逻辑的右大括号后需加一空行。这有利于在代码阅读时重点关注。</p>
+            <p>方法代码总行数超过10行时，return&#x2F;throw 等中断逻辑的右大括号后需加一空行。这有利于在代码阅读时重点关注。</p> 
           </div>
 
 <div class="note note-warning">
-            <p>不要在其他表达式（如条件表达式）中插入赋值语句。</p>
+            <p>不要在其他表达式（如条件表达式）中插入赋值语句。</p> 
           </div>
 
 <div class="note note-warning">
-            <p>定义对象、变量、获取数据库链接、进行 try-catch 等操作尽量放到循环体外。</p>
+            <p>定义对象、变量、获取数据库链接、进行 try-catch 等操作尽量放到循环体外。</p> 
           </div>
 
 <div class="note note-warning">
-            <p>避免采用取反逻辑运算符。</p>
+            <p>避免采用取反逻辑运算符。</p> 
           </div>
 
 <div class="note note-success">
-            <p>需要进行参数校验的情形</p><ol><li>调用频次低的方法。</li><li>执行时间开销很大的方法，避免因参数错误导致中间执行回退或错误。</li><li>极高稳定性和可用性的方法。</li><li>对外提供的 RPC&#x2F;API&#x2F;HTTP 接口。</li><li>敏感权限接口。</li></ol><p>不需要进行参数校验的情形</p><ol><li>极有可能被循环调用的方法。但在方法说明里必须注明外部参数检查。</li><li>底层调用频度较高的方法。毕竟参数错误不太可能到底层才会暴露问题。</li><li>只会被自己代码的方法。如果能确定调用方法不会有问题就可以不校验。</li></ol>
+            <p>需要进行参数校验的情形</p> <ol> <li>调用频次低的方法。</li> <li>执行时间开销很大的方法，避免因参数错误导致中间执行回退或错误。</li> <li>极高稳定性和可用性的方法。</li> <li>对外提供的 RPC&#x2F;API&#x2F;HTTP 接口。</li> <li>敏感权限接口。</li> </ol> <p>不需要进行参数校验的情形</p> <ol> <li>极有可能被循环调用的方法。但在方法说明里必须注明外部参数检查。</li> <li>底层调用频度较高的方法。毕竟参数错误不太可能到底层才会暴露问题。</li> <li>只会被自己代码的方法。如果能确定调用方法不会有问题就可以不校验。</li> </ol> 
           </div>
 
 <h2 id="面向对象，多态"><a href="#面向对象，多态" class="headerlink" title="面向对象，多态"></a>面向对象，多态</h2><p>多态就是“同一个行为，不同对象有不同的实现方式”。对于同一个方法，在同一父类下的不同子类都会有不同的反应。编译时，编译器只认某个变量的类型为其父类，只要父类中有这个方法，代码就能通过。而在运行时，jvm会查看变量指向的对象实际是什么，再调用真正的方法。这叫“动态绑定”或“运行时多态”。而在重写方法时，子类会复制一份父类的方法到自己的虚方法中。在调用方法时，若子类实现了该方法，则直接调用；反之调用指针指向的父类方法。</p>
 <div class="note note-info">
-            <p>以下是几个面向对象的设计原则：<br><strong>里氏代换</strong>原则：父类能出现的地方子类也一定能出现<br><strong>单一职责</strong>原则：一个类只负责一项职责<br><strong>开闭原则</strong>：软件实体就扩展开放，对修改关闭（添加新功能时应该增加代码而非修改原有代码）<br><strong>接口隔离</strong>原则：客户端不应该依赖它不需要的接口<br><strong>依赖倒置</strong>原则：高层模块不应该依赖于底层模块，二者都应该依赖于抽象；抽象不应该依赖于细节，细节应该依赖于抽象</p>
+            <p>以下是几个面向对象的设计原则：<br><strong>里氏代换</strong>原则：父类能出现的地方子类也一定能出现<br><strong>单一职责</strong>原则：一个类只负责一项职责<br><strong>开闭原则</strong>：软件实体就扩展开放，对修改关闭（添加新功能时应该增加代码而非修改原有代码）<br><strong>接口隔离</strong>原则：客户端不应该依赖它不需要的接口<br><strong>依赖倒置</strong>原则：高层模块不应该依赖于底层模块，二者都应该依赖于抽象；抽象不应该依赖于细节，细节应该依赖于抽象</p> 
           </div>
 
 <h3 id="规约-1"><a href="#规约-1" class="headerlink" title="规约"></a>规约</h3><div class="note note-danger">
-            <p>所有的覆写方法必须加 <code>@Override</code> 注解。</p>
+            <p>所有的覆写方法必须加 <code>@Override</code> 注解。</p> 
           </div>
 
 <div class="note note-danger">
-            <p>Object 的 equals 方法容易抛出异常，因此尽量用常量或确定有值的对象来调用 equals，如 <code>&quot;test&quot;.equals(param)</code>。</p>
+            <p>Object 的 equals 方法容易抛出异常，因此尽量用常量或确定有值的对象来调用 equals，如 <code>&quot;test&quot;.equals(param)</code>。</p> 
           </div>
 
 <h2 id="equals和hashCode"><a href="#equals和hashCode" class="headerlink" title="equals和hashCode"></a>equals和hashCode</h2><p>为什么重写equals的时候必须也重写hashCode？hashCode方法用于获取哈希码，返回一个int整数。该整数多用于存放hashMap中的key。只重写了equals方法可能会导致hashMap不符合预期的问题。哈希码可能会一致，hashMap在处理键时，不仅会比较键对象的哈希码，还会使用equals方法检查键对象是否真正相等。</p>
@@ -405,7 +542,7 @@
 <p>在 Java 9 后， <code>String</code> 的底层实现由 <code>char[]</code> 改成了 <code>byte[]</code>，因为新版的 String 支持两个编码方案：Latin 1 和 UTF 16。若字符串中包含的汉字没有超过范围内的字符，就会使用 Latin 1 作为编码方案，因为 Latin 1 (8 bit) 比 UTF 16 (16 bit)，更节省内存空间。</p>
 <p>由于字符串相加底层是通过 <code>StringBuilder</code> 的 <code>.append()</code> 方法且这个对象不会复用，因此在循环相加时会导致大量的对象开销。而在 JDK 9 中，字符串相加改用动态方法 <code>makeConcatWithConstants()</code> 实现，通过提前分配对象从而减少了部分临时对象的创建。</p>
 <h3 id="规约-2"><a href="#规约-2" class="headerlink" title="规约"></a>规约</h3><div class="note note-warning">
-            <p>循环体内使用 StringBuilder 的 append 方法进行扩展。</p>
+            <p>循环体内使用 StringBuilder 的 append 方法进行扩展。</p> 
           </div>
 
 <h2 id="包装类"><a href="#包装类" class="headerlink" title="包装类"></a>包装类</h2><p>对于基本数据类型，都有对应的<strong>包装类</strong>。包装类属于对象类型。</p>
@@ -454,7 +591,7 @@
 </tr>
 </tbody></table>
 <div class="note note-info">
-            <p>可以在运行时添加 <code>-Djava.lang.Integer.IntegerCache.high = 10000</code>来调整缓存的最大值为10000。但不能修改下限 -128。</p><p>两种浮点数类型的包装类 <code>Float</code> <code>Double</code> 并没有实现缓存机制。</p>
+            <p>可以在运行时添加 <code>-Djava.lang.Integer.IntegerCache.high = 10000</code>来调整缓存的最大值为10000。但不能修改下限 -128。</p> <p>两种浮点数类型的包装类 <code>Float</code> <code>Double</code> 并没有实现缓存机制。</p> 
           </div>
 
 <p>因此对于如下语句</p>
@@ -468,51 +605,51 @@
 <p><strong>装箱</strong>即将基本类型用对应的包装类包装起来的过程，<strong>拆箱</strong>就是上述的逆过程。其实，装箱就是调用了包装类的 <code>valueOf()</code> 方法，拆箱就是调用了 <code>xxxValue()</code> 方法。</p>
 <p>因此 <code>Integer i = 10</code> 等价于 <code>Integer i = Integer.valueOf(10)</code>，而 <code>int n = i</code> 等价于 <code>int n = i.intValue()</code>。</p>
 <h3 id="规约-3"><a href="#规约-3" class="headerlink" title="规约"></a>规约</h3><div class="note note-danger">
-            <p>所有整型包装类对象之间值的比较，全部使用 equals 方法比较。</p>
+            <p>所有整型包装类对象之间值的比较，全部使用 equals 方法比较。</p> 
           </div>
 
 <div class="note note-danger">
-            <p>任何货币金额均以最小货币单位且为整型类型进行存储。</p>
+            <p>任何货币金额均以最小货币单位且为整型类型进行存储。</p> 
           </div>
 
 <div class="note note-danger">
-            <p>浮点数不能通过 <code>==</code> 或 <code>.equals</code> 进行判断。一般是指定误差范围或使用 <code>BigDecimal</code> 定义值。</p>
+            <p>浮点数不能通过 <code>==</code> 或 <code>.equals</code> 进行判断。一般是指定误差范围或使用 <code>BigDecimal</code> 定义值。</p> 
           </div>
 
 <div class="note note-danger">
-            <p>BigDecimal 中的等值比较应该使用 <code>compareTo()</code> 方法而不是 <code>equals()</code> 方法。后者会比较值和精度，前者则会忽略精度（如1.00和1.0）。禁止用 <code>BigDecimal(double)</code> 构造方法，推荐使用 <code>BigDecimal(String)</code> 构造方法。</p>
+            <p>BigDecimal 中的等值比较应该使用 <code>compareTo()</code> 方法而不是 <code>equals()</code> 方法。后者会比较值和精度，前者则会忽略精度（如1.00和1.0）。禁止用 <code>BigDecimal(double)</code> 构造方法，推荐使用 <code>BigDecimal(String)</code> 构造方法。</p> 
           </div>
 
 <div class="note note-danger">
-            <p>所有的 POJO 类属性必须使用包装数据类型，RPC 方法的返回值必须使用包装数据类型。用于提醒使用者在需要使用时，必须显式赋值。</p>
+            <p>所有的 POJO 类属性必须使用包装数据类型，RPC 方法的返回值必须使用包装数据类型。用于提醒使用者在需要使用时，必须显式赋值。</p> 
           </div>
 
 <div class="note note-warning">
-            <p>所有局部变量使用基本数据类型。</p>
+            <p>所有局部变量使用基本数据类型。</p> 
           </div>
 
 <div class="note note-danger">
-            <p>定义 POJO 类时不要设定任何默认值。</p>
+            <p>定义 POJO 类时不要设定任何默认值。</p> 
           </div>
 
 <div class="note note-danger">
-            <p>序列化类新增属性时，不要修改 <code>serialVersionUID</code> 字段；若为完全不兼容升级则修改 <code>serialVersionUID</code> 值。</p>
+            <p>序列化类新增属性时，不要修改 <code>serialVersionUID</code> 字段；若为完全不兼容升级则修改 <code>serialVersionUID</code> 值。</p> 
           </div>
 
 <div class="note note-danger">
-            <p>构造方法中禁止加业务逻辑，如果有初始化逻辑，写在 init 方法中。</p>
+            <p>构造方法中禁止加业务逻辑，如果有初始化逻辑，写在 init 方法中。</p> 
           </div>
 
 <div class="note note-danger">
-            <p>POJO 类里一定要有 <code>toString()</code> 方法。若有继承关系则注意在前面加 <code>super.toString()</code>。</p>
+            <p>POJO 类里一定要有 <code>toString()</code> 方法。若有继承关系则注意在前面加 <code>super.toString()</code>。</p> 
           </div>
 
 <div class="note note-warning">
-            <p>使用索引访问 String 的 split 方法得到的数组时，需要做最后一个分隔符有无内容的检查，避免 <code>a,b,c,,</code> 这种数组在 <code>split(&quot;,&quot;)</code> 后导致的数组越界（预期大于3，实际等于3）问题。</p>
+            <p>使用索引访问 String 的 split 方法得到的数组时，需要做最后一个分隔符有无内容的检查，避免 <code>a,b,c,,</code> 这种数组在 <code>split(&quot;,&quot;)</code> 后导致的数组越界（预期大于3，实际等于3）问题。</p> 
           </div>
 
 <div class="note note-warning">
-            <p>类内方法定义的顺序依次是：公有方法或保护方法 &gt; 私有方法 &gt; getter&#x2F;setter 方法。</p>
+            <p>类内方法定义的顺序依次是：公有方法或保护方法 &gt; 私有方法 &gt; getter&#x2F;setter 方法。</p> 
           </div>
 
 <h2 id="Object类中的基本方法"><a href="#Object类中的基本方法" class="headerlink" title="Object类中的基本方法"></a>Object类中的基本方法</h2><p>Object类是所有类的父类，其中定义了所有对象都能用的方法。</p>
@@ -520,7 +657,7 @@
 <li><code>hashCode()</code><br>  返回对象的哈希码。若重写了<code>equals()</code>方法，则必须要重写<code>hashCode()</code>方法。</li>
 <li><code>equals()</code><br>  比较二者的内存地址是否相等（对象名本身存储着的就是地址），若需要通过比较其他部分来判断则需要重写。</li>
 <li><code>clone()</code><br>  返回某个对象的浅拷贝，需要该对象实现<code>Cloneable</code>接口，否则会报<code>CloneNotSupportedException</code>错误。  <div class="note note-info">
-            <p>浅拷贝只拷贝本身，深拷贝递归地拷贝其子类。</p>
+            <p>浅拷贝只拷贝本身，深拷贝递归地拷贝其子类。</p> 
           </div></li>
 <li><code>toString()</code><br>  实现对象转字符串，默认返回类名@哈希码的十六进制表示，若要返回其他类型的字符串则需要重写。该方法也可以交给Lombok的<code>@Data</code>注解自动生成。而数组也是一个对象，直接调用<code>toString()</code>方法也会看到哈希码结果。</li>
 <li><code>wait()</code> <code>notify()</code><br>  多线程下的线程等待和唤醒。</li>
@@ -528,7 +665,7 @@
 <li><code>finalize()</code><br>  垃圾回收，若需在回收时自定义则调用次方法，但在Java 9已弃用。</li>
 </ul>
 <h3 id="规约-4"><a href="#规约-4" class="headerlink" title="规约"></a>规约</h3><div class="note note-warning">
-            <p>慎用 Object 的 clone 方法来拷贝对象。</p>
+            <p>慎用 Object 的 clone 方法来拷贝对象。</p> 
           </div>
 
 <h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><p>Java 中的 Exception 和 Error 都有一个共同的祖先：<code>java.lang</code> 包中的 <code>Throwable</code> 类。区别在于</p>
@@ -580,47 +717,47 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">try</span> (<span class="hljs-type">BufferedInputStream</span> <span class="hljs-variable">bin</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedInputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileInputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>(<span class="hljs-string">&quot;test.txt&quot;</span>)));<br>     <span class="hljs-type">BufferedOutputStream</span> <span class="hljs-variable">bout</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedOutputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileOutputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>(<span class="hljs-string">&quot;out.txt&quot;</span>)))) &#123;<br>    <span class="hljs-type">int</span> b;<br>    <span class="hljs-keyword">while</span> ((b = bin.read()) != -<span class="hljs-number">1</span>) &#123;<br>        bout.write(b);<br>    &#125;<br>&#125;<br><span class="hljs-keyword">catch</span> (IOException e) &#123;<br>    e.printStackTrace();<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h3 id="规约-5"><a href="#规约-5" class="headerlink" title="规约"></a>规约</h3><div class="note note-danger">
-            <p>错误码不体现版本号和错误等级等信息。</p>
+            <p>错误码不体现版本号和错误等级等信息。</p> 
           </div>
 
 <div class="note note-danger">
-            <p>全部正常，但不得不填充错误码时返回五个零：00000</p>
+            <p>全部正常，但不得不填充错误码时返回五个零：00000</p> 
           </div>
 
 <div class="note note-danger">
-            <p>错误码为字符串类型，共5位，分为两个部分：错误产生来源 + 四位数字编号。</p><p>如，错误产生来源分为 A&#x2F;B&#x2F;C，A 错误来源于用户，如参数错误、用户安装版本过低、用户支付超时等问题；B 错误来源于当前系统，往往是业务逻辑出错；C 错误来源于第三方服务，如 CDN 服务出错。四位数字编号从 0001 到 9999，每一大类步长预留 100。</p>
+            <p>错误码为字符串类型，共5位，分为两个部分：错误产生来源 + 四位数字编号。</p> <p>如，错误产生来源分为 A&#x2F;B&#x2F;C，A 错误来源于用户，如参数错误、用户安装版本过低、用户支付超时等问题；B 错误来源于当前系统，往往是业务逻辑出错；C 错误来源于第三方服务，如 CDN 服务出错。四位数字编号从 0001 到 9999，每一大类步长预留 100。</p> 
           </div>
 
 <div class="note note-danger">
-            <p>编号不和组织、业务挂钩，遵循先到先得的原则在统一平台上生成。<br>错误码不能直接输出给用户作为提示信息使用。</p>
+            <p>编号不和组织、业务挂钩，遵循先到先得的原则在统一平台上生成。<br>错误码不能直接输出给用户作为提示信息使用。</p> 
           </div>
 
 <div class="note note-success">
-            <p>错误码分为一级宏观错误码、二级宏观错误码、三级宏观错误码。在无法更加具体确定的错误场景中，可以直接使用一级宏观错误码，如 A0001（用户端错误）等。又如调用第三方服务出错是一级，中间件错误是二级，消息服务出错是三级。</p>
+            <p>错误码分为一级宏观错误码、二级宏观错误码、三级宏观错误码。在无法更加具体确定的错误场景中，可以直接使用一级宏观错误码，如 A0001（用户端错误）等。又如调用第三方服务出错是一级，中间件错误是二级，消息服务出错是三级。</p> 
           </div>
 
 <div class="note note-danger">
-            <p>Java 类库中定义的可以通过预检查方式规避的 RuntimeException，如 NPE、IndexOutOfBoundException 等，不应该通过 catch 方式来处理。除非是这些类型的错误无法通过预检查排除，如解析字符串格式的数字时存在的数字格式错误。</p>
+            <p>Java 类库中定义的可以通过预检查方式规避的 RuntimeException，如 NPE、IndexOutOfBoundException 等，不应该通过 catch 方式来处理。除非是这些类型的错误无法通过预检查排除，如解析字符串格式的数字时存在的数字格式错误。</p> 
           </div>
 
 <div class="note note-danger">
-            <p>异常捕获后不要再用来做流程控制和条件控制。</p>
+            <p>异常捕获后不要再用来做流程控制和条件控制。</p> 
           </div>
 
 <div class="note note-danger">
-            <p>catch 时需要分清稳定代码和非稳定代码。稳定代码指无论如何都不会出错的代码。非稳定代码在 catch 时尽可能区分异常类型，再做对应的异常处理。对大段的代码进行 try-catch 不利于定位问题，这是一种不负责任的表现。</p><p>捕获异常是为了处理它，不能什么都不做。不想处理就直接抛出。</p>
+            <p>catch 时需要分清稳定代码和非稳定代码。稳定代码指无论如何都不会出错的代码。非稳定代码在 catch 时尽可能区分异常类型，再做对应的异常处理。对大段的代码进行 try-catch 不利于定位问题，这是一种不负责任的表现。</p> <p>捕获异常是为了处理它，不能什么都不做。不想处理就直接抛出。</p> 
           </div>
 
 <div class="note note-danger">
-            <p>不要在 finally 块中使用 return。</p>
+            <p>不要在 finally 块中使用 return。</p> 
           </div>
 
 <div class="note note-danger">
-            <p>在调用 RPC、二方包、或动态生成类的相关方法时，捕获异常用 Throwable 类进行拦截。</p><p>有时候会抛出 Exception 但有时候会抛出 Error，要避免出现拦截不了的情况。如，通过反射机制调用方法时，如果找不到方法，会抛出 <code>NoSuchMethodException</code>。而二方包在类冲突时，仲裁机制可能导致引入非预期的版本导致类的方法签名不匹配，或者在字节码修改框架（如 ASM）动态创建或修改类时，修改了相应的方法签名。此时即使代码编译期是正确的，但在代码执行时，也会抛出 <code>NoSuchMethodError</code>。</p>
+            <p>在调用 RPC、二方包、或动态生成类的相关方法时，捕获异常用 Throwable 类进行拦截。</p> <p>有时候会抛出 Exception 但有时候会抛出 Error，要避免出现拦截不了的情况。如，通过反射机制调用方法时，如果找不到方法，会抛出 <code>NoSuchMethodException</code>。而二方包在类冲突时，仲裁机制可能导致引入非预期的版本导致类的方法签名不匹配，或者在字节码修改框架（如 ASM）动态创建或修改类时，修改了相应的方法签名。此时即使代码编译期是正确的，但在代码执行时，也会抛出 <code>NoSuchMethodError</code>。</p> 
           </div>
 
 <div class="note note-warning">
-            <p>定义时区分受检异常和未受检异常，避免直接抛出 <code>RuntimeException</code> 或 <code>Exception</code>。</p>
+            <p>定义时区分受检异常和未受检异常，避免直接抛出 <code>RuntimeException</code> 或 <code>Exception</code>。</p> 
           </div>
 
 <h2 id="IO流"><a href="#IO流" class="headerlink" title="IO流"></a>IO流</h2><p>流的分类方式有很多种。可以按照其流动方向将其分为<strong>输入流</strong>和<strong>输出流</strong>；按照其数据单位分为处理音频、图像等二进制数据的<strong>字节流</strong>，和处理文本数据的<strong>字符流</strong>；按功能划分为与输入输出端相连的<strong>节点流</strong>，对已存在的流进行包装的<strong>缓冲流</strong>，进行线程间的数据传输的<strong>管道流</strong>。</p>
@@ -643,14 +780,14 @@
 <p><code>serialVersionUID</code> 是Java序列化机制种用于标识类版本的唯一标识符，该标识符要求在序列化和反序列化中保持一致，用于在序列化和反序列化的过程中，类的版本是兼容的。该标识符可以自己设定，可以由 IDEA 自动生成，也可以交由 Java 自动生成。反序列化时会检查这个 UID 是否和当前类的 UID 一致，不一致则会抛异常 <code>InvalidClassException</code>。</p>
 <p>Java 序列化不包含静态变量。这是因为序列化机制只保存对象的状态，而静态变量属于类的状态。也可以用 <code>transient</code> 关键字修饰不像想被序列化的变量。</p>
 <div class="note note-info">
-            <p>但 UID 不是已经被 static 变量修饰了吗？为什么还会被序列化？通常情况下，static 是属于类的，不属于任何一个对象单例，与序列化已保存对象的目的不同，因此不会被序列化。但这个 UID 的序列化做了特殊处理。关键在于，UID 不是作为对象状态的一部分被序列化的，而是被序列化本身用作一个特殊的“指纹”或“版本号”。</p>
+            <p>但 UID 不是已经被 static 变量修饰了吗？为什么还会被序列化？通常情况下，static 是属于类的，不属于任何一个对象单例，与序列化已保存对象的目的不同，因此不会被序列化。但这个 UID 的序列化做了特殊处理。关键在于，UID 不是作为对象状态的一部分被序列化的，而是被序列化本身用作一个特殊的“指纹”或“版本号”。</p> 
           </div>
 
 <p>序列化一般包括以下3个过程：先实现 <code>Serializable</code> 接口，然后使用 <code>ObjectOutputStream</code> 来将对象写入，最后调用其中的 <code>writeObject()</code> 方法，将对象序列化后写入输出流中。序列化的数据一般以魔数和版本号 <em><code>SerializableUID</code></em> 开头。</p>
 <p>序列化一般有3种方式：对象流序列化、json 序列化、protoBuff 序列化。一般使用的是 json 序列化，将对象转化为 byte 数组或 String 字符串。</p>
 <p>JDK 自带的序列化，只需要实现 <code>java.io.Serializable</code> 接口即可。</p>
 <div class="note note-info">
-            <p>一般不会用 JDK 自带的序列化方式，一来自带的序列化方式其他语言可能不支持，二来是自带的序列化器性能更差，三来是存在安全问题，若输入的反序列化的数据可被用户控制，那么攻击者计科构造恶意输入，让反序列化产生非预期的对象。</p>
+            <p>一般不会用 JDK 自带的序列化方式，一来自带的序列化方式其他语言可能不支持，二来是自带的序列化器性能更差，三来是存在安全问题，若输入的反序列化的数据可被用户控制，那么攻击者计科构造恶意输入，让反序列化产生非预期的对象。</p> 
           </div>
 
 <p>可用的序列化包为 Kryo、Protobuf、ProtoStuff、Hessian 等。</p>
@@ -684,7 +821,7 @@
 <h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p>反射允许Java在运行时检查和操作类的方法和字段。多用于Spring框架的加载和管理Bean和动态代理，例如 IoC，注解处理、AOP等。</p>
 <p>Java程序的执行分为编译和运行两步。编译后会生成字节码文件，jvm进行类加载的时候，会加载这个字节码文件，将类型相关的所有信息加载进方法区，反射就是去获取这些信息。</p>
 <div class="note note-info">
-            <p>比如，基于反射分析类，然后拿到类&#x2F;方法&#x2F;参数上的注解。收到注解后再做进一步处理。</p>
+            <p>比如，基于反射分析类，然后拿到类&#x2F;方法&#x2F;参数上的注解。收到注解后再做进一步处理。</p> 
           </div>
 
 <p>Class 类对象将一个类的方法、变量等信息告诉运行的程序。Java 提供了四种方式获取 Class 对象。</p>
@@ -697,11 +834,11 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 从Java对象中获取一个声明的字段</span><br><span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> cls.getDeclaredField(<span class="hljs-string">&quot;fastTime&quot;</span>);<br><span class="hljs-comment">// 突破访问权限限制，对于私有变量需要这么做</span><br>field.setAccessible(<span class="hljs-literal">true</span>);<br><span class="hljs-comment">// 获取该字段的值。知道其Long类型就getLong，不知道则为get</span><br><span class="hljs-type">Long</span> <span class="hljs-variable">number</span> <span class="hljs-operator">=</span> field.getLong(obj);<br></code></pre></td></tr></table></figure>
 
 <div class="note note-success">
-            <p>Lambda 表达式主要用于提供一种简洁的方式来表示匿名方法，使 Java 具备了函数式编程的特性。所谓的函数式编程，就是把函数作为参数传递给方法，或者作为方法的结果返回。</p>
+            <p>Lambda 表达式主要用于提供一种简洁的方式来表示匿名方法，使 Java 具备了函数式编程的特性。所谓的函数式编程，就是把函数作为参数传递给方法，或者作为方法的结果返回。</p> 
           </div>
 
 <div class="note note-success">
-            <p><code>Optional</code>是用于防范<code>NullPointerException</code>的工具。可以将<code>Optional</code>看作是一种包装对象的容器，当某方法的返回值可能是空的时候可以使用该容器包装。</p>
+            <p><code>Optional</code>是用于防范<code>NullPointerException</code>的工具。可以将<code>Optional</code>看作是一种包装对象的容器，当某方法的返回值可能是空的时候可以使用该容器包装。</p> 
           </div>
 
 <h2 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h2><p>一种设计模式，即用代理对象来代替对真实对象的访问。</p>
@@ -721,19 +858,19 @@
 <p>Unsafe 中的方法是实现整个 JUC (Java.util.concurrent) 的基石。然而业务代码无法直接使用。普通代码想拿到它只能通过反射拿到单例字段。</p>
 <p>在 JDK 9 后，模块系统开始强封禁，反射访问会警告。在 JDK 17+ 后默认进制打开，启动需要添加 <code>--add-opens</code> 参数。</p>
 <h2 id="注释规约"><a href="#注释规约" class="headerlink" title="注释规约"></a>注释规约</h2><div class="note note-danger">
-            <p>类、类属性、类方法的注释都使用 <code>/** */</code>，不得使用 <code>//</code>。</p>
+            <p>类、类属性、类方法的注释都使用 <code>/** */</code>，不得使用 <code>//</code>。</p> 
           </div>
 
 <div class="note note-danger">
-            <p>所有的类都必须添加创建者和创建日期。日期统一设置为 <code>yyyy/MM/dd</code> 格式。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/** </span><br><span class="hljs-comment">* </span><br><span class="hljs-comment">* <span class="hljs-doctag">@author</span> yangguanbao </span><br><span class="hljs-comment">* <span class="hljs-doctag">@date</span> 2021/11/26 </span><br><span class="hljs-comment">* </span><br><span class="hljs-comment">**/</span> <br></code></pre></td></tr></table></figure>
+            <p>所有的类都必须添加创建者和创建日期。日期统一设置为 <code>yyyy/MM/dd</code> 格式。</p> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/** </span><br><span class="hljs-comment">* </span><br><span class="hljs-comment">* <span class="hljs-doctag">@author</span> yangguanbao </span><br><span class="hljs-comment">* <span class="hljs-doctag">@date</span> 2021/11/26 </span><br><span class="hljs-comment">* </span><br><span class="hljs-comment">**/</span> <br></code></pre></td></tr></table></figure> 
           </div>
 
 <div class="note note-success">
-            <p>谨慎注释掉代码，并在上方详细说明。如果无用，则删除。一般来说，代码注释掉有两种可能性：一是后续会恢复这段代码，而是永久不用。后者直接删掉即可，需要查阅的就直接在 git 上找。</p>
+            <p>谨慎注释掉代码，并在上方详细说明。如果无用，则删除。一般来说，代码注释掉有两种可能性：一是后续会恢复这段代码，而是永久不用。后者直接删掉即可，需要查阅的就直接在 git 上找。</p> 
           </div>
 
 <div class="note note-success">
-            <p>特殊注释标记有两种。这两种需要及时处理</p><ol><li>待办事宜 <code>// TODO</code>：写明标记人、标记时间、预计处理时间。表示需要实现但目前仍未实现的功能。只能应用与类、接口和方法。</li><li>错误、不能工作 <code>// FIXME</code>：写明标记人、标记时间、预计处理时间。用于标记某代码是错误的，而且不能工作，需要及时纠正。</li></ol>
+            <p>特殊注释标记有两种。这两种需要及时处理</p> <ol> <li>待办事宜 <code>// TODO</code>：写明标记人、标记时间、预计处理时间。表示需要实现但目前仍未实现的功能。只能应用与类、接口和方法。</li> <li>错误、不能工作 <code>// FIXME</code>：写明标记人、标记时间、预计处理时间。用于标记某代码是错误的，而且不能工作，需要及时纠正。</li> </ol> 
           </div>
                 
               </div>
@@ -903,7 +1040,7 @@
 
   <script>
   Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
-    mermaid.initialize({"theme":"default","securityLevel":"loose"});
+    mermaid.initialize({"theme":"default"});
 
     Fluid.utils.listenDOMLoaded(function() {
       Fluid.events.registerRefreshCallback(function() {
@@ -988,21 +1125,6 @@
 <script  src="../../../../js/plugins.js" ></script>
 
 
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
 
 
 
@@ -1021,7 +1143,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -1032,10 +1210,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -1047,6 +1231,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });

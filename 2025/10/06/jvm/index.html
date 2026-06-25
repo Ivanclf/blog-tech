@@ -76,7 +76,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -98,11 +98,11 @@
   <header>
     
 
-<div class="header-inner" style="height: 80vh;">
+<div class="header-inner" style="height: 60vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="../../../../index.html">
-      <strong>Ivan的技术笔记</strong>
+      <strong>Ivan 的技术笔记</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -111,7 +111,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -207,16 +207,133 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../index.html" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../links/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>友链</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
-<div id="banner" class="banner" parallax=true
-     style="background: url('../../../../img/banner-page.jpg') no-repeat center center; background-size: cover;">
+<div id="banner" class="banner" parallax=true data-random-banner='../../../../img/random/IMG_20190815_195026.jpg,../../../../img/random/IMG_20191109_224459.jpg,../../../../img/random/IMG_20230830_182827.jpg,../../../../img/random/IMG_20240326_184147.jpg,../../../../img/random/IMG_20240706_181124.jpg,../../../../img/random/IMG_20240711_110928.jpg,../../../../img/random/IMG_20240803_141801.jpg,../../../../img/random/IMG_20240916_095049.jpg,../../../../img/random/IMG_20250112_125329.jpg,../../../../img/random/IMG_20250705_170737.jpg,../../../../img/random/IMG_20250707_104356.jpg,../../../../img/random/IMG_20250707_172618.jpg,../../../../img/random/IMG_20260211_080308.jpg,../../../../img/random/IMG_20260522_184054.jpg,../../../../img/random/IMG_20260524_141524.jpg'
+     style="background: url('../../../../../../../../img/random/IMG_20190815_195026.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.5)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="JVM的底层实现"></span>
+            <span id="subtitle">JVM的底层实现</span>
           
         </div>
 
@@ -239,11 +356,20 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9k 字
+          13k 字
         
       </span>
     
 
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          106 分钟
+        
+      </span>
     
 
     
@@ -255,13 +381,24 @@
       </div>
 
       
-        <div class="scroll-down-bar">
-          <i class="iconfont icon-arrowdown"></i>
-        </div>
-      
     </div>
   </div>
 </div>
+
+
+  <script>
+    (function() {
+      var banner = document.getElementById('banner');
+      if (!banner) return;
+      var list = banner.getAttribute('data-random-banner');
+      if (!list) return;
+      list = list.split(',').filter(Boolean);
+      if (list.length === 0) return;
+      var pick = list[Math.floor(Math.random() * list.length)];
+      banner.style.backgroundImage = "url('" + pick + "')";
+    })();
+  </script>
+
 
 </div>
 
@@ -332,7 +469,7 @@
 </li>
 <li><p>本地方法栈<br>  这个栈与虚拟机栈的不同之处在于，本地方法栈为虚拟机用到的本地<code>native</code>方法服务，如在Java中调用用C&#x2F;C++等语言编写的底层库方法。常用于需要与操作系统底层或硬件交互的时候。如获取系统时间或<code>Object</code>类中的<code>hashCode()</code>和<code>clone()</code>方法等。</p>
   <div class="note note-info">
-            <p><code>native</code>作为一个关键字来声明方法，表示一个在Java代码中声明，但具体实现是由C或C++来编写，并在JVM外部实现的方法。其实际实现不在<code>.class</code>文件中，而在<code>.dll</code>(Windows)或<code>.so</code>(Linux)中。这个库需要被JVM加载。</p><p>Java代码中调用<code>native</code>方法后，JVM接收到这个调用，并通过JNI（Java 本地接口）找到已加载的本地库中对应的C&#x2F;C++函数。执行完成后将返回值通过JNI返回给JVM。</p>
+            <p><code>native</code>作为一个关键字来声明方法，表示一个在Java代码中声明，但具体实现是由C或C++来编写，并在JVM外部实现的方法。其实际实现不在<code>.class</code>文件中，而在<code>.dll</code>(Windows)或<code>.so</code>(Linux)中。这个库需要被JVM加载。</p> <p>Java代码中调用<code>native</code>方法后，JVM接收到这个调用，并通过JNI（Java 本地接口）找到已加载的本地库中对应的C&#x2F;C++函数。执行完成后将返回值通过JNI返回给JVM。</p> 
           </div>
 </li>
 <li><p>堆<br>  JVM所管理的最大一块内存区域，也是垃圾收集器管理的主要区域，因此很多时候也被称为<code>GC堆</code>。几乎所有的对象实例以及数组都应当在堆上分配内存。存放在这里的对象数据都是线程不安全的，进行并发操作时需要同步机制。</p>
@@ -340,11 +477,11 @@
 </li>
 <li><p>方法区<br>  存储已被虚拟机加载的类信息、常量、静态变量、代码缓存等数据。</p>
   <div class="note note-info">
-            <p>在JDK 7之前，该区域常被称为“永久代”。但在JDK 8及以后，JVM使用元空间作为方法区的实现。元空间不再使用JVM内存，而是使用本地内存，因此受到本地内存大小的限制。</p>
+            <p>在JDK 7之前，该区域常被称为“永久代”。但在JDK 8及以后，JVM使用元空间作为方法区的实现。元空间不再使用JVM内存，而是使用本地内存，因此受到本地内存大小的限制。</p> 
           </div></li>
 </ul>
 <div class="note note-success">
-            <p>堆和栈的区别是什么？<br>堆属于线程共享的内存区域，几乎所有 <code>new</code> 出来的对象都会在堆上分配，在不再被任何变量引用时被垃圾收集器回收。<br>栈属于线程的私有区域，主要存储局部变量等数据，通常随着方法调用的结束而自动释放，不需要垃圾收集器参与。</p>
+            <p>堆和栈的区别是什么？<br>堆属于线程共享的内存区域，几乎所有 <code>new</code> 出来的对象都会在堆上分配，在不再被任何变量引用时被垃圾收集器回收。<br>栈属于线程的私有区域，主要存储局部变量等数据，通常随着方法调用的结束而自动释放，不需要垃圾收集器参与。</p> 
           </div>
 
 <h3 id="对象的生命周期"><a href="#对象的生命周期" class="headerlink" title="对象的生命周期"></a>对象的生命周期</h3><h4 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h4><pre><code class=" mermaid">graph LR
@@ -369,12 +506,12 @@ B--&gt;|否|C--&gt;D
 <li><strong>空闲列表</strong>，在堆内存不规整的情况下，JVM维护一个记录可用内存块的列表。在分配时，从列表中找出一块足够大的空间划分给对象，并更新列表记录。</li>
 </ol>
  <div class="note note-info">
-            <p>这不就是<a target="_blank" rel="noopener" href="https://ivanclf.github.io/2025/05/22/os-2/#Managing-Free-Memory">操作系统里的</a><strong>first fit</strong>嘛</p>
+            <p>这不就是<a target="_blank" rel="noopener" href="https://ivanclf.github.io/2025/05/22/os-2/#Managing-Free-Memory">操作系统里的</a><strong>first fit</strong>嘛</p> 
           </div>
 
 <p> 其线程安全问题主要通过CAS和重试和 TLAB 本地分配缓冲区两种方法解决。</p>
  <div class="note note-info">
-            <p>每个线程在Java堆中分配一小块称为 <code>TLAB</code> 的内存空间。线程需要分配对象时，直接从 <code>TLAB</code> 中分配。只有当 <code>TLAB</code> 用完并分配新的 <code>TLAB</code> 时，才需要同步锁定，使用全局分配指针。</p><p>如果关闭 <code>TLAB</code>，对象直接在共享堆上分配，会导致同步竞争增加，且 Eden 区占用更快，容易触发频繁 Young GC，甚至让部分对象过早晋升到老年代，间接加剧 Full GC。</p>
+            <p>每个线程在Java堆中分配一小块称为 <code>TLAB</code> 的内存空间。线程需要分配对象时，直接从 <code>TLAB</code> 中分配。只有当 <code>TLAB</code> 用完并分配新的 <code>TLAB</code> 时，才需要同步锁定，使用全局分配指针。</p> <p>如果关闭 <code>TLAB</code>，对象直接在共享堆上分配，会导致同步竞争增加，且 Eden 区占用更快，容易触发频繁 Young GC，甚至让部分对象过早晋升到老年代，间接加剧 Full GC。</p> 
           </div>
 </li>
 <li><p>JVM将分配到的空间都初始化为零值（<code>0</code>、<code>0.0</code>、<code>false</code>、<code>null</code>等）。</p>
@@ -633,7 +770,7 @@ B--&gt;|否|C--&gt;D
 </li>
 <li><p><strong>解析</strong><br>  虚拟机将常量池内符号引用替换为直接引用的过程。</p>
   <div class="note note-info">
-            <p><strong>符号引用</strong>用一组符号来描述引用的目标，如<code>com/example/MyClass</code>等。<br><strong>直接引用</strong>则是直接指向内存的指针。</p>
+            <p><strong>符号引用</strong>用一组符号来描述引用的目标，如<code>com/example/MyClass</code>等。<br><strong>直接引用</strong>则是直接指向内存的指针。</p> 
           </div></li>
 <li><p><strong>初始化</strong><br>  开始执行初始化方法<code>&lt;clinit&gt;()</code>的过程。准备阶段中对一些静态变量赋过零值了，此时会赋值为期望值。</p>
 </li>
@@ -657,7 +794,7 @@ B--&gt;|否|C--&gt;D
 </code></pre>
 
 <h3 id="双亲委派模型"><a href="#双亲委派模型" class="headerlink" title="双亲委派模型"></a>双亲委派模型</h3><div class="note note-danger">
-            <p>字节跳动, 中国交易与广告 - 实习, 一面</p>
+            <p>字节跳动, 中国交易与广告 - 实习, 一面</p> 
           </div>
 
 <p>加载类时, 先委托父加载器尝试加载，只有父加载器无法加载时，子加载器才会加载。无法加载类则会抛异常<code>ClassNotFoundException</code>。又或者说，自底向上查找判断类是否被加载，然后自顶向下尝试加载类。</p>
@@ -858,7 +995,7 @@ catalina--&gt;common
 
   <script>
   Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
-    mermaid.initialize({"theme":"default","securityLevel":"loose"});
+    mermaid.initialize({"theme":"default"});
 
     Fluid.utils.listenDOMLoaded(function() {
       Fluid.events.registerRefreshCallback(function() {
@@ -943,21 +1080,6 @@ catalina--&gt;common
 <script  src="../../../../js/plugins.js" ></script>
 
 
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
 
 
 
@@ -976,7 +1098,63 @@ catalina--&gt;common
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -987,10 +1165,16 @@ catalina--&gt;common
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -1002,6 +1186,8 @@ catalina--&gt;common
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });

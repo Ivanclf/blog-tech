@@ -79,7 +79,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -101,11 +101,11 @@
   <header>
     
 
-<div class="header-inner" style="height: 80vh;">
+<div class="header-inner" style="height: 60vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="../../../../index.html">
-      <strong>Ivan的技术笔记</strong>
+      <strong>Ivan 的技术笔记</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -114,7 +114,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -210,16 +210,133 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../index.html" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../links/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>友链</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
-<div id="banner" class="banner" parallax=true
-     style="background: url('../../../../img/banner-page.jpg') no-repeat center center; background-size: cover;">
+<div id="banner" class="banner" parallax=true data-random-banner='../../../../img/random/IMG_20190815_195026.jpg,../../../../img/random/IMG_20191109_224459.jpg,../../../../img/random/IMG_20230830_182827.jpg,../../../../img/random/IMG_20240326_184147.jpg,../../../../img/random/IMG_20240706_181124.jpg,../../../../img/random/IMG_20240711_110928.jpg,../../../../img/random/IMG_20240803_141801.jpg,../../../../img/random/IMG_20240916_095049.jpg,../../../../img/random/IMG_20250112_125329.jpg,../../../../img/random/IMG_20250705_170737.jpg,../../../../img/random/IMG_20250707_104356.jpg,../../../../img/random/IMG_20250707_172618.jpg,../../../../img/random/IMG_20260211_080308.jpg,../../../../img/random/IMG_20260522_184054.jpg,../../../../img/random/IMG_20260524_141524.jpg'
+     style="background: url('../../../../../../../../img/random/IMG_20190815_195026.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.5)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="leetcode热题100官方题解 - 6"></span>
+            <span id="subtitle">leetcode热题100官方题解 - 6</span>
           
         </div>
 
@@ -242,11 +359,20 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.1k 字
+          23k 字
         
       </span>
     
 
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          190 分钟
+        
+      </span>
     
 
     
@@ -258,13 +384,24 @@
       </div>
 
       
-        <div class="scroll-down-bar">
-          <i class="iconfont icon-arrowdown"></i>
-        </div>
-      
     </div>
   </div>
 </div>
+
+
+  <script>
+    (function() {
+      var banner = document.getElementById('banner');
+      if (!banner) return;
+      var list = banner.getAttribute('data-random-banner');
+      if (!list) return;
+      list = list.split(',').filter(Boolean);
+      if (list.length === 0) return;
+      var pick = list[Math.floor(Math.random() * list.length)];
+      banner.style.backgroundImage = "url('" + pick + "')";
+    })();
+  </script>
+
 
 </div>
 
@@ -295,7 +432,7 @@
 <p>返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 <code>0</code> 。</p>
 <p>示例：<br>    输入：<code>[7,1,5,3,6,4]</code><br>    输出：<code>5</code><br>    解释：在第 2 天（股票价格 &#x3D; 1）的时候买入，在第 5 天（股票价格 &#x3D; 6）的时候卖出，最大利润 &#x3D; 6-1 &#x3D; 5 。<br>        注意利润不能是 7-1 &#x3D; 6, 因为卖出价格需要大于买入价格；同时，你不能在买入前卖出股票。</p>
 <div class="note note-info">
-            <p>可以使用动态规划，用<code>dp</code>数组存储在某个索引前最大的值</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">maxProfit</span><span class="hljs-params">(<span class="hljs-type">int</span>[] prices)</span> &#123;<br>        <span class="hljs-type">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[prices.length];<br>        <span class="hljs-type">int</span> <span class="hljs-variable">min</span> <span class="hljs-operator">=</span> prices[<span class="hljs-number">0</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; prices.length; i++) &#123;<br>            min = Math.min(prices[i], min);<br>            dp[i] = Math.max(dp[i - <span class="hljs-number">1</span>], prices[i] - min &gt; <span class="hljs-number">0</span> ? prices[i] - min : <span class="hljs-number">0</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp[prices.length - <span class="hljs-number">1</span>];<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>但其实我们可以发现，在这个状态转移方程中最大值的选取只与前一个值有关，于是可以简化成只用一个数存储</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">maxProfit</span><span class="hljs-params">(<span class="hljs-type">int</span>[] prices)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">min</span> <span class="hljs-operator">=</span> prices[<span class="hljs-number">0</span>], ans = -<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i : prices) &#123;<br>            min = Math.min(i, min);<br>            ans = Math.max(i - min, ans);<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans &gt; <span class="hljs-number">0</span> ? ans : <span class="hljs-number">0</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+            <p>可以使用动态规划，用<code>dp</code>数组存储在某个索引前最大的值</p> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">maxProfit</span><span class="hljs-params">(<span class="hljs-type">int</span>[] prices)</span> &#123;<br>        <span class="hljs-type">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[prices.length];<br>        <span class="hljs-type">int</span> <span class="hljs-variable">min</span> <span class="hljs-operator">=</span> prices[<span class="hljs-number">0</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; prices.length; i++) &#123;<br>            min = Math.min(prices[i], min);<br>            dp[i] = Math.max(dp[i - <span class="hljs-number">1</span>], prices[i] - min &gt; <span class="hljs-number">0</span> ? prices[i] - min : <span class="hljs-number">0</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp[prices.length - <span class="hljs-number">1</span>];<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>  <p>但其实我们可以发现，在这个状态转移方程中最大值的选取只与前一个值有关，于是可以简化成只用一个数存储</p> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">maxProfit</span><span class="hljs-params">(<span class="hljs-type">int</span>[] prices)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">min</span> <span class="hljs-operator">=</span> prices[<span class="hljs-number">0</span>], ans = -<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i : prices) &#123;<br>            min = Math.min(i, min);<br>            ans = Math.max(i - min, ans);<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans &gt; <span class="hljs-number">0</span> ? ans : <span class="hljs-number">0</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure> 
           </div>
 
 <p>在注释的题解2，其实可以换个理解方式：用前面最小的值比对后面最大的值</p>
@@ -304,7 +441,7 @@
 <p>示例 1：<br>    输入：<code>nums = [2,3,1,1,4]</code><br>    输出：<code>true</code><br>    解释：可以先跳 1 步，从下标 0 到达下标 1, 然后再从下标 1 跳 3 步到达最后一个下标。</p>
 <p>示例 2：<br>    输入：<code>nums = [3,2,1,0,4]</code><br>    输出：<code>false</code><br>    解释：无论怎样，总会到达下标为 3 的位置。但该下标的最大跳跃长度是 0 ， 所以永远不可能到达最后一个下标。</p>
 <div class="note note-info">
-            <p>维护一个数<code>max</code>，表示当前索引下能跳的最大格数，如果没到最后就变成0了就表示跳不出来。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">canJump</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">max</span> <span class="hljs-operator">=</span> nums[<span class="hljs-number">0</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; nums.length; i++) &#123;<br>            max = Math.max(nums[i], max - <span class="hljs-number">1</span>);<br>            <span class="hljs-keyword">if</span>(max == <span class="hljs-number">0</span> &amp;&amp; i != nums.length - <span class="hljs-number">1</span>)<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;             <br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+            <p>维护一个数<code>max</code>，表示当前索引下能跳的最大格数，如果没到最后就变成0了就表示跳不出来。</p> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">canJump</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">max</span> <span class="hljs-operator">=</span> nums[<span class="hljs-number">0</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; nums.length; i++) &#123;<br>            max = Math.max(nums[i], max - <span class="hljs-number">1</span>);<br>            <span class="hljs-keyword">if</span>(max == <span class="hljs-number">0</span> &amp;&amp; i != nums.length - <span class="hljs-number">1</span>)<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;             <br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure> 
           </div>
 
 <h4 id="跳跃游戏II"><a href="#跳跃游戏II" class="headerlink" title="跳跃游戏II"></a>跳跃游戏II</h4><p>给定一个长度为 <code>n</code> 的 <code>0</code> 索引整数数组 <code>nums</code>。初始位置为 <code>nums[0]</code>。</p>
@@ -316,7 +453,7 @@
 <p>返回到达 <code>n - 1</code> 的最小跳跃次数。测试用例保证可以到达 <code>n - 1</code>。</p>
 <p>示例:<br>    输入: <code>nums = [2,3,1,1,4]</code><br>    输出: <code>2</code><br>    解释: 跳到最后一个位置的最小跳跃数是 2。<br>        从下标为 0 跳到下标为 1 的位置，跳 1 步，然后跳 3 步到达数组的最后一个位置。</p>
 <div class="note note-info">
-            <p>也可以使用动态规划做，虽然效率不高</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">jump</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-type">int</span> dp[] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[nums.length];<br>        Arrays.fill(dp, nums.length);<br>        dp[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; nums.length; i++) &#123;<br>            <span class="hljs-keyword">if</span>(nums[i] == <span class="hljs-number">0</span>)<br>                <span class="hljs-keyword">continue</span>;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; j &lt;= nums[i] &amp;&amp; i + j &lt; nums.length; j++)<br>                dp[i + j] = Math.min(dp[i + j], dp[i] + <span class="hljs-number">1</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp[nums.length - <span class="hljs-number">1</span>];<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+            <p>也可以使用动态规划做，虽然效率不高</p> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">jump</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-type">int</span> dp[] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[nums.length];<br>        Arrays.fill(dp, nums.length);<br>        dp[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; nums.length; i++) &#123;<br>            <span class="hljs-keyword">if</span>(nums[i] == <span class="hljs-number">0</span>)<br>                <span class="hljs-keyword">continue</span>;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; j &lt;= nums[i] &amp;&amp; i + j &lt; nums.length; j++)<br>                dp[i + j] = Math.min(dp[i + j], dp[i] + <span class="hljs-number">1</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp[nums.length - <span class="hljs-number">1</span>];<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure> 
           </div>
 
 <p>我们可以“贪心”地选择距离最后一个位置最远的那个位置，找到倒数第一步后再选第二步，直到找到数组的开始位置。</p>
@@ -326,27 +463,27 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">jump</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">length</span> <span class="hljs-operator">=</span> nums.length;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">end</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">maxPosition</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; <br>        <span class="hljs-type">int</span> <span class="hljs-variable">steps</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; length - <span class="hljs-number">1</span>; i++) &#123;<br>            maxPosition = Math.max(maxPosition, i + nums[i]); <br>            <span class="hljs-keyword">if</span> (i == end) &#123;<br>                end = maxPosition;<br>                steps++;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> steps;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <div class="note note-success">
-            <p>说人话：end 就是你在上一次更新end的时候那个点能跳到的最远距离，要想走更远，得再跳一次了（step ++）</p><p align = "right">——某评论</p>
+            <p>说人话：end 就是你在上一次更新end的时候那个点能跳到的最远距离，要想走更远，得再跳一次了（step ++）</p> <p align = "right">——某评论</p>
           </div>
 
 <h4 id="划分字母区间"><a href="#划分字母区间" class="headerlink" title="划分字母区间"></a>划分字母区间</h4><p>给你一个字符串 <code>s</code> 。我们要把这个字符串划分为尽可能多的片段，同一字母最多出现在一个片段中。例如，字符串 <code>&quot;ababcc&quot;</code> 能够被分为 <code>[&quot;abab&quot;, &quot;cc&quot;]</code>，但类似 <code>[&quot;aba&quot;, &quot;bcc&quot;]</code> 或 <code>[&quot;ab&quot;, &quot;ab&quot;, &quot;cc&quot;]</code> 的划分是非法的。<br>注意，划分结果需要满足：将所有划分结果按顺序连接，得到的字符串仍然是 <code>s</code> 。<br>返回一个表示每个字符串片段的长度的列表。</p>
 <p>示例：<br>    输入：<code>s = &quot;ababcbacadefegdehijhklij&quot;</code><br>    输出：<code>[9,7,8]</code><br>    解释：<br>    划分结果为 <code>&quot;ababcbaca&quot;</code>、<code>&quot;defegde&quot;</code>、<code>&quot;hijhklij&quot;</code> 。<br>    每个字母最多出现在一个片段中。<br>    像 <code>&quot;ababcbacadefegde&quot;</code>, <code>&quot;hijhklij&quot;</code> 这样的划分是错误的，因为划分的片段数较少。</p>
 <div class="note note-info">
-            <p>这次的提示确实只是提示，没有给太多信息，只提示了可以将字母最后一次出现的位置记录下来。但如何贪心出来就不清楚了。<br>按照贪心，一次字符串需要包含最少的字母，因此需要将到最后一次出现字母的子串包圆。而这个“最后一次”又是需要随着字母增加不断更新维护的</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> List&lt;Integer&gt; <span class="hljs-title function_">partitionLabels</span><span class="hljs-params">(String s)</span> &#123;<br>        Map&lt;Character, Integer&gt; map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        List&lt;Integer&gt; ans = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; s.length(); i++)<br>            map.put(s.charAt(i), i);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, temp = <span class="hljs-number">0</span>, begin = -<span class="hljs-number">1</span>; i &lt; s.length(); i++) &#123;<br>            temp = Math.max(temp, map.get(s.charAt(i)));<br>            <span class="hljs-keyword">if</span>(i == temp) &#123;<br>                ans.add(i - begin);<br>                begin = i;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+            <p>这次的提示确实只是提示，没有给太多信息，只提示了可以将字母最后一次出现的位置记录下来。但如何贪心出来就不清楚了。<br>按照贪心，一次字符串需要包含最少的字母，因此需要将到最后一次出现字母的子串包圆。而这个“最后一次”又是需要随着字母增加不断更新维护的</p> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> List&lt;Integer&gt; <span class="hljs-title function_">partitionLabels</span><span class="hljs-params">(String s)</span> &#123;<br>        Map&lt;Character, Integer&gt; map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        List&lt;Integer&gt; ans = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; s.length(); i++)<br>            map.put(s.charAt(i), i);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, temp = <span class="hljs-number">0</span>, begin = -<span class="hljs-number">1</span>; i &lt; s.length(); i++) &#123;<br>            temp = Math.max(temp, map.get(s.charAt(i)));<br>            <span class="hljs-keyword">if</span>(i == temp) &#123;<br>                ans.add(i - begin);<br>                begin = i;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure> 
           </div>
 
 <p>题解将上面的哈希表换成了字母数组<code>int[26]</code>，相比上面的代码能省不少时间。</p>
 <h3 id="二分"><a href="#二分" class="headerlink" title="二分"></a>二分</h3><div class="note note-success">
-            <p>注意二分中中间指针的规范写法应该为<code>mid = left + (right - left) / 2</code>，防止数组元素太多，导致<code>left + right</code>溢出。不过好像 leetcode 一般不会这么为难人。</p>
+            <p>注意二分中中间指针的规范写法应该为<code>mid = left + (right - left) / 2</code>，防止数组元素太多，导致<code>left + right</code>溢出。不过好像 leetcode 一般不会这么为难人。</p> 
           </div>
 
 <div class="note note-success">
-            <p>令 <code>L = M</code> 时, 对应开区间; 令 <code>L = M + 1</code> 时, 对应闭区间(即包含 <code>L</code> 和 <code>R</code> 这两个数). 需要注意这两者的区别, 不要在中途改变其性质.</p>
+            <p>令 <code>L = M</code> 时, 对应开区间; 令 <code>L = M + 1</code> 时, 对应闭区间(即包含 <code>L</code> 和 <code>R</code> 这两个数). 需要注意这两者的区别, 不要在中途改变其性质.</p> 
           </div>
 
 <h4 id="搜索插入位置"><a href="#搜索插入位置" class="headerlink" title="搜索插入位置"></a>搜索插入位置</h4><p>给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。<br>请必须使用时间复杂度为 $O(\log n)$ 的算法。</p>
 <div class="note note-info">
-            <p>很明显的二分了。但二分的细节很容易处理不好。比如要找的数字比初始的<code>left</code>小呢？比初始的<code>right</code>大呢？和某次遍历的<code>left</code>或<code>right</code>相等呢？为什么最后找不到返回的是<code>left</code>而不是其他？这都是需要思考的</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">searchInsert</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> target)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, right = nums.length - <span class="hljs-number">1</span>, mid = (left + right) / <span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">while</span>(left &lt;= right) &#123;<br>            <span class="hljs-keyword">if</span>(target == nums[mid])<br>                <span class="hljs-keyword">return</span> mid;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(target &gt; nums[mid])<br>                left = mid + <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span><br>                right = mid - <span class="hljs-number">1</span>;<br>            mid = (left + right) / <span class="hljs-number">2</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> left;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+            <p>很明显的二分了。但二分的细节很容易处理不好。比如要找的数字比初始的<code>left</code>小呢？比初始的<code>right</code>大呢？和某次遍历的<code>left</code>或<code>right</code>相等呢？为什么最后找不到返回的是<code>left</code>而不是其他？这都是需要思考的</p> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">searchInsert</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> target)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, right = nums.length - <span class="hljs-number">1</span>, mid = (left + right) / <span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">while</span>(left &lt;= right) &#123;<br>            <span class="hljs-keyword">if</span>(target == nums[mid])<br>                <span class="hljs-keyword">return</span> mid;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(target &gt; nums[mid])<br>                left = mid + <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span><br>                right = mid - <span class="hljs-number">1</span>;<br>            mid = (left + right) / <span class="hljs-number">2</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> left;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure> 
           </div>
 
 <ul>
@@ -358,7 +495,7 @@
 <h4 id="在排序数组中查找元素的第一个和最后一个位置"><a href="#在排序数组中查找元素的第一个和最后一个位置" class="headerlink" title="在排序数组中查找元素的第一个和最后一个位置"></a><strong>在排序数组中查找元素的第一个和最后一个位置</strong></h4><p>给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 <code>target</code>。请你找出给定目标值在数组中的开始位置和结束位置。<br>如果数组中不存在目标值 <code>target，返回 [-1, -1]</code>。<br>你必须设计并实现时间复杂度为 $O(log n)$ 的算法解决此问题。</p>
 <p>示例：<br>    输入：<code>nums = [5,7,7,8,8,10], target = 8</code><br>    输出：<code>[3,4]</code></p>
 <div class="note note-info">
-            <p>依然是普通的二分查找，只是不同之处在于，如果找到了，需要重置左右指针，再让左右指针向两边扩展，获取范围. 当然, 如果全是闭区间, 也可以直接找 <code>target + 1</code> 的上一个值.</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span>[] searchRange(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> target) &#123;<br>        <span class="hljs-keyword">if</span>(nums.length == <span class="hljs-number">0</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;-<span class="hljs-number">1</span>,-<span class="hljs-number">1</span>&#125;;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, right = nums.length - <span class="hljs-number">1</span>, mid = (left + right) / <span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">while</span>(left &lt;= right) &#123;<br>            <span class="hljs-keyword">if</span>(target == nums[mid]) &#123;<br>                left = mid;<br>                right = mid;<br>                <span class="hljs-keyword">while</span>(left &gt; <span class="hljs-number">0</span> &amp;&amp; nums[left - <span class="hljs-number">1</span>] == nums[mid])<br>                    left--;<br>                <span class="hljs-keyword">while</span>(right &lt; nums.length - <span class="hljs-number">1</span> &amp;&amp; nums[right + <span class="hljs-number">1</span>] == nums[mid])<br>                    right++;<br>                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;left, right&#125;;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(target &lt; nums[mid])<br>                right = mid - <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span><br>                left = mid + <span class="hljs-number">1</span>;<br>            mid = (left + right) / <span class="hljs-number">2</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;-<span class="hljs-number">1</span>,-<span class="hljs-number">1</span>&#125;;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+            <p>依然是普通的二分查找，只是不同之处在于，如果找到了，需要重置左右指针，再让左右指针向两边扩展，获取范围. 当然, 如果全是闭区间, 也可以直接找 <code>target + 1</code> 的上一个值.</p> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span>[] searchRange(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> target) &#123;<br>        <span class="hljs-keyword">if</span>(nums.length == <span class="hljs-number">0</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;-<span class="hljs-number">1</span>,-<span class="hljs-number">1</span>&#125;;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, right = nums.length - <span class="hljs-number">1</span>, mid = (left + right) / <span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">while</span>(left &lt;= right) &#123;<br>            <span class="hljs-keyword">if</span>(target == nums[mid]) &#123;<br>                left = mid;<br>                right = mid;<br>                <span class="hljs-keyword">while</span>(left &gt; <span class="hljs-number">0</span> &amp;&amp; nums[left - <span class="hljs-number">1</span>] == nums[mid])<br>                    left--;<br>                <span class="hljs-keyword">while</span>(right &lt; nums.length - <span class="hljs-number">1</span> &amp;&amp; nums[right + <span class="hljs-number">1</span>] == nums[mid])<br>                    right++;<br>                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;left, right&#125;;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(target &lt; nums[mid])<br>                right = mid - <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span><br>                left = mid + <span class="hljs-number">1</span>;<br>            mid = (left + right) / <span class="hljs-number">2</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;-<span class="hljs-number">1</span>,-<span class="hljs-number">1</span>&#125;;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure> 
           </div>
 
 <p>上面的方法在极端状况下为$O(n)$（比如全部元素都是<code>target</code>的情况）。因此题解中有了一种更快的方法。</p>
@@ -392,7 +529,7 @@
 <h4 id="寻找两个正序数组的中位数"><a href="#寻找两个正序数组的中位数" class="headerlink" title="寻找两个正序数组的中位数"></a>寻找两个正序数组的中位数</h4><p>给定两个大小分别为 <code>m</code> 和 <code>n</code> 的正序（从小到大）数组 <code>nums1</code> 和 <code>nums2</code>。请你找出并返回这两个正序数组的 <strong>中位数</strong> 。</p>
 <p>算法的时间复杂度应该为 $O(\log (m+n))$ 。</p>
 <div class="note note-info">
-            <p>我管你这那的</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">findMedianSortedArrays</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums1, <span class="hljs-type">int</span>[] nums2)</span> &#123;<br>        <span class="hljs-type">int</span>[] result = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[nums1.length + nums2.length];<br>        System.arraycopy(nums1, <span class="hljs-number">0</span>, result, <span class="hljs-number">0</span>, nums1.length);<br>        System.arraycopy(nums2, <span class="hljs-number">0</span>, result, nums1.length, nums2.length);<br>        Arrays.sort(result);<br>        <span class="hljs-keyword">return</span> result.length % <span class="hljs-number">2</span> == <span class="hljs-number">1</span> ? result[result.length / <span class="hljs-number">2</span>] : (result[result.length / <span class="hljs-number">2</span> - <span class="hljs-number">1</span>] + result[result.length / <span class="hljs-number">2</span>]) / <span class="hljs-number">2.0</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+            <p>我管你这那的</p> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">findMedianSortedArrays</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums1, <span class="hljs-type">int</span>[] nums2)</span> &#123;<br>        <span class="hljs-type">int</span>[] result = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[nums1.length + nums2.length];<br>        System.arraycopy(nums1, <span class="hljs-number">0</span>, result, <span class="hljs-number">0</span>, nums1.length);<br>        System.arraycopy(nums2, <span class="hljs-number">0</span>, result, nums1.length, nums2.length);<br>        Arrays.sort(result);<br>        <span class="hljs-keyword">return</span> result.length % <span class="hljs-number">2</span> == <span class="hljs-number">1</span> ? result[result.length / <span class="hljs-number">2</span>] : (result[result.length / <span class="hljs-number">2</span> - <span class="hljs-number">1</span>] + result[result.length / <span class="hljs-number">2</span>]) / <span class="hljs-number">2.0</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure> 
           </div>
 
 <p>这道题可以转化为寻找两个（合并后的）有序数组中第k小的数，其中k为$\frac{m+n}{2}$或$\frac{m+n}{2}+1$。<br>假设两个有序数组分别为$\text{A}$和$\text{B}$，可以先比较$\text{A}[k&#x2F;2-1]$和$\text{B}[k&#x2F;2-1]$</p>
@@ -409,7 +546,7 @@
 
 <h3 id="小巧思"><a href="#小巧思" class="headerlink" title="小巧思"></a>小巧思</h3><h4 id="只出现一次的数字"><a href="#只出现一次的数字" class="headerlink" title="只出现一次的数字"></a>只出现一次的数字</h4><p>给你一个 <strong>非空</strong> 整数数组 <code>nums</code> ，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。</p>
 <div class="note note-info">
-            <p>提示指明了方向。相同的数异或会变成0，只有唯一出现的数鹤立鸡群</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">singleNumber</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> nums[<span class="hljs-number">0</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; nums.length; i++)<br>            ans ^= nums[i];<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+            <p>提示指明了方向。相同的数异或会变成0，只有唯一出现的数鹤立鸡群</p> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">singleNumber</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> nums[<span class="hljs-number">0</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; nums.length; i++)<br>            ans ^= nums[i];<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure> 
           </div>
 
 <p>脑筋急转弯了属于是。</p>
@@ -423,7 +560,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">majorityElement</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">x</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, votes = <span class="hljs-number">0</span>, count = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> num : nums)&#123;<br>            <span class="hljs-keyword">if</span> (votes == <span class="hljs-number">0</span>) x = num;<br>            votes += num == x ? <span class="hljs-number">1</span> : -<span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> num : nums)<br>            <span class="hljs-keyword">if</span> (num == x) count++;<br>        <span class="hljs-keyword">return</span> count &gt; nums.length / <span class="hljs-number">2</span> ? x : <span class="hljs-number">0</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <div class="note note-success">
-            <p>但在此题中，题目已经说明了多数元素必然存在，因此验证这一步可以省略。但时间并不会有明显的变化。</p>
+            <p>但在此题中，题目已经说明了多数元素必然存在，因此验证这一步可以省略。但时间并不会有明显的变化。</p> 
           </div>
 
 <h5 id="随机化"><a href="#随机化" class="headerlink" title="随机化"></a>随机化</h5><p>若找到了众数则返回，否则继续随机挑选</p>
@@ -432,7 +569,7 @@
 <h5 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h5><p>作为众数，无论有多大，取其中间位置一定正确。</p>
 <h4 id="颜色分类"><a href="#颜色分类" class="headerlink" title="颜色分类"></a>颜色分类</h4><p>给定一个包含红色、白色和蓝色、共 <code>n</code> 个元素的数组 <code>nums</code> ，<strong>原地</strong> 对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。<br>我们使用整数 <code>0</code>、 <code>1</code> 和 <code>2</code> 分别表示红色、白色和蓝色。</p>
 <div class="note note-info">
-            <p>题目给的数组范围实在太小了，才300个，完全体现不出不同算法的差距。<br>可以不管题目要求，直接排序</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">sortColors</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        Arrays.sort(nums);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>也可以按照提示的写法，先统计数量，然后再一个个覆盖数据</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">sortColors</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">zeros</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, ones = <span class="hljs-number">0</span>, twos = <span class="hljs-number">0</span>, p = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i : nums)<br>            <span class="hljs-keyword">switch</span>(i) &#123;<br>                <span class="hljs-keyword">case</span> <span class="hljs-number">0</span> -&gt; zeros++;<br>                <span class="hljs-keyword">case</span> <span class="hljs-number">1</span> -&gt; ones++;<br>                <span class="hljs-keyword">default</span> -&gt; twos++;<br>            &#125;;<br>        <span class="hljs-keyword">while</span>(zeros-- != <span class="hljs-number">0</span>)<br>            nums[p++] = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(ones-- != <span class="hljs-number">0</span>)<br>            nums[p++] = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">while</span>(twos-- != <span class="hljs-number">0</span>)<br>            nums[p++] = <span class="hljs-number">2</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>但一个复杂度为$O(2n)$，一个复杂度为$O(n\log n)$，时间都是0ms，都没有差别了</p>
+            <p>题目给的数组范围实在太小了，才300个，完全体现不出不同算法的差距。<br>可以不管题目要求，直接排序</p> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">sortColors</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        Arrays.sort(nums);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>  <p>也可以按照提示的写法，先统计数量，然后再一个个覆盖数据</p> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">sortColors</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">zeros</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, ones = <span class="hljs-number">0</span>, twos = <span class="hljs-number">0</span>, p = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i : nums)<br>            <span class="hljs-keyword">switch</span>(i) &#123;<br>                <span class="hljs-keyword">case</span> <span class="hljs-number">0</span> -&gt; zeros++;<br>                <span class="hljs-keyword">case</span> <span class="hljs-number">1</span> -&gt; ones++;<br>                <span class="hljs-keyword">default</span> -&gt; twos++;<br>            &#125;;<br>        <span class="hljs-keyword">while</span>(zeros-- != <span class="hljs-number">0</span>)<br>            nums[p++] = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(ones-- != <span class="hljs-number">0</span>)<br>            nums[p++] = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">while</span>(twos-- != <span class="hljs-number">0</span>)<br>            nums[p++] = <span class="hljs-number">2</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>  <p>但一个复杂度为$O(2n)$，一个复杂度为$O(n\log n)$，时间都是0ms，都没有差别了</p> 
           </div>
 
 <p>官解的双指针能实现一次遍历即可得出结果。另外维护两个指针<code>p0</code>和<code>p1</code>，<code>i</code>在遍历时，找到0就和<code>num[p0]</code>替换，找到1就和<code>num[p1]</code>交换并让指针加1。</p>
@@ -451,7 +588,7 @@
 
 <h4 id="寻找重复数"><a href="#寻找重复数" class="headerlink" title="寻找重复数"></a>寻找重复数</h4><p>给定一个包含 <code>n + 1</code> 个整数的数组 <code>nums</code> ，其数字都在 <code>[1, n]</code> 范围内，可知存在一个重复的整数。返回 <strong>这个重复的数</strong> 。<br>你设计的解决方案必须 <strong>不修改</strong> 数组 <code>nums</code> 且只用常量级 $O(1)$ 的额外空间。</p>
 <div class="note note-info">
-            <p>若不考虑空间复杂度，那么写出时间复杂度100%的代码是轻轻松松</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">findDuplicate</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-type">boolean</span>[] bitmap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">boolean</span>[nums.length];<br>        <span class="hljs-type">int</span> <span class="hljs-variable">length</span> <span class="hljs-operator">=</span> nums.length;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; length; ++i) &#123;<br>            <span class="hljs-keyword">if</span>(bitmap[nums[i]])<br>                <span class="hljs-keyword">return</span> nums[i];<br>            <span class="hljs-keyword">else</span><br>                bitmap[nums[i]] = <span class="hljs-literal">true</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+            <p>若不考虑空间复杂度，那么写出时间复杂度100%的代码是轻轻松松</p> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">findDuplicate</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-type">boolean</span>[] bitmap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">boolean</span>[nums.length];<br>        <span class="hljs-type">int</span> <span class="hljs-variable">length</span> <span class="hljs-operator">=</span> nums.length;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; length; ++i) &#123;<br>            <span class="hljs-keyword">if</span>(bitmap[nums[i]])<br>                <span class="hljs-keyword">return</span> nums[i];<br>            <span class="hljs-keyword">else</span><br>                bitmap[nums[i]] = <span class="hljs-literal">true</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure> 
           </div>
 
 <h5 id="快慢指针"><a href="#快慢指针" class="headerlink" title="快慢指针"></a>快慢指针</h5><p>题目中指明了<code>1 &lt;= nums[i] &lt;= n</code>，那么可以用快慢指针了。让快指针走两步，慢指针走一步，<a target="_blank" rel="noopener" href="https://ivanclf.github.io/2025/08/08/leetcode-2/#%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8II">由此处的推导可以知道</a>，当快慢指针相遇时，让快指针从当前位置出发，慢指针从起点出发，最后相遇的地方就是重复数。</p>
@@ -694,7 +831,7 @@
 
   <script>
   Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
-    mermaid.initialize({"theme":"default","securityLevel":"loose"});
+    mermaid.initialize({"theme":"default"});
 
     Fluid.utils.listenDOMLoaded(function() {
       Fluid.events.registerRefreshCallback(function() {
@@ -779,21 +916,6 @@
 <script  src="../../../../js/plugins.js" ></script>
 
 
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
 
 
 
@@ -812,7 +934,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -823,10 +1001,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -838,6 +1022,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
