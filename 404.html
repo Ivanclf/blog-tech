@@ -311,8 +311,8 @@
 
   
 
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.jpg') no-repeat center center; background-size: cover;">
+<div id="banner" class="banner" parallax=true data-random-banner='/img/random/IMG_20190815_195026.jpg,/img/random/IMG_20191109_224459.jpg,/img/random/IMG_20230830_182827.jpg,/img/random/IMG_20240326_184147.jpg,/img/random/IMG_20240706_181124.jpg,/img/random/IMG_20240711_110928.jpg,/img/random/IMG_20240803_141801.jpg,/img/random/IMG_20240916_095049.jpg,/img/random/IMG_20250112_125329.jpg,/img/random/IMG_20250705_170737.jpg,/img/random/IMG_20250707_104356.jpg,/img/random/IMG_20250707_172618.jpg,/img/random/IMG_20260211_080308.jpg,/img/random/IMG_20260522_184054.jpg,/img/random/IMG_20260524_141524.jpg'
+     style="background: url('/img/random/IMG_20190815_195026.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -330,6 +330,19 @@
   </div>
 </div>
 
+
+  <script>
+    (function() {
+      var banner = document.getElementById('banner');
+      if (!banner) return;
+      var list = banner.getAttribute('data-random-banner');
+      if (!list) return;
+      list = list.split(',').filter(Boolean);
+      if (list.length === 0) return;
+      var pick = list[Math.floor(Math.random() * list.length)];
+      banner.style.backgroundImage = "url('" + pick + "')";
+    })();
+  </script>
 
 
 </div>

@@ -28,8 +28,10 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://tech.ivanclf.com/2026/06/18/promotion-1/domain.png">
 <meta property="og:image" content="https://tech.ivanclf.com/2026/06/18/promotion-1/validate.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2026/06/18/promotion-1/DFA1.png">
+<meta property="og:image" content="https://tech.ivanclf.com/2026/06/18/promotion-1/DFA2.png">
 <meta property="article:published_time" content="2026-06-18T06:50:44.000Z">
-<meta property="article:modified_time" content="2026-06-25T10:34:49.625Z">
+<meta property="article:modified_time" content="2026-07-05T08:16:05.004Z">
 <meta property="article:author" content="Ivan Chan">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary_large_image">
@@ -355,7 +357,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          2.2k 字
         
       </span>
     
@@ -366,7 +368,7 @@
         
         
         
-          18 分钟
+          19 分钟
         
       </span>
     
@@ -488,6 +490,10 @@ gift--&gt;offer--&gt;rule
 <p>该架构在未来可能还会出现更多维度组合。与其每来一个新维度就修改配置结构，不如直接引入“场景”这个抽象概念，比如出清秒杀场景、外卖渠道促销场景等。单个规则项可以基于不同的场景由不同的配置值来支持差异化。校验行为本身并不需要感知场景，校验器本身拿到的始终是已解析好的检查清单，场景和校验本身之间完全解耦。</p>
 <p>由于校验事项复杂，可能校验失败的原因较多。为了一次性能将所有的错误原因列出，就需要互斥叠加这一步骤。此处需要注意有哪些场景下的校验是是可以略过的，可以直接return，否则需要抛出异常，在互斥叠加中处理。</p>
 <p><img src="validate.png" srcset="/img/loading.gif" lazyload alt="校验领域示意图"></p>
+<h2 id="活动自动机设计"><a href="#活动自动机设计" class="headerlink" title="活动自动机设计"></a>活动自动机设计</h2><p>任何一个需要审核的定时活动（包括大学活动管理，包括会议室预订），其活动状态都可以按照如下状态机流转</p>
+<p><img src="DFA1.png" srcset="/img/loading.gif" lazyload alt="活动状态自动机"></p>
+<p>其审核活动可以分为四种状态</p>
+<p><img src="DFA2.png" srcset="/img/loading.gif" lazyload alt="审批管理自动机"></p>
 
                 
               </div>
