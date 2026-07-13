@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://tech.ivanclf.com/2026/06/18/promotion-1/DFA1.png">
 <meta property="og:image" content="https://tech.ivanclf.com/2026/06/18/promotion-1/DFA2.png">
 <meta property="article:published_time" content="2026-06-18T06:50:44.000Z">
-<meta property="article:modified_time" content="2026-07-05T08:16:05.004Z">
+<meta property="article:modified_time" content="2026-07-13T13:41:17.539Z">
 <meta property="article:author" content="Ivan Chan">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary_large_image">
@@ -357,7 +357,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          2.7k 字
         
       </span>
     
@@ -368,7 +368,7 @@
         
         
         
-          19 分钟
+          23 分钟
         
       </span>
     
@@ -494,6 +494,29 @@ gift--&gt;offer--&gt;rule
 <p><img src="DFA1.png" srcset="/img/loading.gif" lazyload alt="活动状态自动机"></p>
 <p>其审核活动可以分为四种状态</p>
 <p><img src="DFA2.png" srcset="/img/loading.gif" lazyload alt="审批管理自动机"></p>
+<h2 id="营销业务拆分"><a href="#营销业务拆分" class="headerlink" title="营销业务拆分"></a>营销业务拆分</h2><p>除了单纯的促销，像美团外卖、饿了么之类的外卖平台，还有大量的优惠券服务，这些和这里电商的营销业务一起可以统称为营销业务。这么大一个服务，应该如何划分呢？以下是一种可能的方式</p>
+<ul>
+<li>营销服务，负责制定促销活动玩法<ul>
+<li>B端后台服务，用于给运营提供接口，以及给其他服务提供接口服务</li>
+<li>C端客户服务，用于给APP、小程序等提供优惠信息</li>
+</ul>
+</li>
+<li>优惠券服务，负责制定优惠券活动玩法<ul>
+<li>优惠券管理服务，用于优惠券的库存管理，算价和基础CRUD服务</li>
+<li>优惠券离线服务，用于运行在指定时刻发优惠券，进行过期提醒等与时序强相关的业务</li>
+<li>券活动服务，用于针对不同的活动需求发放不同的优惠券</li>
+</ul>
+</li>
+<li>礼品卡服务，负责制定礼品卡服务的具体逻辑<ul>
+<li>礼品卡B端服务，用于给运营提供礼品卡制作和管理等服务</li>
+<li>C端客户服务，用于进行实体卡激活、核销、绑定等功能</li>
+</ul>
+</li>
+<li>提报服务，针对B端，指供应商或运营将商品提交到活动的过程</li>
+<li>盘货服务，针对B端，指采购或运营针对商品进行盘点、确定活动商品清单的过程</li>
+<li>选品服务，针对B端，指给不同品类划分种类，从而提供不同服务，如进行特定活动（如双十一）、热卖榜单等。其作用<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/8ROsZniYD7nIQssC14mn3w">可以看这篇文章</a></li>
+<li>库存服务、用户认证服务、门店服务等服务需要按照具体需求来定</li>
+</ul>
 
                 
               </div>

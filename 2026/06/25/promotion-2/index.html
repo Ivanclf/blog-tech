@@ -19,15 +19,15 @@
   <meta name="author" content="Ivan Chan">
   <meta name="keywords" content="">
   
-    <meta name="description" content="POP有时候涉及到一个场景：线上运营填好了促销单，线下进行相关操作（如打印海报，地推预热等）。在活动生效时，线上运营就不能再操作对该活动进行删改；并且限制不允许存在同sku同门店且活动时间交叉的活动，不论线上线下。此处需要设计一个表，用于记录该POP的信息；该表除了基础的限制信息，还需要一个字段，用于表示该POP数据是否生效，即 print_pop。于是  店群中某个门店sku创建了促销活动，且打">
+    <meta name="description" content="POPPOP是Point of Purchase的简称，指线上线下一体化促销管控专用记录单。该单据用于存储已完成线下落地筹备的促销&#x2F;会员全量约束信息。其核心是通过布尔字段 print_pop 标识是否生成&#x2F;打印线下海报、地推物料、门店价签等线下实物物料，是系统执行同sku、同门店、时段互斥的核心依据。 如果双方任意一侧有POP数据且是否打印为真，则互斥，否则不互斥。 覆盖单门店">
 <meta property="og:type" content="article">
 <meta property="og:title" content="促销系统业务模型 - 2">
 <meta property="og:url" content="https://tech.ivanclf.com/2026/06/25/promotion-2/index.html">
 <meta property="og:site_name" content="Ivan的技术笔记">
-<meta property="og:description" content="POP有时候涉及到一个场景：线上运营填好了促销单，线下进行相关操作（如打印海报，地推预热等）。在活动生效时，线上运营就不能再操作对该活动进行删改；并且限制不允许存在同sku同门店且活动时间交叉的活动，不论线上线下。此处需要设计一个表，用于记录该POP的信息；该表除了基础的限制信息，还需要一个字段，用于表示该POP数据是否生效，即 print_pop。于是  店群中某个门店sku创建了促销活动，且打">
+<meta property="og:description" content="POPPOP是Point of Purchase的简称，指线上线下一体化促销管控专用记录单。该单据用于存储已完成线下落地筹备的促销&#x2F;会员全量约束信息。其核心是通过布尔字段 print_pop 标识是否生成&#x2F;打印线下海报、地推物料、门店价签等线下实物物料，是系统执行同sku、同门店、时段互斥的核心依据。 如果双方任意一侧有POP数据且是否打印为真，则互斥，否则不互斥。 覆盖单门店">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-06-25T06:13:23.000Z">
-<meta property="article:modified_time" content="2026-07-05T07:54:39.199Z">
+<meta property="article:modified_time" content="2026-07-13T14:45:59.292Z">
 <meta property="article:author" content="Ivan Chan">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary_large_image">
@@ -352,7 +352,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          1.2k 字
         
       </span>
     
@@ -363,7 +363,7 @@
         
         
         
-          12 分钟
+          10 分钟
         
       </span>
     
@@ -420,21 +420,9 @@
             
               <div class="markdown-body">
                 
-                <h2 id="POP"><a href="#POP" class="headerlink" title="POP"></a>POP</h2><p>有时候涉及到一个场景：线上运营填好了促销单，线下进行相关操作（如打印海报，地推预热等）。在活动生效时，线上运营就不能再操作对该活动进行删改；并且限制不允许存在同sku同门店且活动时间交叉的活动，不论线上线下。<br>此处需要设计一个表，用于记录该POP的信息；该表除了基础的限制信息，还需要一个字段，用于表示该POP数据是否生效，即 <code>print_pop</code>。于是</p>
-<ol>
-<li>店群中某个门店sku创建了促销活动，且打印字段为真，则不能再创建同门店同sku内任何门店的其他活动，无论该活动是否打印POP</li>
-<li>店群中某个门店sku创建了促销活动，无论是否打印POP，则不能再创建同门店同sku的其他POP且打印字段为真的活动</li>
-<li>经营范围距离举例：店群1内含门店A、门店B。先创建A的POP活动，打印为真，再创建其他活动时<ol>
-<li>A活动——同门店，创建失败</li>
-<li>B活动——创建成功</li>
-<li>店群1活动——店群含线下门店A，创建失败</li>
-<li><em>店群2活动——店群2不含A、创建成功</em></li>
-<li>城市活动——判断城市的门店是否含A、含则创建失败</li>
-</ol>
-</li>
-</ol>
+                <h2 id="POP"><a href="#POP" class="headerlink" title="POP"></a>POP</h2><p>POP是<strong>Point of Purchase</strong>的简称，指线上线下一体化促销管控专用记录单。该单据用于存储已完成线下落地筹备的促销&#x2F;会员全量约束信息。其核心是通过布尔字段 <code>print_pop</code> 标识是否生成&#x2F;打印线下海报、地推物料、门店价签等线下实物物料，是系统执行同sku、同门店、时段互斥的核心依据。</p>
 <p>如果双方任意一侧有POP数据且是否打印为真，则互斥，否则不互斥。</p>
-<p>在线上线下相融的环境中，该方法能有效避免相同活动被占用，且活动被修改的情况。</p>
+<p>覆盖单门店、店群、城市级全域活动；只要活动覆盖范围内任意门店存在 <code>print_pop=True</code> 的 POP 记录，同 SKU、重叠时段的新活动直接拦截创建，避免线下多套冲突促销物料同时投放、线上活动随意修改导致门店执行混乱。</p>
 <h2 id="库存管理与订货规划"><a href="#库存管理与订货规划" class="headerlink" title="库存管理与订货规划"></a>库存管理与订货规划</h2><p>库存管理需要关注两个维度：我需要多少货，和已经卖了多少货。订货规划则需要关注应该订多少货，和实际订货的偏差是多少。一个完整的库存系统（无论用于促销活动还是供应链管理），都需要关心如下问题：</p>
 <table>
 <thead>
