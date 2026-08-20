@@ -19,19 +19,19 @@
   <meta name="author" content="Ivan Chan">
   <meta name="keywords" content="">
   
-    <meta name="description" content="什么是促销业务在淘宝、京东、美团的商品页面上，往往会有逻辑复杂的优惠项，比如单纯的折扣，或者满件赠、满额赠等。复杂的优惠事项可以实现精准的筛选——有钱的客户一般没有时间，也就没有机会拿到优惠，从而赚取更多的钱；没钱的客户对价格更加敏感，也就更有时间和精力研究优惠项，从而获取更多优惠。这样，无论贫穷或富有，都能将货卖出去，赚取对应的成本。 然而这一套规则过于复杂，光靠一个单一的商城系统加模块是无法维">
+    <meta name="description" content="什么是促销业务在淘宝、京东、美团的商品页面上，往往会有逻辑复杂的优惠项，比如单纯的折扣，或者满2件送某某、满69元送某某等。复杂的优惠事项可以实现精准的筛选——有钱的客户一般没有时间，也就没有机会拿到优惠，从而赚取更多的钱；没钱的客户对价格更加敏感，也就更有时间和精力研究优惠项，从而获取更多优惠。这样，无论贫穷或富有，都能将货卖出去，赚取对应的成本。 然而这一套规则过于复杂，光靠一个单一的商城系统">
 <meta property="og:type" content="article">
 <meta property="og:title" content="促销系统业务模型 - 1">
 <meta property="og:url" content="https://tech.ivanclf.com/2026/06/18/promotion-1/index.html">
 <meta property="og:site_name" content="Ivan的技术笔记">
-<meta property="og:description" content="什么是促销业务在淘宝、京东、美团的商品页面上，往往会有逻辑复杂的优惠项，比如单纯的折扣，或者满件赠、满额赠等。复杂的优惠事项可以实现精准的筛选——有钱的客户一般没有时间，也就没有机会拿到优惠，从而赚取更多的钱；没钱的客户对价格更加敏感，也就更有时间和精力研究优惠项，从而获取更多优惠。这样，无论贫穷或富有，都能将货卖出去，赚取对应的成本。 然而这一套规则过于复杂，光靠一个单一的商城系统加模块是无法维">
+<meta property="og:description" content="什么是促销业务在淘宝、京东、美团的商品页面上，往往会有逻辑复杂的优惠项，比如单纯的折扣，或者满2件送某某、满69元送某某等。复杂的优惠事项可以实现精准的筛选——有钱的客户一般没有时间，也就没有机会拿到优惠，从而赚取更多的钱；没钱的客户对价格更加敏感，也就更有时间和精力研究优惠项，从而获取更多优惠。这样，无论贫穷或富有，都能将货卖出去，赚取对应的成本。 然而这一套规则过于复杂，光靠一个单一的商城系统">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://tech.ivanclf.com/2026/06/18/promotion-1/domain.png">
 <meta property="og:image" content="https://tech.ivanclf.com/2026/06/18/promotion-1/validate.png">
 <meta property="og:image" content="https://tech.ivanclf.com/2026/06/18/promotion-1/DFA1.png">
 <meta property="og:image" content="https://tech.ivanclf.com/2026/06/18/promotion-1/DFA2.png">
 <meta property="article:published_time" content="2026-06-18T06:50:44.000Z">
-<meta property="article:modified_time" content="2026-07-13T13:41:17.539Z">
+<meta property="article:modified_time" content="2026-08-20T13:23:40.261Z">
 <meta property="article:author" content="Ivan Chan">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary_large_image">
@@ -425,7 +425,7 @@
             
               <div class="markdown-body">
                 
-                <h2 id="什么是促销业务"><a href="#什么是促销业务" class="headerlink" title="什么是促销业务"></a>什么是促销业务</h2><p>在淘宝、京东、美团的商品页面上，往往会有逻辑复杂的优惠项，比如单纯的折扣，或者满件赠、满额赠等。复杂的优惠事项可以实现精准的筛选——有钱的客户一般没有时间，也就没有机会拿到优惠，从而赚取更多的钱；没钱的客户对价格更加敏感，也就更有时间和精力研究优惠项，从而获取更多优惠。这样，无论贫穷或富有，都能将货卖出去，赚取对应的成本。</p>
+                <h2 id="什么是促销业务"><a href="#什么是促销业务" class="headerlink" title="什么是促销业务"></a>什么是促销业务</h2><p>在淘宝、京东、美团的商品页面上，往往会有逻辑复杂的优惠项，比如单纯的折扣，或者满2件送某某、满69元送某某等。复杂的优惠事项可以实现精准的筛选——有钱的客户一般没有时间，也就没有机会拿到优惠，从而赚取更多的钱；没钱的客户对价格更加敏感，也就更有时间和精力研究优惠项，从而获取更多优惠。这样，无论贫穷或富有，都能将货卖出去，赚取对应的成本。</p>
 <p>然而这一套规则过于复杂，光靠一个单一的商城系统加模块是无法维护的，因此需要在后台新建一个促销管理模块，由运营填充促销相关信息。</p>
 <h2 id="领域模型设计"><a href="#领域模型设计" class="headerlink" title="领域模型设计"></a>领域模型设计</h2><h3 id="活动模型设计"><a href="#活动模型设计" class="headerlink" title="活动模型设计"></a>活动模型设计</h3><p>一项优惠活动应该关注哪些维度呢？</p>
 <p>促销活动领域核心的操作单元是促销品，从实际业务场景来看，无论是业务场景还是消费者最终面向的都是促销品，运营投入的补贴、设定的限制、指定的规则以及消费者最终享受的优惠，实际都是作用在促销品上。围绕促销品，不同的角色有不同的关注点，消费者更多是关注省了多少钱（优惠了多少），运营更多是关注花了多少钱（补贴了多少），同时辅以限制和门槛来保证一定的企业营收和业务增长。</p>
