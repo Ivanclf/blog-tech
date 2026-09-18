@@ -1,0 +1,994 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="../../../../img/image.jpg">
+  <link rel="icon" href="../../../../img/image.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Ivan Chan">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="买卖股票专题leetcode 121: 买卖股票的最佳时机你只能选择某一天买入这只股票，并选择在未来的某一个不同的日子卖出该股票。设计一个算法来计算你所能获取的最大利润。 解答源码 12345678910111213141516class Solution &#123;    public int maxProfit(int[] prices) &#123;        if(prices.le">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法专题 - 1">
+<meta property="og:url" content="https://tech.ivanclf.com/2026/09/06/algorithm-1/index.html">
+<meta property="og:site_name" content="Ivan的技术笔记">
+<meta property="og:description" content="买卖股票专题leetcode 121: 买卖股票的最佳时机你只能选择某一天买入这只股票，并选择在未来的某一个不同的日子卖出该股票。设计一个算法来计算你所能获取的最大利润。 解答源码 12345678910111213141516class Solution &#123;    public int maxProfit(int[] prices) &#123;        if(prices.le">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-09-06T06:49:23.000Z">
+<meta property="article:modified_time" content="2026-09-18T13:00:32.275Z">
+<meta property="article:author" content="Ivan Chan">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>算法专题 - 1 - Ivan的技术笔记</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="../../../../css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="../../../../css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="../../../../css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tech.ivanclf.com","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="../../../../js/utils.js" ></script>
+  <script  src="../../../../js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="../../../../index.html">
+      <strong>Ivan 的技术笔记</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="../../../../index.html" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="../../../../archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="../../../../categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="../../../../tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="../../../../about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="../../../../links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../index.html" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="../../../../links/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>友链</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true data-random-banner='../../../../img/random/IMG_20190815_195026.jpg,../../../../img/random/IMG_20191109_224459.jpg,../../../../img/random/IMG_20230830_182827.jpg,../../../../img/random/IMG_20240326_184147.jpg,../../../../img/random/IMG_20240706_181124.jpg,../../../../img/random/IMG_20240711_110928.jpg,../../../../img/random/IMG_20240803_141801.jpg,../../../../img/random/IMG_20240916_095049.jpg,../../../../img/random/IMG_20250112_125329.jpg,../../../../img/random/IMG_20250705_170737.jpg,../../../../img/random/IMG_20250707_104356.jpg,../../../../img/random/IMG_20250707_172618.jpg,../../../../img/random/IMG_20260211_080308.jpg,../../../../img/random/IMG_20260522_184054.jpg,../../../../img/random/IMG_20260524_141524.jpg'
+     style="background: url('../../../../../../../../img/random/IMG_20190815_195026.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.5)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">算法专题 - 1</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-09-06 14:49" pubdate>
+          2026年9月6日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          55 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+  <script>
+    (function() {
+      var banner = document.getElementById('banner');
+      if (!banner) return;
+      var list = banner.getAttribute('data-random-banner');
+      if (!list) return;
+      list = list.split(',').filter(Boolean);
+      if (list.length === 0) return;
+      var pick = list[Math.floor(Math.random() * list.length)];
+      banner.style.backgroundImage = "url('" + pick + "')";
+    })();
+  </script>
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">算法专题 - 1</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="买卖股票专题"><a href="#买卖股票专题" class="headerlink" title="买卖股票专题"></a>买卖股票专题</h2><h3 id="leetcode-121-买卖股票的最佳时机"><a href="#leetcode-121-买卖股票的最佳时机" class="headerlink" title="leetcode 121: 买卖股票的最佳时机"></a>leetcode 121: 买卖股票的最佳时机</h3><p>你只能选择<strong>某一天</strong>买入这只股票，并选择在<strong>未来的某一个不同的日子</strong>卖出该股票。设计一个算法来计算你所能获取的最大利润。</p>
+<p>解答源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">maxProfit</span><span class="hljs-params">(<span class="hljs-type">int</span>[] prices)</span> &#123;<br>        <span class="hljs-keyword">if</span>(prices.length == <span class="hljs-number">1</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        &#125;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, min = prices[<span class="hljs-number">0</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; prices.length; i++) &#123;<br>            <span class="hljs-keyword">if</span>(prices[i] &lt; min) &#123;<br>                min = prices[i];<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                ans = Math.max(ans, prices[i] - min);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>此处只涉及一次买入卖出，因此可以将数据看作一个折线图，在最低点买入，在最高点卖出。因此不断更新最小值，并将后续数据与最小值作差比较。<br>或者采用动态规划的思路，第i天卖出的价格由当天价格和历史最低价格作差得到，因此可以使用dp数组存储最低数据，即 <code>dp[i] = Math.max(dp[i - 1], price[i])</code>，然后维护一个max记录最大差值即可。</p>
+<h3 id="leetcode-122-买卖股票的最佳时机-II"><a href="#leetcode-122-买卖股票的最佳时机-II" class="headerlink" title="leetcode 122: 买卖股票的最佳时机 II"></a>leetcode 122: 买卖股票的最佳时机 II</h3><p>在每一天，你可以决定是否购买和&#x2F;或出售股票。你在任何时候<strong>最多</strong>只能持有<strong>一股</strong>股票。然而，你可以在<strong>同一天</strong>多次买卖该股票，但要确保你持有的股票不超过一股。返回你能获得的<strong>最大</strong>利润。</p>
+<p>这道题可以直接计算当天和上一天的变化趋势，是增加的就直接买入-卖出。而正经办法则是运用动态规划的思路。转移方程如下</p>
+<p>$$<br>\begin{cases}<br>buy[i] &#x3D; \text{max}( sold[i-1]-price[i],\ buy[i-1] ), \\<br>sold[i] &#x3D; \text{max}( buy[i-1]-price[i],\ sold[i-1] )<br>\end{cases}<br>$$</p>
+<blockquote>
+<p>含义：buy数组表示在第i天时，手里持有股票的最大利益；sold数组表示在第i天时，手里不持有股票的最大利益。</p>
+</blockquote>
+<p>为了持有股票，我们可以</p>
+<ol>
+<li>从前一天已经卖出股票的基础上再买入</li>
+<li>原先买入的继续持有</li>
+</ol>
+<p>为了减持股票，我们可以</p>
+<ol>
+<li>从前一天已经买入股票的基础上卖出</li>
+<li>原先卖出的继续空仓</li>
+</ol>
+<p>状态转移则是计算以上四种情况，获取在第i天的最优解。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">maxProfit</span><span class="hljs-params">(<span class="hljs-type">int</span>[] prices)</span> &#123;<br>        <span class="hljs-keyword">if</span>(prices.length == <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span>[] buy = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[prices.length];<br>        <span class="hljs-type">int</span>[] sold = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[prices.length];<br>        buy[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span> - prices[<span class="hljs-number">0</span>];<br>        sold[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; prices.length; i++) &#123;<br>            buy[i] = Math.max(sold[i - <span class="hljs-number">1</span>] - prices[i], buy[i - <span class="hljs-number">1</span>]);<br>            sold[i] = Math.max(buy[i - <span class="hljs-number">1</span>] + prices[i], sold[i - <span class="hljs-number">1</span>]);<br>        &#125;<br>        <span class="hljs-keyword">return</span> Math.max(buy[prices.length - <span class="hljs-number">1</span>], sold[prices.length - <span class="hljs-number">1</span>]);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="leetcode-714-买卖股票的最佳时机含手续费"><a href="#leetcode-714-买卖股票的最佳时机含手续费" class="headerlink" title="leetcode 714: 买卖股票的最佳时机含手续费"></a>leetcode 714: 买卖股票的最佳时机含手续费</h3><p>你可以无限次地完成交易，但是你每笔交易都需要付手续费。如果你已经购买了一个股票，在卖出它之前你就不能再继续购买股票了。<br>返回获得利润的最大值。</p>
+<blockquote>
+<p>这里的一笔交易指买入持有并卖出股票的整个过程，每笔交易你只需要为支付一次手续费。</p>
+</blockquote>
+<p>上一题的sold数组多减一个fee即可</p>
+<h3 id="leetcode-309-买卖股票的最佳时机含冷冻期"><a href="#leetcode-309-买卖股票的最佳时机含冷冻期" class="headerlink" title="leetcode 309: 买卖股票的最佳时机含冷冻期"></a>leetcode 309: 买卖股票的最佳时机含冷冻期</h3><p>设计一个算法计算出最大利润。在满足以下约束条件下，你可以尽可能地完成更多的交易（多次买卖一支股票）:</p>
+<blockquote>
+<p>卖出股票后，你无法在第二天买入股票 (即冷冻期为 1 天)。</p>
+</blockquote>
+<p>注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。</p>
+<p>股票的买入和卖出都遵循着状态机的机制，在前两题中是<code>买入-&gt;卖出</code>的机制，因此需要两个数组来实现状态转移的模拟（即先买入才能卖出，卖出手里的才有买入）。而本体机制更为复杂，为<code>买入-&gt;卖出-&gt;冻结</code>的机制，卖出后不能直接买入，而是要再等一天。状态转移方程如下</p>
+<p>$$<br>\begin{cases}<br>buy[i]&#x3D;\text{max}(froze[i-1]-price[i],\ buy[i-1]),\\<br>sold[i]&#x3D;\text{max}(buy[i-1]+price[i],\ sold[i-1]),\\<br>froze[i]&#x3D;sold[i-1]<br>\end{cases}<br>$$</p>
+<p>源码为</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">maxProfit</span><span class="hljs-params">(<span class="hljs-type">int</span>[] prices)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">length</span> <span class="hljs-operator">=</span> prices.length;<br>        <span class="hljs-keyword">if</span>(length == <span class="hljs-number">1</span> || (length == <span class="hljs-number">2</span> &amp;&amp; prices[<span class="hljs-number">0</span>] &gt;= prices[<span class="hljs-number">1</span>])) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span>[] buy = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[length];<br>        <span class="hljs-type">int</span>[] sold = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[length];<br>        <span class="hljs-type">int</span>[] froze = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[length];<br>        buy[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span> - prices[<span class="hljs-number">0</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; length; i++) &#123;<br>            buy[i] = Math.max(froze[i - <span class="hljs-number">1</span>] - prices[i], buy[i - <span class="hljs-number">1</span>]);<br>            sold[i] = Math.max(buy[i - <span class="hljs-number">1</span>] + prices[i], sold[i - <span class="hljs-number">1</span>]);<br>            froze[i] = sold[i - <span class="hljs-number">1</span>];<br>        &#125;<br>        <span class="hljs-keyword">return</span> Math.max(Math.max(buy[length - <span class="hljs-number">1</span>], sold[length - <span class="hljs-number">1</span>]), froze[length - <span class="hljs-number">1</span>]);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="leetcode-123-买卖股票的最佳时机-III-和-leetcode-124-买卖股票的最佳时机-IV"><a href="#leetcode-123-买卖股票的最佳时机-III-和-leetcode-124-买卖股票的最佳时机-IV" class="headerlink" title="leetcode 123: 买卖股票的最佳时机 III 和 leetcode 124: 买卖股票的最佳时机 IV"></a>leetcode 123: 买卖股票的最佳时机 III 和 leetcode 124: 买卖股票的最佳时机 IV</h3><p>给定一个数组，它的第 i 个元素是一支给定的股票在第 i 天的价格。<br>设计一个算法来计算你所能获取的最大利润。你最多可以完成 两笔 交易。<br>注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。</p>
+<p>转移方程如下</p>
+<p>$$<br>\begin{cases}<br>buy_1[i]&#x3D;\text{max}(buy_1[i-1],\ -price[i]),\\<br>sold_1[i]&#x3D;\text{max}(sold_1[i-1],\ buy_1[i-1]+price[i]),\\<br>buy_2[i]&#x3D;\text{max}(buy_2[i-1],\ sold_1[i-1]-price[i]),\\<br>sold_2[i]&#x3D;\text{max}(sold_2[i-1],\ buy_2[i-1]+price[i]),\\<br>\cdots<br>\end{cases}<br>$$</p>
+<p>注意，每一次买入的初始值都必须是一个足够大的负数，表示不可达（而卖出时也表示不买不卖，因此默认值0也是合理的）。最佳时机4的源码为</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">maxProfit</span><span class="hljs-params">(<span class="hljs-type">int</span>[] prices)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">length</span> <span class="hljs-operator">=</span> prices.length;<br>        <span class="hljs-keyword">if</span> (length == <span class="hljs-number">1</span> || (length == <span class="hljs-number">2</span> &amp;&amp; prices[<span class="hljs-number">0</span>] &gt;= prices[<span class="hljs-number">1</span>]))<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span>[][] profit = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[<span class="hljs-number">4</span>][length];<br>        profit[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = -prices[<span class="hljs-number">0</span>];<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">4</span>; i += <span class="hljs-number">2</span>) &#123;<br>            <span class="hljs-keyword">if</span> (i != <span class="hljs-number">0</span> &amp;&amp; i % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>)<br>                profit[i][<span class="hljs-number">0</span>] = Integer.MIN_VALUE;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; j &lt; length; j++) &#123;<br>                <span class="hljs-keyword">if</span> (i == <span class="hljs-number">0</span>)<br>                    profit[i][j] = Math.max(-prices[j], profit[i][j - <span class="hljs-number">1</span>]);<br>                <span class="hljs-keyword">else</span><br>                    profit[i][j] = Math.max(profit[i - <span class="hljs-number">1</span>][j] - prices[j], profit[i][j - <span class="hljs-number">1</span>]);<br>                profit[i + <span class="hljs-number">1</span>][j] = Math.max(profit[i][j] + prices[j], profit[i + <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>]);<br>            &#125;<br>        &#125;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">res</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">4</span>; i++)<br>            res = Math.max(res, profit[i][length - <span class="hljs-number">1</span>]);<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>注意到其每一个状态都只和前一个状态有关，因此可以简化操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">maxProfit</span><span class="hljs-params">(<span class="hljs-type">int</span> k, <span class="hljs-type">int</span>[] prices)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">length</span> <span class="hljs-operator">=</span> prices.length;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">constant</span> <span class="hljs-operator">=</span> <span class="hljs-number">2</span> * k;<br>        <span class="hljs-keyword">if</span> (length == <span class="hljs-number">1</span> || (length == <span class="hljs-number">2</span> &amp;&amp; prices[<span class="hljs-number">0</span>] &gt;= prices[<span class="hljs-number">1</span>]))<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span>[] profit = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[constant];<br>        Arrays.fill(profit, Integer.MIN_VALUE);<br>        profit[<span class="hljs-number">0</span>] = -prices[<span class="hljs-number">0</span>];<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; length; i++) &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; constant; j += <span class="hljs-number">2</span>) &#123;<br>                <span class="hljs-keyword">if</span>(j == <span class="hljs-number">0</span>) profit[j] = Math.max(profit[j], -prices[i]);<br>                <span class="hljs-keyword">else</span> profit[j] = Math.max(profit[j], profit[j - <span class="hljs-number">1</span>] - prices[i]);<br>                profit[j + <span class="hljs-number">1</span>] = Math.max(profit[j + <span class="hljs-number">1</span>], profit[j] + prices[i]);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> profit[constant - <span class="hljs-number">1</span>];<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="计算器专题"><a href="#计算器专题" class="headerlink" title="计算器专题"></a>计算器专题</h2><h3 id="求逆波兰表达式-I"><a href="#求逆波兰表达式-I" class="headerlink" title="求逆波兰表达式 I"></a>求逆波兰表达式 I</h3><div class="note note-danger">
+            <p>字节跳动 - 番茄小说&#x2F;红果短句&#x2F;番茄畅听，一面</p> 
+          </div>
+
+<p>给出一串字符串，求其逆波兰表达式。<br>数字只有一位，符号只从+、-、*、&#x2F;、(、)中选择</p>
+<p>输入1</p>
+<blockquote>
+<p>(1+2)*(3+4)</p>
+</blockquote>
+<p>输出1</p>
+<blockquote>
+<p>12+34+*</p>
+</blockquote>
+<p>输入2</p>
+<blockquote>
+<p>1+2*3</p>
+</blockquote>
+<p>输出2</p>
+<blockquote>
+<p>123*+</p>
+</blockquote>
+<p>此处使用leetcode模式。<br>思路：维护一个栈，用于对运算符进行处理。对于不同的符号&#x2F;数字，有不同的处理方式</p>
+<ol>
+<li>数字：直接输出；</li>
+<li>左括号：直接入栈；</li>
+<li>右括号：弹出左括号，输出这两个括号中间的所有运算符；</li>
+<li>运算符：弹出比当前符号优先级高的运算符。</li>
+</ol>
+<p>由于在运算时，高级运算符是先行弹出的，所以在遇到括号时，两个括号中所有的运算符优先级都是差不多的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><br>    <span class="hljs-comment">// 返回运算符优先级，数字越大优先级越高</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-title function_">precedence</span><span class="hljs-params">(<span class="hljs-type">char</span> op)</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">switch</span> (op) &#123;<br>            <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;+&#x27;</span>, <span class="hljs-string">&#x27;-&#x27;</span> -&gt; <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;*&#x27;</span>, <span class="hljs-string">&#x27;/&#x27;</span> -&gt; <span class="hljs-number">2</span>;<br>            <span class="hljs-keyword">default</span> -&gt; <span class="hljs-number">0</span>;<br>        &#125;;<br>    &#125;<br><br>    <span class="hljs-comment">// 中缀表达式转逆波兰表达式</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">toRPN</span><span class="hljs-params">(String expr)</span> &#123;<br>        <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>        Deque&lt;Character&gt; stack = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayDeque</span>&lt;&gt;();<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">char</span> c : expr.toCharArray()) &#123;<br>            <span class="hljs-keyword">if</span> (Character.isDigit(c)) &#123;<br>                <span class="hljs-comment">// 数字直接输出</span><br>                result.append(c);<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (c == <span class="hljs-string">&#x27;(&#x27;</span>) &#123;<br>                stack.push(c);<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (c == <span class="hljs-string">&#x27;)&#x27;</span>) &#123;<br>                <span class="hljs-comment">// 弹出直到遇到左括号</span><br>                <span class="hljs-keyword">while</span> (!stack.isEmpty() &amp;&amp; stack.peek() != <span class="hljs-string">&#x27;(&#x27;</span>) &#123;<br>                    result.append(stack.pop());<br>                &#125;<br>                stack.pop(); <span class="hljs-comment">// 弹出左括号</span><br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-comment">// 运算符：弹出优先级不低于当前运算符的栈顶运算符</span><br>                <span class="hljs-keyword">while</span> (!stack.isEmpty() &amp;&amp; stack.peek() != <span class="hljs-string">&#x27;(&#x27;</span> &amp;&amp; precedence(stack.peek()) &gt;= precedence(c)) &#123;<br>                    result.append(stack.pop());<br>                &#125;<br>                stack.push(c);<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-comment">// 弹出剩余运算符</span><br>        <span class="hljs-keyword">while</span> (!stack.isEmpty()) &#123;<br>            result.append(stack.pop());<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> result.toString();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="leetcode-224-基本计算器"><a href="#leetcode-224-基本计算器" class="headerlink" title="leetcode 224: 基本计算器"></a>leetcode 224: 基本计算器</h3><p>给你一个字符串表达式 s ，请你实现一个基本计算器来计算并返回它的值。<br>字符串中含有数字、+、-、(、)、” “。</p>
+<p>示例输入</p>
+<blockquote>
+<p>(1+(4+5+2)-3)+(6+8)</p>
+</blockquote>
+<p>示例输出</p>
+<blockquote>
+<p>23</p>
+</blockquote>
+<p>此处和上一题做法不太一样，没有采用逆波兰表达式的做法（因为运算符之间没有优先级规定）。而是用一种简化的方法。维护一个栈，栈顶记录了当前层括号的数据。逐位运算</p>
+<ol>
+<li>左括号：当前符号进栈，表示暂存结果</li>
+<li>右括号：当前括号内内容计算结束取符号，出栈</li>
+<li>加号：当前结果没有变号</li>
+<li>减号：当前结果取相反数</li>
+<li>数字：拿到数字和符号位，作为结果加到最终结果中</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">calculate</span><span class="hljs-params">(String s)</span> &#123;<br>        Deque&lt;Integer&gt; ops = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>&lt;Integer&gt;();<br>        ops.push(<span class="hljs-number">1</span>);<br>        <span class="hljs-type">int</span> <span class="hljs-variable">sign</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br><br>        <span class="hljs-type">int</span> <span class="hljs-variable">ret</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> s.length();<br>        <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span> (i &lt; n) &#123;<br>            <span class="hljs-keyword">if</span> (s.charAt(i) == <span class="hljs-string">&#x27; &#x27;</span>) &#123;<br>                i++;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (s.charAt(i) == <span class="hljs-string">&#x27;+&#x27;</span>) &#123;<br>                sign = ops.peek();<br>                i++;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (s.charAt(i) == <span class="hljs-string">&#x27;-&#x27;</span>) &#123;<br>                sign = -ops.peek();<br>                i++;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (s.charAt(i) == <span class="hljs-string">&#x27;(&#x27;</span>) &#123;<br>                ops.push(sign);<br>                i++;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (s.charAt(i) == <span class="hljs-string">&#x27;)&#x27;</span>) &#123;<br>                ops.pop();<br>                i++;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-type">long</span> <span class="hljs-variable">num</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>                <span class="hljs-keyword">while</span> (i &lt; n &amp;&amp; Character.isDigit(s.charAt(i))) &#123;<br>                    num = num * <span class="hljs-number">10</span> + s.charAt(i) - <span class="hljs-string">&#x27;0&#x27;</span>;<br>                    i++;<br>                &#125;<br>                ret += sign * num;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ret;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="../../../../categories/%E7%AE%97%E6%B3%95/" class="category-chain-item">算法</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="../../../../tags/%E7%AE%97%E6%B3%95/" class="print-no-link">#算法</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>算法专题 - 1</div>
+      <div>https://tech.ivanclf.com/2026/09/06/algorithm-1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Ivan Chan</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年9月6日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="../../../06/25/promotion-2/" title="促销系统业务模型 - 2">
+                        <span class="hidden-mobile">促销系统业务模型 - 2</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="../../../../js/events.js" ></script>
+<script  src="../../../../js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="../../../../js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="../../../../js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="../../../../js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
