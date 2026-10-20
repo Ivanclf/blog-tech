@@ -19,15 +19,15 @@
   <meta name="author" content="Ivan Chan">
   <meta name="keywords" content="">
   
-    <meta name="description" content="参考文献  https:&#x2F;&#x2F;javaguide.cn&#x2F;system-design&#x2F;security&#x2F;basis-of-authority-certification.html https:&#x2F;&#x2F;javaguide.cn&#x2F;cs-basics&#x2F;network&#x2F;other-network-questions.html https:&#x2F;&#x2F;tech.meituan.com&#x2F;2018&#x2F;10&#x2F;11&#x2F;fe-secur">
+    <meta name="description" content="HTTP打开一个网页，整个过程会用到哪些协议？主要经过以下步骤：  在浏览器输入 URL。  浏览器通过 DNS 协议获取域名对应的 IP 地址。 查询顺序通常是：浏览器 DNS 缓存 → hosts 文件 → 系统 DNS 缓存 → 递归查询。  DNS 查询与响应默认使用 UDP、端口 53；当响应报文过大（超过一个 UDP 报文能承载的大小）或进行区域传送时，会改用 TCP。现在也常用 Do">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算机网络应用">
 <meta property="og:url" content="https://tech.ivanclf.com/2025/11/17/internet-2/index.html">
 <meta property="og:site_name" content="Ivan的技术笔记">
-<meta property="og:description" content="参考文献  https:&#x2F;&#x2F;javaguide.cn&#x2F;system-design&#x2F;security&#x2F;basis-of-authority-certification.html https:&#x2F;&#x2F;javaguide.cn&#x2F;cs-basics&#x2F;network&#x2F;other-network-questions.html https:&#x2F;&#x2F;tech.meituan.com&#x2F;2018&#x2F;10&#x2F;11&#x2F;fe-secur">
+<meta property="og:description" content="HTTP打开一个网页，整个过程会用到哪些协议？主要经过以下步骤：  在浏览器输入 URL。  浏览器通过 DNS 协议获取域名对应的 IP 地址。 查询顺序通常是：浏览器 DNS 缓存 → hosts 文件 → 系统 DNS 缓存 → 递归查询。  DNS 查询与响应默认使用 UDP、端口 53；当响应报文过大（超过一个 UDP 报文能承载的大小）或进行区域传送时，会改用 TCP。现在也常用 Do">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-11-17T02:14:14.000Z">
-<meta property="article:modified_time" content="2026-04-02T12:33:53.959Z">
+<meta property="article:modified_time" content="2026-10-20T05:33:46.721Z">
 <meta property="article:author" content="Ivan Chan">
 <meta property="article:tag" content="碎片知识">
 <meta name="twitter:card" content="summary_large_image">
@@ -352,7 +352,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          10k 字
+          13k 字
         
       </span>
     
@@ -363,7 +363,7 @@
         
         
         
-          87 分钟
+          111 分钟
         
       </span>
     
@@ -420,61 +420,209 @@
             
               <div class="markdown-body">
                 
-                <p>参考文献</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://javaguide.cn/system-design/security/basis-of-authority-certification.html">https://javaguide.cn/system-design/security/basis-of-authority-certification.html</a></li>
-<li><a target="_blank" rel="noopener" href="https://javaguide.cn/cs-basics/network/other-network-questions.html">https://javaguide.cn/cs-basics/network/other-network-questions.html</a></li>
-<li><a target="_blank" rel="noopener" href="https://tech.meituan.com/2018/10/11/fe-security-csrf.html">https://tech.meituan.com/2018/10/11/fe-security-csrf.html</a></li>
-<li><a target="_blank" rel="noopener" href="https://javaguide.cn/system-design/security/jwt-intro.html">https://javaguide.cn/system-design/security/jwt-intro.html</a></li>
-</ul>
-<h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><p>打开一个网页，整个过程会用到什么协议？在打开一个网页时，需要经过以下步骤</p>
+                <h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><p>打开一个网页，整个过程会用到哪些协议？主要经过以下步骤：</p>
 <ol>
-<li>在浏览器输入指定网页的 URL</li>
-<li>浏览器通过 <strong>DNS</strong> 协议，获取域名对应的 IP 地址<br> DNS 在查询和返回时都是用的是 UDP 协议, 端口 53. 只有在某些特殊情况下会使用 TCP 协议</li>
-<li>浏览器根据 IP 地址和端口号，向目标服务器发起一个 <strong>TCP</strong>链接请求<br> 如果多个域名指向同一个 IP, 那么 HTTP 协议中的 Host 请求头部分会进行区分, 该部分会写上请求域名. Web 服务器根据这个 Host 找到对应的虚拟主机, 返回对应网站的内容. 如果是 HTTPS, 那么还会用到 SNI, 在 TLS 握手阶段将域名传给服务器, 让服务器选对证书.</li>
-<li>浏览器在 TCP 链接上向服务器发送一个 HTTP 请求报文，请求获取网页的内容</li>
-<li>服务器收到 HTTP 请求报文后，处理请求，并返回 HTML 响应报文给浏览器</li>
-<li>浏览器收到 HTTP 响应报文后，解析响应体中的 HTML 代码，渲染网页的结构和样式。同时根据 HTML 中的其他内容的 URL （如 CSS 或 JS 文件），再次发起 HTTP 请求，直到网页完全加载<br> 但现代的浏览器支持并行请求, 多路复用, 可以同步请求 HTML 和 CSS 文件.</li>
-<li>浏览器在不需要和服务器通信时，可以主动关闭 TCP 链接</li>
+<li><p>在浏览器输入 URL。</p>
+</li>
+<li><p>浏览器通过 <strong>DNS</strong> 协议获取域名对应的 IP 地址。<br> 查询顺序通常是：浏览器 DNS 缓存 → hosts 文件 → 系统 DNS 缓存 → 递归查询。</p>
+<p> DNS 查询与响应默认使用 UDP、端口 53；当响应报文过大（超过一个 UDP 报文能承载的大小）或进行区域传送时，会改用 TCP。现在也常用 DoH（DNS over HTTPS）或 DoT（DNS over TLS）进行加密查询。</p>
+</li>
+<li><p>浏览器根据 IP 和端口（HTTP 80 &#x2F; HTTPS 443）向服务器发起 <strong>TCP</strong> 连接（三次握手）。如果是局域网，还需要先通过 <strong>ARP</strong> 解析网关 MAC 地址。</p>
+</li>
+<li><p>如果是 HTTPS，先进行 <strong>TLS</strong> 握手（此时通过 SNI 把目标域名告诉服务器，服务器据此选择对应证书），之后才能发送加密的应用数据。</p>
+</li>
+<li><p>浏览器在 TCP 连接上发送 HTTP 请求报文。若多个域名指向同一 IP，服务器通过请求头中的 <code>Host</code> 区分虚拟主机，返回对应网站的内容。</p>
+</li>
+<li><p>服务器处理请求，返回 HTML 响应报文。</p>
+</li>
+<li><p>浏览器解析 HTML、构建 DOM 并渲染页面。期间根据解析到的 CSS、JS、图片等 URL 再次发起 HTTP 请求，直到页面完全加载。</p>
+<ul>
+<li>同一域名下，浏览器会并行建立多条连接（HTTP&#x2F;1.1 通常 6 条左右）；HTTP&#x2F;2 起改为在单条连接上多路复用。</li>
+<li>CSS 是<strong>渲染阻塞</strong>资源，未下载完成前页面不会渲染；JS（未加 <code>async</code>&#x2F;<code>defer</code>）还会阻塞 HTML 解析。</li>
+</ul>
+</li>
+<li><p>通信结束后服务器或浏览器可关闭连接。HTTP&#x2F;1.1 默认保持长连接，通常会复用连接一段时间，空闲超时后才关闭。</p>
+</li>
 </ol>
-<h4 id="HTTP-header"><a href="#HTTP-header" class="headerlink" title="HTTP header"></a>HTTP header</h4><h5 id="User-Agent"><a href="#User-Agent" class="headerlink" title="User-Agent"></a>User-Agent</h5><p>请求头。UA 提供了关于访问网站的设备、操作系统和浏览器的详细信息。现在以 <code>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0</code> 为例，说明包含的信息</p>
-<ul>
-<li><code>Windows NT 10.0; Win64; x64</code> 表示操作系统是 Windows 10 或 Windows 11，是 64 位的，处理器架构是 x86-64</li>
-<li><code>AppleWebKit/537.36 (KHTML, like Gecko)</code> WebKit 是一个开源的网页渲染引擎，后面是版本号。这表示浏览器使用的是基于 Chromium 的渲染引擎 （Blink，WebKit 的一个分支）。保持这个名字是为了保持兼容性</li>
-<li><code>Chrome/142.0.0.0</code> <code>Safari/537.36</code> <code>Edg/142.0.0.0</code> 浏览器版本</li>
-</ul>
-<h5 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h5><p>Cookie 是一些数据，用于存储 web 页面的用户信息。当 web 链接关闭后，服务端不会记录用户信息。而 Cookie 可以将相关信息存储在电脑上的文本文件中。</p>
-<p>可以使用 JS 相关方法创建 cookie，并且设置过期时间等属性。cookie 的字符串通常表示简单的键值对信息。</p>
-<div class="note note-info">
-            <p>cookie 和 session 有什么区别呢？简单来说，cookie 只存钥匙，而 session 存储数据。web 服务通常通过 cookie 来查找对应用户的 session。</p> <table> <thead> <tr> <th>特性</th> <th>cookie</th> <th>session</th> </tr> </thead> <tbody><tr> <td>存储位置</td> <td>客户端，用户的浏览器</td> <td>服务端，服务器的内存、文件、数据库等</td> </tr> <tr> <td>存储内容</td> <td>通常是简单的键值对字符串</td> <td>可以是任何数据结构</td> </tr> <tr> <td>安全性</td> <td>较低，容易被查看、篡改过窃取</td> <td>较高，客户端只能拿到一个 id</td> </tr> <tr> <td>生命周期</td> <td>可以设置长期有效</td> <td>通常有效时间较短，如在用户关闭浏览器后失效</td> </tr> <tr> <td>存储容量</td> <td>小，每个 cookie 约 4k，每个域名下有限制</td> <td>大，受服务器资源限制</td> </tr> <tr> <td>性能影响</td> <td>不直接影响，但可能会增加带宽</td> <td>占服务器内存</td> </tr> <tr> <td>依赖关系</td> <td>可以不依赖 session 独立使用</td> <td>通常依赖于 cookie 来传递 session id</td> </tr> </tbody></table> 
-          </div>
-
-<h5 id="Accept"><a href="#Accept" class="headerlink" title="Accept"></a>Accept</h5><p>请求头。能够接受的信息</p>
-<ul>
-<li><p>Accept<br>  能够接受的内容（对应响应头显示的内容 <code>Content-Type</code>），按照 MIME 格式</p>
-</li>
-<li><p>Accept-Charset<br>  能够接受的字符集</p>
-</li>
-<li><p>Accept-Encoding<br>  能够接受的编码方式列表</p>
-</li>
-<li><p>Accept-Language<br>  能够接受回应内容的语言列表</p>
-<p>  如 <code>Accept-Language: zh,en-US;q=0.9,en;q=0.8,zh-CN;q=0.7,ja;q=0.6,en-GB;q=0.5</code>，表示接受中文（最高优先级），美式英语次之（0.9），通用英语为 0.8，简体中文为 0.7，日语为 0.6，英式英语为 0.5</p>
-</li>
-</ul>
-<h5 id="Cache-Control"><a href="#Cache-Control" class="headerlink" title="Cache-Control"></a>Cache-Control</h5><p>指定这次请求&#x2F;响应链中的所有缓存机制</p>
-<h5 id="If-类"><a href="#If-类" class="headerlink" title="If 类"></a>If 类</h5><p>以下的请求头允许客户端在发起请求时设置前提条件，服务器只有在满足这些条件时才执行预期操作</p>
-<div class="note note-info">
-            <p><strong>ETag</strong> 是 Entity Tag 的缩写，是服务器为特定版本的资源分配的一个唯一字符串，可以理解为该资源在某个时间点的“指纹”或“版本号”，主要用于缓存验证或条件请求。</p> 
-          </div>
-
-<ul>
-<li>If-Match<br>  通常用于安全更新或删除资源。匹配成功时执行操作，不匹配则报 412<br>  只有我手里的版本号和服务器上现在的版本号一样时，才允许我覆盖它</li>
-<li>If-None-Match<br>  通常用于缓存验证或安全创建。匹配成功时显示 304 (GET)&#x2F; 412 (其他)，不匹配则执行操作<br>  只有我本地缓存的指纹和服务器上的不一样，或者文件不存在，才把新内容发给我</li>
-<li>If-Modified_since<br>  通常用于条件获取缓存。匹配成功时显示 304，不匹配则执行操作<br>  如果我本地缓存的文件自从这个时间点后就没被修改过，就不用发给我了</li>
-<li>If-Unmodified-Since<br>  通常用于安全更新。匹配成功时执行操作，不匹配时返回 412<br>  只有在我上次下载这个文件后没人动过它，才允许我现在的更新操作</li>
-<li>If-Range<br>  通常用于断点续传。匹配成功时返回 206，不匹配时返回 200，返回整个资源。通常和 <code>Range</code> 头一起用<br>  如果我要下载的文件还是原来那个，就从我上次断掉的地方继续传，否则就把整个新文件传给我</li>
-</ul>
-<h4 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h4><p>HTTPS &#x3D; HTTP + Secure，这层安全保障的核心是 SSL&#x2F;TLS 协议。</p>
+<h4 id="HTTP-header"><a href="#HTTP-header" class="headerlink" title="HTTP header"></a>HTTP header</h4><p><strong>User-Agent</strong></p>
+<p>请求头，携带设备、操作系统与浏览器的信息。以 <code>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0</code> 为例：</p>
+<table>
+<thead>
+<tr>
+<th>片段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Mozilla/5.0</code></td>
+<td>历史遗留的兼容标记，几乎所有浏览器都会写上</td>
+</tr>
+<tr>
+<td><code>Windows NT 10.0; Win64; x64</code></td>
+<td>系统为 Windows 10&#x2F;11，64 位，架构为 x86-64</td>
+</tr>
+<tr>
+<td><code>AppleWebKit/537.36 (KHTML, like Gecko)</code></td>
+<td>WebKit 渲染引擎及版本。Chromium 实际使用 Blink（WebKit 的分支），保留此标识仅为兼容</td>
+</tr>
+<tr>
+<td><code>Chrome/142.0.0.0</code></td>
+<td>Chrome 内核版本</td>
+</tr>
+<tr>
+<td><code>Safari/537.36</code></td>
+<td>兼容性填充，并非真的 Safari</td>
+</tr>
+<tr>
+<td><code>Edg/142.0.0.0</code></td>
+<td>Edge 浏览器及其版本</td>
+</tr>
+</tbody></table>
+<p><strong>Cookie</strong></p>
+<p>Cookie 是浏览器端保存的一小段键值对数据。HTTP 本身无状态，连接关闭后服务端无法辨认同一用户，Cookie 正是把用户信息（或标识）留在客户端的手段。可用 JS 创建并设置过期时间等属性。</p>
+<p>Cookie 与 Session 的区别可以概括为：<strong>Cookie 存钥匙，Session 存数据</strong>，服务端通常凭 Cookie 中的 ID 找到对应的 Session。</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Cookie</th>
+<th>Session</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>存储位置</td>
+<td>客户端浏览器</td>
+<td>服务端（内存、文件、数据库等）</td>
+</tr>
+<tr>
+<td>存储内容</td>
+<td>简单的键值对字符串</td>
+<td>任意数据结构</td>
+</tr>
+<tr>
+<td>安全性</td>
+<td>较低，易被查看、篡改或窃取</td>
+<td>较高，客户端只拿到一个 ID</td>
+</tr>
+<tr>
+<td>生命周期</td>
+<td>可设置长期有效</td>
+<td>通常较短，如关闭浏览器后失效</td>
+</tr>
+<tr>
+<td>存储容量</td>
+<td>小，单个约 4KB，且每个域名有数量限制</td>
+<td>大，受服务器资源限制</td>
+</tr>
+<tr>
+<td>性能影响</td>
+<td>每次请求都会携带，增加带宽</td>
+<td>占用服务器内存</td>
+</tr>
+<tr>
+<td>依赖关系</td>
+<td>可独立使用</td>
+<td>通常依赖 Cookie 传递 Session ID</td>
+</tr>
+</tbody></table>
+<p><strong>Accept 类</strong></p>
+<p>请求头，声明客户端愿意接受的内容。</p>
+<table>
+<thead>
+<tr>
+<th>请求头</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Accept</code></td>
+<td>可接受的响应媒体类型（MIME），对应响应头的 <code>Content-Type</code></td>
+</tr>
+<tr>
+<td><code>Accept-Charset</code></td>
+<td>可接受的字符集</td>
+</tr>
+<tr>
+<td><code>Accept-Encoding</code></td>
+<td>可接受的编码&#x2F;压缩方式，如 <code>gzip</code>、<code>br</code></td>
+</tr>
+<tr>
+<td><code>Accept-Language</code></td>
+<td>可接受的语言及其优先级</td>
+</tr>
+</tbody></table>
+<p><code>q</code> 表示权重，取值 0~1，默认 1，越大优先级越高。如 <code>Accept-Language: zh,en-US;q=0.9,en;q=0.8,zh-CN;q=0.7,ja;q=0.6,en-GB;q=0.5</code>，优先级依次为：中文 1.0 &gt; 美式英语 0.9 &gt; 通用英语 0.8 &gt; 简体中文 0.7 &gt; 日语 0.6 &gt; 英式英语 0.5。</p>
+<p><strong>ETag 与 Last-Modified</strong></p>
+<p>二者都是<strong>响应头</strong>，由服务器在响应中给出，用来标记资源的版本，常被称为“缓存校验器”（validator）。客户端下次请求时通过 <code>If-None-Match</code> &#x2F; <code>If-Modified-Since</code> 把它们带回服务器，由服务器判断资源是否已经变化。</p>
+<table>
+<thead>
+<tr>
+<th>响应头</th>
+<th>示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ETag</code></td>
+<td><code>ETag: &quot;33a64df5...&quot;</code></td>
+<td>Entity Tag，服务器为某个版本的资源分配的唯一字符串。<code>&quot;...&quot;</code> 为强校验器，要求字节级完全一致；<code>W/&quot;...&quot;</code> 为弱校验器，允许语义等价</td>
+</tr>
+<tr>
+<td><code>Last-Modified</code></td>
+<td><code>Last-Modified: Wed, 21 Oct 2025 07:28:00 GMT</code></td>
+<td>资源最后修改时间，精度只到秒</td>
+</tr>
+</tbody></table>
+<p>两者互补：<code>ETag</code> 更精确，能区分同一秒内的多次修改，但需要服务器额外计算；<code>Last-Modified</code> 实现简单，但精度有限，且文件拷贝、重新部署都可能更新其时间值，导致“时间变了但内容没变”。若资源经过压缩、转码，字节不同而语义相同，则更适合使用弱 <code>ETag</code>。</p>
+<p><strong>If 类</strong></p>
+<p>条件请求头：客户端在请求中附加前提条件，服务器只有条件满足时才执行操作。条件通常由上面两个校验器提供，例如 <code>If-None-Match</code> 比较 <code>ETag</code>，<code>If-Modified-Since</code> 比较 <code>Last-Modified</code>。</p>
+<table>
+<thead>
+<tr>
+<th>请求头</th>
+<th>典型用途</th>
+<th>条件满足</th>
+<th>条件不满足</th>
+<th>白话理解</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>If-Match</code></td>
+<td>安全更新 &#x2F; 删除</td>
+<td>执行操作</td>
+<td>412 Precondition Failed</td>
+<td>我手里的版本号和服务器上的一致，才允许覆盖</td>
+</tr>
+<tr>
+<td><code>If-None-Match</code></td>
+<td>缓存验证 &#x2F; 安全创建</td>
+<td>GET 返回 304 Not Modified，其他方法返回 412</td>
+<td>执行操作，返回新内容</td>
+<td>本地缓存与服务器不一致（或资源不存在）时，才把新内容发给我</td>
+</tr>
+<tr>
+<td><code>If-Modified-Since</code></td>
+<td>条件获取缓存</td>
+<td>返回 304 Not Modified</td>
+<td>执行操作，返回新内容</td>
+<td>文件在该时间点之后没被改过，就不用再传给我</td>
+</tr>
+<tr>
+<td><code>If-Unmodified-Since</code></td>
+<td>安全更新</td>
+<td>执行操作</td>
+<td>412 Precondition Failed</td>
+<td>文件自上次下载后没人动过，才允许我更新</td>
+</tr>
+<tr>
+<td><code>If-Range</code></td>
+<td>断点续传（配合 <code>Range</code> 使用）</td>
+<td>返回 206 Partial Content</td>
+<td>返回 200 与完整资源</td>
+<td>还是原来那个文件就接着传，否则整个重传</td>
+</tr>
+</tbody></table>
+<h4 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h4><p>HTTPS 是 HTTP over TLS 的简称，其安全保障由 SSL&#x2F;TLS 协议提供（早期为 SSL，现均为 TLS）。</p>
 <table>
 <thead>
 <tr>
@@ -491,7 +639,7 @@
 <tr>
 <td>协议</td>
 <td>基于 TCP</td>
-<td>基于 TCP + SSL&#x2F;TLS</td>
+<td>HTTP over TLS，底层通常是 TCP（HTTP&#x2F;3 则基于 QUIC over UDP）</td>
 </tr>
 <tr>
 <td>端口</td>
@@ -501,12 +649,12 @@
 <tr>
 <td>工作方式</td>
 <td>直接传输数据</td>
-<td>先建立安全的 SSL&#x2F;TLS 链接，再传输加密数据</td>
+<td>先完成 TLS 握手，再传输加密数据</td>
 </tr>
 <tr>
 <td>需要证书</td>
 <td>否</td>
-<td>是，有证书颁发机构签发</td>
+<td>是，由证书颁发机构（CA）签发</td>
 </tr>
 <tr>
 <td>数据完整性</td>
@@ -515,21 +663,22 @@
 </tr>
 <tr>
 <td>SEO</td>
-<td>主流浏览器不会直接打开，对 SEO 不利</td>
-<td>可直接打开，是 SEO 排名因素之一</td>
+<td>浏览器标记“不安全”，对 SEO 略不利</td>
+<td>浏览器显示安全锁，且是 SEO 排名因素之一</td>
 </tr>
 </tbody></table>
-<p>在浏览器链接到服务器的 443 端口后, 其握手过程(TLS 1.2)如下</p>
+<p>浏览器连接到服务器的 443 端口后，TLS 1.3 的握手（1-RTT）过程如下：</p>
 <ol>
-<li>Client Hello: 客户端发送支持的 TLS 版本, 密码套件列表, 随机数 <strong>Client Random</strong>.</li>
-<li>Server Hello: 服务器选择协议版本和密码套件, 并发送另一个随机数 <strong>Server Random</strong>.</li>
-<li>证书: 服务器发送数字证书, 这其中包含一个公钥.</li>
-<li>密钥交换: 客户端验证证书后, 生成一个随机生成的<strong>预主密钥</strong>(Pre-Master Secret), 用服务器公钥加密后发送</li>
-<li>计算会话密钥: 双方根据 Client Random, Server Random 和 Pre-Master Secret 独立计算出相同的会话密钥.</li>
-<li>握手完成. 客户端和服务器分别通知对方后续通信将加密, 并发送验证信息.</li>
+<li><strong>Client Hello</strong>：客户端发送支持的版本、密码套件、随机数 <code>Client Random</code>、SNI，以及临时生成的 ECDHE 公钥（<code>key_share</code>）。</li>
+<li><strong>Server Hello</strong>：服务器选定密码套件，返回随机数 <code>Server Random</code> 和自己的 ECDHE 公钥。双方用各自的私钥加对方的公钥，各自算出同一个共享密钥。</li>
+<li><strong>服务器发送加密的握手消息</strong>：包括证书链、<code>CertificateVerify</code>（用证书私钥对握手摘要签名，证明自己持有私钥）和 <code>Finished</code>（握手过程校验）。</li>
+<li><strong>客户端校验并回复</strong>：校验证书链、域名、有效期和签名，通过后发送自己的 <code>Finished</code>，双方据此派生会话密钥。</li>
+<li><strong>应用数据传输</strong>：之后的数据都用会话密钥对称加密。</li>
 </ol>
-<p>为什么最后还是使用对称加密呢？因为公私钥加密计算复杂，速度慢，对称加密速度相对较快，适合加密大量数据。</p>
-<h4 id="HTTP-协议"><a href="#HTTP-协议" class="headerlink" title="HTTP 协议"></a>HTTP 协议</h4><p>HTTP 协议经历了四个阶段</p>
+<p>完整握手需要 1-RTT。若客户端持有上次的会话票据（PSK），可走<strong>会话恢复</strong>，在 Client Hello 中就开始加密，实现 <strong>0-RTT</strong>；代价是 0-RTT 数据可能被重放，因此只适合幂等请求。</p>
+<p>相比 TLS 1.2，TLS 1.3 主要变化为：只保留带前向保密的 ECDHE 与 PSK 两种密钥交换，废弃 RSA 密钥交换、CBC、RC4、SHA-1 和压缩；Server Hello 之后的消息全部加密；密钥派生统一使用 HKDF。</p>
+<p>会话密钥采用<strong>对称加密</strong>（如 AES-GCM、ChaCha20-Poly1305），因为对称加密速度快、适合加密大量数据；非对称加密开销大，只用于身份认证和密钥交换。</p>
+<h4 id="HTTP-协议"><a href="#HTTP-协议" class="headerlink" title="HTTP 协议"></a>HTTP 协议</h4><p>HTTP 协议经历了四个阶段。</p>
 <table>
 <thead>
 <tr>
@@ -542,38 +691,38 @@
 </thead>
 <tbody><tr>
 <td>连接方式</td>
-<td>短链接</td>
-<td>长连接</td>
-<td>多路复用</td>
+<td>短连接</td>
+<td>长连接，可管道化</td>
+<td>一条连接多路复用</td>
 <td>基于 QUIC 的多路复用</td>
 </tr>
 <tr>
 <td>队头阻塞</td>
-<td>严重</td>
-<td>存在</td>
-<td>在 HTTP 层解决</td>
-<td>在传输层解决</td>
+<td>应用层，请求串行</td>
+<td>应用层，管道化下仍存在</td>
+<td>应用层解决，但受 TCP 丢包影响</td>
+<td>传输层解决</td>
 </tr>
 <tr>
 <td>服务器推送</td>
 <td>不支持</td>
 <td>不支持</td>
-<td>支持</td>
-<td>支持，但实现机制不同</td>
+<td>支持（主流浏览器已移除）</td>
+<td>支持（同样已被移除）</td>
 </tr>
 <tr>
 <td>传输协议</td>
 <td>TCP</td>
 <td>TCP</td>
 <td>TCP</td>
-<td>UDP</td>
+<td>UDP（QUIC）</td>
 </tr>
 <tr>
-<td>安全</td>
+<td>加密</td>
 <td>无要求</td>
 <td>无要求</td>
-<td>非强制</td>
-<td>强制</td>
+<td>规范上非强制，浏览器实际只支持 over TLS</td>
+<td>强制，内置 TLS 1.3</td>
 </tr>
 <tr>
 <td>头部压缩</td>
@@ -583,35 +732,37 @@
 <td>QPACK</td>
 </tr>
 <tr>
-<td>建立链接速度</td>
-<td>慢</td>
-<td>较慢</td>
-<td>较慢</td>
-<td>极快</td>
+<td>连接建立</td>
+<td>TCP 握手</td>
+<td>TCP 握手</td>
+<td>TCP + TLS 握手</td>
+<td>QUIC 握手，可 0-RTT</td>
 </tr>
 </tbody></table>
-<p>HTTP&#x2F;1.0 的核心特点即为短链接，每次请求都需要重新建立一次 TCP 链接，收到响应后立即关闭链接。该方式的性能极差，开销巨大，并且会造成<strong>队头阻塞</strong>：上一个请求响应慢了，会阻塞后面所有请求。</p>
-<p>HTTP&#x2F;1.1 解决了 1.0 的核心痛点。其核心特点是长连接，默认保持 TCP 链接打开，可以在一个链接上发送多个请求和响应。该实现方式减少了建立和关闭连接的开销，并且能够实现管道化。但是仍存在队头阻塞和<strong>头部冗余</strong>：每个请求都携带大量重复的头部信息。</p>
-<p>并且 HTTP&#x2F;1.1 也有内容上的差别。HTTP&#x2F;1.1 中加入了大量的状态码，如 <code>100</code> (请求大资源前的预热请求)、<code>409</code> (请求和当前资源的规定冲突) 等。</p>
-<p>HTTP&#x2F;2 的主要目标是提升性能。HTTP&#x2F;2 使用更紧凑和高效的二进制帧进行数据传输，不同于先前的使用文本格式的报文。并且实现了<strong>多路复用</strong>：在同一个 TCP 上，可以同时交错地发送多个请求&#x2F;响应流，而不会互相阻塞。每个流都有自己的 id。</p>
-<p>这样一来，由于响应可以乱序返回，慢的响应也不会阻塞快的响应了。并且还使用了 HPACK 算法大大减少了头部开销。同时，服务器还可以主动向客户端推送资源，如当客户端请求 HTML 时，服务器也会把对应的 CSS 和 JS 推过去。</p>
-<p>但其底层的 TCP 本身是有序的，如果网络中有一个 TCP 包丢失，整个 TCP 链接都会停下来等待重传，这个阻塞该链接上所有的 HTTP&#x2F;2 流。</p>
-<p>HTTP&#x2F;3 是下一代协议，彻底更换了底层传输协议来解决 HTTP&#x2F;2 的终极协议。其使用基于 UDP 开发的 QUIC 协议。它</p>
+<p><strong>HTTP&#x2F;1.0</strong> 使用短连接：每个请求都要新建一次 TCP 连接，收到响应后立即关闭。建连开销大，且受浏览器对单域名并发连接数的限制，资源只能排队加载。</p>
+<p><strong>HTTP&#x2F;1.1</strong> 改用长连接：默认保持 TCP 连接打开，可在同一连接上先后发送多个请求，并通过管道化（pipelining）连续发送。但响应必须按请求顺序返回，前一个响应慢仍会拖住后面的请求，即<strong>应用层队头阻塞</strong>。此外还有<strong>头部冗余</strong>：每个请求都携带大量重复头部，且不做压缩。</p>
+<p>HTTP&#x2F;1.1 还补充了大量状态码，如 <code>100 Continue</code>（服务器告知客户端可以继续发送请求体）、<code>409 Conflict</code>（请求与资源当前状态冲突）等。</p>
+<p><strong>HTTP&#x2F;2</strong> 以二进制帧替代文本报文，在同一条 TCP 连接上并发多条流，每条流有唯一 ID；响应可以乱序返回，因此解决了 HTTP 层的队头阻塞；同时用 HPACK 压缩头部，并支持服务器推送（Server Push，但主流浏览器已移除该功能）。</p>
+<p>它的瓶颈转移到 TCP 本身：TCP 按序交付，一旦某个包丢失，整条连接上的所有流都要停下来等重传。</p>
+<p><strong>HTTP&#x2F;3</strong> 彻底更换底层传输协议，改用基于 UDP 的 QUIC，以解决 TCP 层的队头阻塞：</p>
 <ul>
-<li>解决了 TCP 层的队头阻塞，在传输层原生实现了多路复用。每个流是独立的，一个流的包丢失只会影响该流，对其他流不受影响</li>
-<li>极快的链接确立，通常只需要 0-RTT 或 1-RTT，而TCP + TLS 需要 1-3 个 RTT。</li>
-<li>链接迁移，当用户切换网络时，TCP 需要中断重连，而 QUIC 链接可以无缝迁移</li>
-<li>强制加密，加密内置于 QUIC 协议中</li>
+<li>各条流相互独立，某个流丢包只影响该流</li>
+<li>连接建立更快：首次 1-RTT，会话恢复可 0-RTT；而 TCP + TLS 1.3 需要 2 RTT，TLS 1.2 需要 3 RTT</li>
+<li>支持连接迁移：切换网络时 TCP 必须断开重连，QUIC 用连接 ID 标识会话，可以无缝迁移</li>
+<li>强制加密：TLS 1.3 内置于 QUIC</li>
 </ul>
 <div class="note note-info">
-            <p>HTTP&#x2F;1.0 到 HTTP&#x2F;2 的切换在应用层协商。从 HTTP&#x2F;1.0 升级到 HTTP&#x2F;1.1 通过 <code>Connection: keep-alive</code> 请求头实现（已成为默认行为）。而升级到 HTTP&#x2F;2 主要有两种方式</p> <ul> <li>客户端在 TLS 握手时通过 ALPN 扩展告诉服务器自己支持 HTTP&#x2F;2</li> <li>客户端发送一个 HTTP&#x2F;1.1 的请求，其中包含 <code>Upgrade: h2c</code> 头部，若服务器同意，则返回 <code>101</code> (切换协议) 状态码，之后双方切换为 HTTP&#x2F;2 通信</li> </ul> 
+            <p>HTTP&#x2F;1.0 到 HTTP&#x2F;2 的切换在应用层协商。HTTP&#x2F;1.1 默认使用长连接（<code>Connection: keep-alive</code>，已成为默认行为）。升级到 HTTP&#x2F;2 主要有两种方式</p> <ul> <li>客户端在 TLS 握手时通过 ALPN 扩展告诉服务器自己支持 HTTP&#x2F;2（实际部署中最常见）</li> <li>明文场景下，客户端发送含 <code>Upgrade: h2c</code> 的 HTTP&#x2F;1.1 请求，服务器同意则返回 <code>101 Switching Protocols</code>，之后双方切换为 HTTP&#x2F;2</li> </ul> <p>HTTP&#x2F;3 则通过响应头 <code>Alt-Svc</code> 或 HTTPS DNS 记录（<code>HTTPS</code> 记录）宣告自己支持 h3，客户端据此改用 QUIC 连接。</p> 
           </div>
 
 
 <h3 id="保存用户状态"><a href="#保存用户状态" class="headerlink" title="保存用户状态"></a>保存用户状态</h3><p>HTTP 协议本身是无状态的，这意味着服务器默认情况下无法区分两个请求是否来自同一个用户，因此对于需要记住用户状态的业务，往往有以下几种机制</p>
-<h4 id="Session-配合-Cookie"><a href="#Session-配合-Cookie" class="headerlink" title="Session 配合 Cookie"></a>Session 配合 Cookie</h4><p><a href="#cookie">详见下</a></p>
-<h4 id="URL-重写"><a href="#URL-重写" class="headerlink" title="URL 重写"></a>URL 重写</h4><p>浏览器禁用 Cookie 时，还可以将 SessionID 直接附加到 URL 的末尾，该方法使得 URL 变长，且安全性较低，容易被复制、分享或记录到日志中，还可能对 SEO 不太友好。</p>
-<h4 id="Token-Based-认证"><a href="#Token-Based-认证" class="headerlink" title="Token-Based 认证"></a>Token-Based 认证</h4><p>JWT (JSON Web Tokens) 就是使用这种方法。该方法简化的步骤如下</p>
+<p><strong>Session 配合 Cookie</strong></p>
+<p><a href="#cookie">详见下</a></p>
+<p><strong>URL 重写</strong></p>
+<p>浏览器禁用 Cookie 时，还可以将 SessionID 直接附加到 URL 的末尾，该方法使得 URL 变长，且安全性较低，容易被复制、分享或记录到日志中，还可能对 SEO 不太友好。</p>
+<p><strong>Token-Based 认证</strong></p>
+<p>JWT (JSON Web Tokens) 就是使用这种方法。该方法简化的步骤如下</p>
 <ol>
 <li>用户向服务器发送用户名、密码及验证码用于登录系统</li>
 <li>若校验正确，服务端会返回已签名的 Token，假如为 JWT</li>
@@ -619,54 +770,190 @@
 <li>用户在此后每次向后端发送请求都在 header 中带上这个 JWT</li>
 <li>服务器检查 JWT 并从中获取用户相关信息</li>
 </ol>
-<h2 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h2><h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><h4 id="和-HTTP-的区别"><a href="#和-HTTP-的区别" class="headerlink" title="和 HTTP 的区别"></a>和 HTTP 的区别</h4><p>WebSocket 是一种双向实时通信协议，而 HTTP 是一种单向通信协议。并且 HTTP 协议下的通信通信只能由客户端发起，服务器无法主动通知客户端。</p>
-<p>WebSocket 使用 <code>ws://</code> 或 <code>wss://</code> (加密版) 作为协议前缀，和 HTTP&#x2F;HTTPS 不同。</p>
-<p>WebSocket 可以支持扩展，用户也可以扩展协议，实现部分自定义的子协议。</p>
-<p>WebSocket 通信数据格式比较轻量，用于协议控制的数据包头部相对较小，网络开销小。</p>
-<p>注意，WebSocket 需要先通过 HTTP Upgrade 握手建立链接，然后才切换到 WS 通信协议。</p>
-<h4 id="和短轮询、长轮询的区别"><a href="#和短轮询、长轮询的区别" class="headerlink" title="和短轮询、长轮询的区别"></a>和短轮询、长轮询的区别</h4><p>短轮询指客户端每隔固定时间（如 5 秒）发起一次 HTTP 请求，询问服务器是否有新数据。服务器收到请求后立即响应；长轮询指客户端发起请求后，若服务器赞数无新数据，则会保持链接，直到有新数据或超时才响应。客户端收到响应后立即发起下一次请求，实现“伪实时”。短实时的实时性一般，长实时的服务器资源浪费较大，且由于大部分时候请求收到的都是“无新消息”，极大增加服务器和网络压力。</p>
-<p>WebSocket 可以在服务器和客户端之间建立一条持久的 TCP 链接。之后双方可以随时、主动发送数据，实现真正的全双工、低延迟通信。然而，WebSocket 对连接管理有一定要求，且实现较为麻烦。</p>
-<h4 id="与-SSE-的区别"><a href="#与-SSE-的区别" class="headerlink" title="与 SSE 的区别"></a>与 SSE 的区别</h4><p>SSE (Server-Sent Event) 基于 HTTP，用于实现服务器向浏览器实时推送消息。它本质上是一个“长连接”的 HTTP 请求，服务器保持链接打开并持续发送事件流，只需要 HTTP 基础设施就能用，因此实现较为简单。目前的语言大模型的流式响应的标准技术选择。</p>
-<p>然而 WebSocket 需要独立的协议，器断线重连等功能的实现也更为复杂。</p>
-<div class="note note-info">
-            <p>网关往往会有同一封装结果类的操作，但需要注意不要给 WS 或者 SSE 协议的数据操作，因为二者都是持续推送模型，而结果类封装适合于一次返回完成的操作，二者语义不匹配。</p> 
-          </div>
-
 <h2 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h2><p>为了获取客户端真实 IP，通常可以采用以下方法</p>
 <ul>
 <li>应用层：通过 <code>X-Forwarded-For</code> 请求头获取，但这里的 IP 可能不是真实 IP。如果经过代理服务器，该字段可能会有多个值。并且，这种方法只适用于 HTTP 和 SMTP 协议</li>
 <li>传输层：利用 TCP Option 字段承载真实源 IP 信息。这需要通信双方都支持发送这种独特的 TCP 包</li>
 <li>网络层：隧道 + DSR 模式，但实施起来比较麻烦</li>
 </ul>
+<p>DNS 只负责把域名解析成 IP，无法区分同一 IP 后面的多个站点，真正的区分发生在传输层之上：</p>
+<table>
+<thead>
+<tr>
+<th>层次</th>
+<th>区分依据</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>传输层</td>
+<td>端口</td>
+<td><code>IP:port</code> 才能唯一确定一个监听套接字。不同服务监听不同端口（HTTP 80、HTTPS 443、SSH 22）天然分开；若都监听 80，则必须靠上层信息区分</td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td><code>Host</code> 请求头</td>
+<td>HTTP&#x2F;1.1 起必须携带，值为目标域名。服务器（如 Nginx 的 <code>server_name</code>、Apache 的 <code>VirtualHost</code>）据此把请求路由到对应的虚拟主机。HTTP&#x2F;2 与 HTTP&#x2F;3 用 <code>:authority</code> 伪首部表达同样信息</td>
+</tr>
+<tr>
+<td>HTTPS</td>
+<td>SNI</td>
+<td>TLS 握手时整个 HTTP 请求还是密文，服务器拿不到 <code>Host</code>，因此客户端在 Client Hello 中通过 <strong>SNI</strong> 扩展先告知目标域名，服务器据此选择对应证书，握手完成后再由 <code>Host</code> 路由</td>
+</tr>
+<tr>
+<td>证书</td>
+<td>SAN &#x2F; 通配符</td>
+<td>一张证书可通过 SAN 覆盖多个域名，或使用 <code>*.example.com</code> 通配符；这样即使客户端不支持 SNI，也不会因默认证书域名不匹配而报错</td>
+</tr>
+<tr>
+<td>反向代理 &#x2F; CDN</td>
+<td><code>Host</code> 或 SNI</td>
+<td>代理根据 <code>Host</code>（七层代理）或 SNI（四层透传）决定转发到哪个后端，多个站点共享同一个入口 IP</td>
+</tr>
+</tbody></table>
+<p>需要注意，<code>Host</code> 头由客户端提供，可以被伪造，服务端应只接受白名单内的域名（否则可能出现 Host Header Injection、缓存投毒等问题）；而 SNI 在 TLS 握手阶段以明文传输（TLS 1.3 默认也不加密），因此也会泄漏访问的域名，Encrypted Client Hello（ECH）正是为解决这一点而提出的。</p>
+<h2 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h2><p>同源策略（Same-Origin Policy，SOP）是浏览器内置的安全边界：它规定一个源的脚本只能自由地读写<strong>同一个源</strong>下的资源，访问其他源时要受限制。</p>
+<h3 id="什么是“源”"><a href="#什么是“源”" class="headerlink" title="什么是“源”"></a>什么是“源”</h3><p>“源”（origin）由<strong>协议、域名、端口</strong>三元组唯一确定，三者全部相同才算同源，缺一不可。</p>
+<p>需要区分两个容易混淆的概念：<strong>源</strong>用于安全边界判定，<strong>站点</strong>（site，即可注册域 + 协议）用于 Cookie 的 <code>SameSite</code> 等判定。<code>a.com</code> 与 <code>b.a.com</code> 属于同一个站点，但不是同一个源。</p>
+<h3 id="限制的范围"><a href="#限制的范围" class="headerlink" title="限制的范围"></a>限制的范围</h3><p>同源策略的核心可以概括为：<strong>限制“读”，不限制“发”</strong>。跨源的请求可以发出，但脚本拿不到返回的数据。</p>
+<table>
+<thead>
+<tr>
+<th>行为</th>
+<th>是否受限</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>fetch</code> &#x2F; <code>XMLHttpRequest</code> 读取跨源响应体</td>
+<td>受限</td>
+<td>需目标服务器通过 CORS 显式放行才能读</td>
+</tr>
+<tr>
+<td>读取跨源 <code>&lt;iframe&gt;</code> 内的 DOM</td>
+<td>受限</td>
+<td>只能操作自己的窗口，无法读取他人页面内容</td>
+</tr>
+<tr>
+<td>读写 <code>localStorage</code>、<code>IndexedDB</code>、<code>sessionStorage</code></td>
+<td>受限</td>
+<td>存储按源隔离，各自独立</td>
+</tr>
+<tr>
+<td>用 <code>&lt;img&gt;</code>、<code>&lt;script&gt;</code>、<code>&lt;link&gt;</code>、<code>&lt;video&gt;</code> 加载跨源资源</td>
+<td>不受限</td>
+<td>请求正常发出，资源正常使用，但脚本无法读取其内容</td>
+</tr>
+<tr>
+<td>用 <code>&lt;form&gt;</code> 向跨源地址提交</td>
+<td>不受限</td>
+<td>提交会真实发生，只是响应被送到目标页面而非当前页</td>
+</tr>
+<tr>
+<td>加载跨源脚本后调用其暴露的全局变量</td>
+<td>不受限</td>
+<td>这正是 JSONP 的原理，也是 <code>&lt;script&gt;</code> 引入的风险所在</td>
+</tr>
+<tr>
+<td>在页面间传递消息</td>
+<td>受限</td>
+<td>需通过 <code>postMessage</code> 显式通信，且接收方要校验 <code>event.origin</code></td>
+</tr>
+<tr>
+<td>设置或发送 Cookie</td>
+<td>不受同源策略约束</td>
+<td>由 Cookie 自身的 <code>Domain</code>、<code>Path</code>、<code>SameSite</code> 属性决定</td>
+</tr>
+</tbody></table>
+<p>之所以设计成“可以发、不能读”，是因为发起请求本身（如加载一张图片）无法造成信息泄漏，真正危险的是 A 站的脚本能读到 B 站的数据——比如用户在 B 站登录后的个人资料、私有邮件、接口返回的业务数据等。</p>
+<p>关于 Cookie 需要特别注意：<code>document.cookie</code> 能读到哪些 Cookie，取决于 <code>Domain</code> 和 <code>Path</code> 属性，而不是同源判定。若把 <code>Domain</code> 设成 <code>.a.com</code>，那么 <code>a.com</code>、<code>b.a.com</code>、<code>c.a.com</code> 都能读到它；同时 <code>HttpOnly</code> 的 Cookie 对 JS 完全不可见，只会在 HTTP 请求中自动携带。</p>
+<h3 id="放宽：CORS"><a href="#放宽：CORS" class="headerlink" title="放宽：CORS"></a>放宽：CORS</h3><p>实际开发中跨源读取是常见需求，标准做法是 CORS（Cross-Origin Resource Sharing，跨源资源共享）。服务器通过一组 <code>Access-Control-*</code> 响应头声明允许哪些源访问。</p>
+<p>CORS 把跨源请求分成两类：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>判定条件</th>
+<th>浏览器行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>简单请求</td>
+<td>方法为 <code>GET</code> &#x2F; <code>HEAD</code> &#x2F; <code>POST</code>，且只带少数安全头，<code>Content-Type</code> 仅限 <code>application/x-www-form-urlencoded</code>、<code>multipart/form-data</code>、<code>text/plain</code></td>
+<td>直接发出，服务器返回后由浏览器检查 <code>Access-Control-Allow-Origin</code> 是否匹配，不匹配则不把响应交给脚本</td>
+</tr>
+<tr>
+<td>非简单请求</td>
+<td>使用 <code>PUT</code> &#x2F; <code>DELETE</code> 等方法、<code>Content-Type: application/json</code>、携带自定义请求头</td>
+<td>先发一次 <code>OPTIONS</code> 预检（preflight），服务器返回允许的方法、头和源后才发出真实请求；预检不通过则真实请求根本不会发出</td>
+</tr>
+</tbody></table>
+<p>常用响应头：</p>
+<table>
+<thead>
+<tr>
+<th>响应头</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Access-Control-Allow-Origin</code></td>
+<td>允许的源，可为具体源或 <code>*</code></td>
+</tr>
+<tr>
+<td><code>Access-Control-Allow-Methods</code></td>
+<td>预检时声明允许的方法</td>
+</tr>
+<tr>
+<td><code>Access-Control-Allow-Headers</code></td>
+<td>预检时声明允许的自定义请求头</td>
+</tr>
+<tr>
+<td><code>Access-Control-Allow-Credentials</code></td>
+<td>是否允许携带 Cookie 等凭证。设为 <code>true</code> 时，<code>Allow-Origin</code> 不能是 <code>*</code>，必须写明具体源</td>
+</tr>
+<tr>
+<td><code>Access-Control-Max-Age</code></td>
+<td>预检结果可缓存多久，避免每次请求都预检</td>
+</tr>
+</tbody></table>
+<p>CORS 的放行是<strong>服务器授权</strong>的行为，能放开的是“读取响应”这一层。它不会改变浏览器自动携带 Cookie 的事实，因此不能当作访问控制手段。</p>
+<h3 id="其他放宽与绕过方式"><a href="#其他放宽与绕过方式" class="headerlink" title="其他放宽与绕过方式"></a>其他放宽与绕过方式</h3><ul>
+<li><code>document.domain</code>：把页面的域名降级为更短的公共后缀（如 <code>b.a.com</code> 设为 <code>a.com</code>），使同一主域下的兄弟域被视为同源。该特性正被废弃</li>
+<li><code>postMessage</code>：跨窗口、跨 iframe、跨标签页通信的标准方式，接收方必须校验 <code>event.origin</code>，否则等于自己拆掉同源防线</li>
+<li>JSONP：利用 <code>&lt;script&gt;</code> 不受同源限制的特性，通过回调函数接收数据，只支持 GET，且存在注入风险，已被 CORS 取代</li>
+<li>反向代理：把跨源请求变成同源请求，即由自己的服务器转发到目标服务器，在前后端分离的开发环境中常用</li>
+</ul>
 <h2 id="认证与授权"><a href="#认证与授权" class="headerlink" title="认证与授权"></a>认证与授权</h2><div class="note note-danger">
             <p>JDY 测试开发, 一面.</p> 
           </div>
 
-<h3 id="BRAC-模型"><a href="#BRAC-模型" class="headerlink" title="BRAC 模型"></a>BRAC 模型</h3><p>BRAC 即实现基于角色的权限访问控制 (Role-Based Access Control)。这是一种通过角色关联权限，用户同时又关联用户的授权方式。简单地说，一个用户可以拥有多个角色，同一个角色可以被分配若干权限。</p>
+<h3 id="RBAC-模型"><a href="#RBAC-模型" class="headerlink" title="RBAC 模型"></a>RBAC 模型</h3><p>RBAC（Role-Based Access Control，基于角色的访问控制）的核心是“用户—角色—权限”三层关联：权限先授予角色，角色再授予用户。因此一个用户可以拥有多个角色，一个角色也可以被授予多个用户；一个角色可以拥有多个权限，同一个权限也可以被多个角色拥有。新增用户时只需分配角色，无需逐个配置权限。</p>
 <pre><code class=" mermaid">graph LR
-    user[用户]--&gt;|一个用户可以拥有多个角色|role[角色]--&gt;|一个角色可以拥有多个权限|auth[权限]--&gt;|一个权限可以被多个角色拥有|role--&gt;|一个角色可以授予给多个用户|user
+    user[用户] --&gt;|拥有，多对多| role[角色]
+    role --&gt;|拥有，多对多| auth[权限]
 </code></pre>
 
-<h3 id="SSO"><a href="#SSO" class="headerlink" title="SSO"></a>SSO</h3><p>单点登录 (Single Sign On) 指用户在登录多个子系统中的一个就有权访问与其相关的其他系统，从而使可用性大大提高。</p>
-<h3 id="Cookie-1"><a href="#Cookie-1" class="headerlink" title="Cookie"></a>Cookie</h3><p>这是最经典的机制，基本流程如下</p>
+<h3 id="SSO"><a href="#SSO" class="headerlink" title="SSO"></a>SSO</h3><p>SSO（Single Sign-On，单点登录）指用户在一处认证后，即可访问所有建立了信任关系的子系统，无需重复登录；登出时也可同步注销各子系统（Single Logout）。</p>
+<p>常见实现是设立一个统一的认证中心（如 CAS、OAuth 2.0 &#x2F; OIDC 授权服务器）：未登录的请求被重定向到认证中心，认证通过后由认证中心签发凭证（如票据或 Token），各子系统校验该凭证后放行。</p>
+<h3 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h3><p>这是最经典的 Session 机制，基本流程如下</p>
 <ol>
 <li>用户向服务器发送用户名、密码、验证码等信息登录系统</li>
-<li>服务器验证通过，为这个用户创建一个专属的 Session 对象存储起来，并给这个 Session 分配一个唯一的 SessionID</li>
-<li>服务器通过 HTTP 响应头中的 Set-Cookie 命令，把这个 SessionID 发送给用户的浏览器</li>
-<li>浏览器收到 SessionID 后，会将其以 Cookie 的形式保存在本地。当用户保持登录状态时，每次向该服务器发请求，浏览器都会自动带上这个存有 SessionID 的 Cookie</li>
-<li>服务器收到请求后，从 Cookie 中拿出 SessionID，就能找到之前保存的那个 Session 对象，从而知道是哪个用户</li>
+<li>服务器验证通过后，为该用户创建一个 Session 对象并存储，同时分配一个唯一的 SessionID</li>
+<li>服务器通过响应头 <code>Set-Cookie</code> 把 SessionID 发送给浏览器</li>
+<li>浏览器将其保存为 Cookie。之后每次向该服务器发请求，浏览器都会自动带上这个 Cookie</li>
+<li>服务器从 Cookie 中取出 SessionID，找到对应的 Session，从而识别用户</li>
 </ol>
-<p>对于简单的业务，可以将 Session 数据储存在服务器内存里；对于较大业务，一般储存在分布式缓存（如 redis）中；数据库也可以存，但不太建议。</p>
-<p>为了保证 SessionID 的安全性，需要在 Cookie 中设置 <code>HttpOnly</code> 标志防止客户端脚本窃取，同时设置 Secure 标志保证 SessionID 只在 HTTPS 链接下传输，增加安全性。</p>
-<p>当服务器拓展成多节点时，Cookie 中的 SessionID 在另一个服务器中就找不到对应的 Session 了。因此可以</p>
+<p>对于简单的业务，Session 数据可以存在服务器内存中；业务规模较大时，一般存放在分布式缓存（如 Redis）中；数据库也能存，但不太建议。</p>
+<p>为保证 SessionID 的安全，应给 Cookie 设置 <code>HttpOnly</code> 标志，防止客户端脚本窃取；同时设置 <code>Secure</code> 标志，使其只在 HTTPS 连接下传输。</p>
+<p>当服务扩展成多节点后，某个节点上的 Session 在其他节点上并不存在。常见解决方案有</p>
 <ol>
-<li>将某个用户的所有请求都通过特性的哈希策略分配给同一个服务器处理。然而在这个服务器宕机后，其保存的 Session 就全部丢失了</li>
-<li>每一个服务器都保存了全量的 Session 信息。这样成本太高</li>
-<li>放 redis 等缓存里，并且避免单点</li>
-<li>Spring Session 是一个用于在多个服务器之间管理会话的项目。它可以和多种后端存储 (Redis, MongoDB) 继承，从而实现分布式会话管理。</li>
+<li><strong>粘性会话（session sticky）</strong>：用特定的哈希策略把同一用户的请求固定分配到同一台服务器。但该服务器宕机后，其上保存的 Session 会全部丢失。</li>
+<li><strong>Session 复制</strong>：每台服务器都保存全量 Session。成本高，且复制有延迟。</li>
+<li><strong>集中存储</strong>：统一放到 Redis 等缓存中，并做好高可用、避免单点。</li>
+<li><strong>Spring Session</strong>：用于在多个服务器之间管理会话的项目，可与 Redis、MongoDB 等多种后端存储集成，实现分布式会话管理。</li>
 </ol>
-<p>注意，并不是没有 Cookie 后就不能用 Session 了，还可以使用<a href="#url-%E9%87%8D%E5%86%99">重写 URL</a>的方法，但安全性和用户体验降低。</p>
-<p>在 spring boot 项目中<br>设置 Cookie 给客户端</p>
+<p>下面是 Spring Boot 中的示例：设置 Cookie 给客户端。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(&quot;/change-username&quot;)</span><br><span class="hljs-keyword">public</span> String <span class="hljs-title function_">setCookie</span><span class="hljs-params">(HttpServletResponse response)</span> &#123;<br>    <span class="hljs-comment">// 创建一个 cookie</span><br>    <span class="hljs-type">Cookie</span> <span class="hljs-variable">cookie</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Cookie</span>(<span class="hljs-string">&quot;username&quot;</span>, <span class="hljs-string">&quot;Jovan&quot;</span>);<br>    <span class="hljs-comment">//设置 cookie过期时间</span><br>    cookie.setMaxAge(<span class="hljs-number">7</span> * <span class="hljs-number">24</span> * <span class="hljs-number">60</span> * <span class="hljs-number">60</span>); <span class="hljs-comment">// expires in 7 days</span><br>    <span class="hljs-comment">//添加到 response 中</span><br>    response.addCookie(cookie);<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Username is changed!&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>使用 spring 框架的 <code>@CookieValue</code> 注解获取特定 cookie 的值</p>
@@ -675,43 +962,42 @@
 <p>读取所有的 cookie 值</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(&quot;/all-cookies&quot;)</span><br><span class="hljs-keyword">public</span> String <span class="hljs-title function_">readAllCookies</span><span class="hljs-params">(HttpServletRequest request)</span> &#123;<br><br>    Cookie[] cookies = request.getCookies();<br>    <span class="hljs-keyword">if</span> (cookies != <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-keyword">return</span> Arrays.stream(cookies)<br>                .map(c -&gt; c.getName() + <span class="hljs-string">&quot;=&quot;</span> + c.getValue()).collect(Collectors.joining(<span class="hljs-string">&quot;, &quot;</span>));<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;No cookies&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h3 id="CSRF-攻击"><a href="#CSRF-攻击" class="headerlink" title="CSRF 攻击"></a>CSRF 攻击</h3><h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><p>跨站请求伪造 (Cross Site Request Forgery) 攻击时，攻击者诱导受害者进入第三方网站，在第三方网站中，向被攻击网站发送跨站请求。利用受害者在被攻击网站已经获取的注册凭证，绕过后台用户的验证，达到冒充的目的。</p>
-<p>一次攻击流程有以下流程</p>
+<h3 id="CSRF-攻击"><a href="#CSRF-攻击" class="headerlink" title="CSRF 攻击"></a>CSRF 攻击</h3><h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><p>CSRF（Cross-Site Request Forgery，跨站请求伪造，又称 XSRF）是指攻击者诱导受害者访问恶意页面，由该页面向受害者已登录的站点发起请求。浏览器会自动为请求带上该站点的 Cookie，服务器看到的是合法的登录凭证，于是误以为请求出自用户本人，从而以受害者身份执行了操作。</p>
+<p>一次攻击通常包含以下步骤</p>
 <ul>
-<li>受害者登录 <code>bank.com</code>，并保留了登陆凭证</li>
+<li>受害者登录 <code>bank.com</code>，并保留了登录凭证（Cookie）</li>
 <li>攻击者引诱受害者访问了 <code>evil.com</code></li>
-<li><code>evil.com</code> 中有一个自动向 <code>bank.com</code> 发送请求的代码。浏览器在发送这个请求时，自动携带 <code>bank.com</code> 的 Cookie</li>
-<li><code>bank.com</code> 收到请求后，校验确认是受害者的凭证，误认为是受害者自己发送的请求</li>
+<li><code>evil.com</code> 中有一段自动向 <code>bank.com</code> 发请求的代码。浏览器发送这个请求时会自动携带 <code>bank.com</code> 的 Cookie</li>
+<li><code>bank.com</code> 收到请求后校验凭证，确认有效，但无法判断该请求是否出于用户本意</li>
 <li><code>bank.com</code> 以受害者的名义执行了该请求</li>
 </ul>
-<p>常见的攻击类型有以下几种</p>
+<p>CSRF 能够成立的关键在于两点：浏览器会自动携带 Cookie，而请求的发送本身不受<a href="#%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5">同源策略</a>限制（同源策略只限制读取响应，不阻止请求被发送）。CSRF 通常是跨域的，因为外域更容易被攻击者掌控。但同站（同一主域下的不同子域）之间同样可能存在 CSRF，因此不能只按跨域来防范。</p>
+<h4 id="防护"><a href="#防护" class="headerlink" title="防护"></a>防护</h4><p><strong>CSRF Token</strong></p>
+<p>服务器在返回给用户的表单中嵌入一个随机、不可预测的字符串，即 CSRF Token，并同时把它记在服务端的 Session 里。用户提交表单时，前端必须一并提交该 Token（通常放在隐藏字段 <code>_csrf</code> 中），服务端比对两者是否一致。</p>
+<p>由于同源策略禁止跨域读取页面内容，恶意站点既拿不到这个 Token，也无法猜测，因此伪造的请求会因缺少或错误的 Token 而失败。</p>
+<p><strong>SameSite Cookie</strong></p>
+<p>在设置 Cookie 时指定 <code>SameSite</code> 属性，控制跨站请求是否携带该 Cookie</p>
 <ul>
-<li>GET 类型<br>  受害者访问这个某个页面后，浏览器自动向指定的 URL 发送一次 HTTP 请求。网站就会收到包含受害者登录信息的一次跨域请求</li>
-<li>POST 类型<br>  这种类型的 CSRF 利用起来通常是一个自动提交的表单。在访问某页面后，表单会自动提交</li>
-<li>链接类型<br>  链接类型的 CSRF 并不常见，因为这种需要用户点击链接才会触发。这种类型通常是在论坛中发布的图片中嵌入恶意链接</li>
+<li><code>SameSite=Strict</code>：最严格，任何跨站请求都不发送。代价是从别的站点链接跳转过来时也处于未登录状态</li>
+<li><code>SameSite=Lax</code>：默认模式（现代浏览器在未指定时的默认值），仅顶层 GET 导航等安全的跨站请求携带，跨站 POST 与内嵌资源请求不携带</li>
+<li><code>SameSite=None</code>：关闭该限制，但必须同时设置 <code>Secure</code>（只通过 HTTPS 发送）</li>
 </ul>
-<p>CSRF 通常是跨域的，因为外域通常更容易被攻击者掌控。浏览器通常规定了<strong>同源策略</strong>：允许跨域发送请求，阻止跨域读取响应。这刚好契合了 CSRF 的需求。</p>
-<h4 id="防护"><a href="#防护" class="headerlink" title="防护"></a>防护</h4><h5 id="CSRF-Token"><a href="#CSRF-Token" class="headerlink" title="CSRF Token"></a>CSRF Token</h5><p>服务器在返回给用户的表单中，嵌入一个随机的，不可预测的字符串，即 CSRF Token。当用户提交表单时，前端必须将这个 Token 一起提交。这个 Token 通常放在一个隐藏字段 <code>_csrf</code> 中，因此恶意网站无法通过任何方式读取嵌入在原始页面中的 Token 值 （受同源策略保护）。</p>
-<h5 id="SameSite-Cookie"><a href="#SameSite-Cookie" class="headerlink" title="SameSite Cookie"></a>SameSite Cookie</h5><p>在设置 Cookie 时，指定其 SameSite 属性</p>
+<p><strong>同源检测</strong></p>
+<p>既然 CSRF 多来自第三方站点，可以在服务端校验请求来源，拒绝不受信任的域。HTTP 中有两个可用于标记来源的请求头：</p>
 <ul>
-<li><code>SameSite=Strict</code> 最严格，浏览器在任何跨站请求中都不会发送此 Cookie，这会导致从别的网站链接跳转回来时也会重新登录</li>
-<li><code>SameSite=Lax</code> 宽松模式，在安全的跨站请求 (如 GET 中的导航) 发送 Cookie，但在不安全的跨站 POST 请求或嵌入的请求中不会发送</li>
-<li><code>SameSite=None</code> 关闭此限制</li>
+<li><code>Origin</code>：只包含协议 + 主机 + 端口，部分请求（如部分 GET 导航）不会携带</li>
+<li><code>Referer</code>：包含完整来源 URL，但可能因 <code>Referrer-Policy</code> 被截断或完全去掉，用户隐私设置也可能将其清除</li>
 </ul>
-<h5 id="同源检测"><a href="#同源检测" class="headerlink" title="同源检测"></a>同源检测</h5><p>既然 CSRF 大多来自第三方网站，那么我们就直接禁止外域（或者不受信任的域名）对我们发起请求。在 HTTP 协议中，每一个异步请求都会携带两个 Header，用于标记来源域名：</p>
-<ul>
-<li>Origin Header</li>
-<li>Referer Header</li>
-</ul>
-<p>这两个 Header 在浏览器发起请求时，大多数情况会自动带上，并且不能由前端自定义内容。服务器可以通过解析这两个 Header 中的域名，确定请求的来源域。</p>
-<h5 id="双重提交-Cookie"><a href="#双重提交-Cookie" class="headerlink" title="双重提交 Cookie"></a>双重提交 Cookie</h5><p>这是一种基于无状态 (如 JWT) 的 API 简化方案。用户登录后，服务器会给一个随机的 Cookie，这个 Cookie 对前端 JS 是可读的。前端在发起任何非幂等请求时，必须从 Cookie 中读取这个值，并将其作为自定义请求头或请求体字段再次发送。服务端比较请求头&#x2F;体中的 Token 值是否和 Cookie 的值一致。</p>
-<p>由于恶意网址无法读取目标网址设置的 Cookie，因此无法在伪造请求中设置正确的请求头。</p>
-<p>注意，此方案如果部署的域名存在子域漏洞，则可能会被攻破，因此用的较少。</p>
+<p>这两个头由浏览器设置，前端脚本无法自定义（属于 forbidden header names）。因此<strong>不能只依赖其中一个</strong>，通常作为辅助校验，并与 Token 方案配合使用。</p>
+<p><strong>双重提交 Cookie</strong></p>
+<p>这是一种适用于无状态 API（如 JWT）的简化方案。用户登录后，服务器下发一个随机值，同时写入 Cookie 和响应体（或由前端读取该 Cookie）。前端在发起任何非幂等请求时，从 Cookie 中读出该值，放进自定义请求头或请求体一并发送；服务端比对请求头&#x2F;体中的值与 Cookie 中的值是否一致。</p>
+<p>恶意站点无法读取目标站点的 Cookie，因此无法在伪造请求中填上正确的值。</p>
+<p>注意：该 Cookie 必须允许 JS 读取（不能设 <code>HttpOnly</code>），且若同一主域下存在可被攻克的子域，攻击者可以通过 Cookie 注入（cookie tossing）覆盖该值，因此实际使用较少。</p>
 <h3 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h3><p>JWT (JSON Web Token) 是目前最流行的跨域认证解决方案，是一种基于 Token 的认证授权机制。</p>
 <p>JWT 由三部分组成</p>
 <ul>
 <li><p>Header 头部，描述 JWT 的元数据，包含签名算法和 Token 类型</p>
-  <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;alg&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;H256&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;typ&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;JWT&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+  <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;alg&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;HS256&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;typ&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;JWT&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
 
 <p>  通常由两部分构成</p>
 <ul>
@@ -722,37 +1008,40 @@
 <li><p>Payload 载荷，存放实际需要传递的数据</p>
   <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;sub&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1234567890&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;John&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;iat&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1145141919</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
 
-<p>  通常有多部分</p>
+<p>  通常包含以下标准字段</p>
 <ul>
 <li><code>iss</code> JWT 签发方</li>
 <li><code>iat</code> JWT 签发时间</li>
 <li><code>sub</code> JWT 主题</li>
 <li><code>aud</code> JWT 接收方</li>
 <li><code>exp</code> JWT 过期时间</li>
-<li><code>nbf</code> JWT 生效时间，遭遇该定义的时间的 JWT 不能被处理</li>
+<li><code>nbf</code> JWT 生效时间，早于该定义时间的 JWT 不能被处理</li>
 <li><code>jti</code> JWT 唯一标识</li>
 </ul>
 <p>  该部分默认不加密，因此<strong>不要把隐私信息放在里面</strong></p>
 </li>
-<li><p>Signature 签名，确保 JWT 的完整性和真实性，是一串利用指定算法生成的签名</p>
-  <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs json">HMACSHA256(<br>    base64UrlEncode(header) + <span class="hljs-string">&quot;.&quot;</span> +<br>    base64UrlEncode(payload)<span class="hljs-punctuation">,</span><br>    secret)<br></code></pre></td></tr></table></figure>
+<li><p>Signature 签名，用于确保 JWT 的完整性和真实性，由 header 和 payload 按指定算法计算得到</p>
+  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">HMACSHA256(<br>    base64UrlEncode(header) + &quot;.&quot; +<br>    base64UrlEncode(payload),<br>    secret)<br></code></pre></td></tr></table></figure>
 
 <p>  其中的密钥存放在服务端中</p>
 </li>
 </ul>
 <p>这三部分通过 <code>.</code> 切分。</p>
 <p>建议将 JWT 放在 LocalStorage 中，放在 Cookie 中会有 <a href="#csrf-%E6%94%BB%E5%87%BB">CSRF</a> 风险。</p>
-<p>该方案无状态，方便管理，能避免 CSRF 攻击，适合移动端应用，并且能实现 OSS 功能——只要用户的 JWT 存放在电脑上，就能很方便地进行认证。</p>
-<p>然而，JWT 在处理 退出登录&#x2F;修改密码&#x2F;修改权限&#x2F;账户封禁&#x2F;被迫下线&#x2F;强制注销&#x2F;主动注销 的场景比较麻烦。对此可以将 JWT 存入 redis （但违反了 JWT 的无状态原则），或者在 redis 中放一个黑名单，或者修改用户另外的专属密钥，或者经常轮换，等等。</p>
-<p>若 JWT 需要续签，则可以采取客户端检测（不推荐），每次请求都返回新 JWT （不推荐），增加有效期或者设置到半夜（废话），或者返回两个 JWT —— accessJWT 和 refreshJWT。前者过期时间短，用于认证；后者过期时间长，用于刷新前者过期时间。</p>
-<h2 id="XSS-攻击"><a href="#XSS-攻击" class="headerlink" title="XSS 攻击"></a>XSS 攻击</h2><p>攻击者在网页中注入恶意脚本。当其他用户浏览该网页时，脚本会在其浏览器中执行，从而执行窃取数据等操作。</p>
-<p>一般情况下，恶意脚本可能会通过 URL 参数传递信息，或者被永久存储在服务器里，或者通过修改页面的 DOM 结构来实现（该方法无需经过服务器）。</p>
-<p>该攻击的本质在于让浏览器执行本不应该信任的代码，因此不应该信任任何用户的输入，并对输出内容进行严格处理。</p>
+<p>该方案无状态，方便管理，能避免 CSRF 攻击，适合移动端应用，并且能实现 SSO（单点登录）功能——只要用户持有有效的 JWT，就能很方便地完成认证。</p>
+<p>然而，JWT 在处理 退出登录&#x2F;修改密码&#x2F;修改权限&#x2F;账户封禁&#x2F;被迫下线&#x2F;强制注销&#x2F;主动注销 的场景比较麻烦。对此可以将 JWT 存入 redis（但违反了 JWT 的无状态原则），或者在 redis 中放一个黑名单，或者修改用户另外的专属密钥，或者经常轮换，等等。</p>
+<p>若 JWT 需要续签，则可以采取客户端检测（不推荐）、每次请求都返回新 JWT（不推荐）、增加有效期或者设置到半夜（废话），或者返回两个 JWT —— accessJWT 和 refreshJWT。前者过期时间短，用于认证；后者过期时间长，用于刷新前者过期时间。</p>
+<h2 id="XSS-攻击"><a href="#XSS-攻击" class="headerlink" title="XSS 攻击"></a>XSS 攻击</h2><p>XSS（Cross-Site Scripting，跨站脚本攻击，缩写不写成 CSS 是为了避免与层叠样式表重名）指攻击者把恶意脚本注入网页，使其在受害者的浏览器中以目标站点的源为环境执行，从而窃取数据、冒充用户操作。</p>
+<p>按恶意数据的来源可分为三类：反射型，数据来自 URL 参数或表单值，被服务端原样回显到响应中，需要诱导受害者点击特制链接；存储型，恶意内容被写入数据库（评论、昵称等），每次访问都会触发，危害最大；DOM 型，数据来自 URL 片段、<code>document.referrer</code> 等，由前端脚本直接写入页面，不经过服务端。</p>
+<p>该攻击的本质在于把不可信的数据当成了代码执行，因此重点不在于拒绝用户输入，而在于按数据最终出现的上下文做输出处理：HTML 正文与属性做实体编码，URL 参数用 <code>encodeURIComponent</code>，写入 <code>&lt;script&gt;</code> 前先 <code>JSON.stringify</code>。不要用黑名单过滤，<code>&lt;script&gt;</code>、<code>onerror</code>、<code>javascript:</code> 的变形方式太多，必然漏。此外还可配合 CSP 禁止内联脚本、给 Cookie 设 <code>HttpOnly</code>、避免把不可信数据交给 <code>innerHTML</code> 等 API。</p>
 <p>比如，假设一个网站的搜索功能能显示用户的输入内容</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>您搜索的关键词为: &lt;%= user_input %&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
-<p>若用户输入 <code>&lt;script&gt;alert(&#39;XSS&#39;)&lt;/script&gt;</code>，则脚本将被执行。而防御方法是对输出进行转义，如</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>您搜索的关键词：&lt;%= escape(user_input) %&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>JSP 的 <code>&lt;%= %&gt;</code> 不做转义。若用户输入 <code>&lt;script&gt;alert(&#39;XSS&#39;)&lt;/script&gt;</code> 或 <code>&lt;img src=x onerror=alert(&#39;XSS&#39;)&gt;</code>，脚本就会被执行。防御方法是对输出进行转义，如</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>您搜索的关键词：&lt;%= escapeHtml(user_input) %&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>此时 <code>&lt;</code> 变成 <code>&amp;lt;</code>，浏览器只把它当文本显示，不再当作标签解析。</p>
+
                 
               </div>
             

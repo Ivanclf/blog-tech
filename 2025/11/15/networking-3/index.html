@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://tech.ivanclf.com/2025/11/15/networking-3/cache.png">
 <meta property="og:image" content="https://tech.ivanclf.com/2025/11/15/networking-3/slow-start.png">
 <meta property="article:published_time" content="2025-11-15T07:17:21.000Z">
-<meta property="article:modified_time" content="2026-09-18T13:01:10.167Z">
+<meta property="article:modified_time" content="2026-10-19T03:33:16.480Z">
 <meta property="article:author" content="Ivan Chan">
 <meta property="article:tag" content="复习">
 <meta property="article:tag" content="日常">
@@ -359,7 +359,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.3k 字
+          3.9k 字
         
       </span>
     
@@ -370,7 +370,7 @@
         
         
         
-          36 分钟
+          33 分钟
         
       </span>
     
@@ -454,6 +454,10 @@
             <p>字节跳动, 中国交易与广告 - 实习, 一面</p> 
           </div>
 
+<div class="note note-danger">
+            <p>顺丰科技 - 秋招, 一面.</p> 
+          </div>
+
 <p>在发送任何应用数据前，TCP 必须先在客户端和服务器间建立可靠的链接。建立链接需要分三步</p>
 <ol>
 <li>SYN<br> 发送方向接收方发送特殊的报文，并随机生成一个初始序列号，说明“我想和你建立连接，我的初始号码是 <code>X</code>”</li>
@@ -468,7 +472,11 @@
             <p>TCP 发送的双方都有一个缓冲区。操作系统内核为每个 TCP 内核都预留了一块内存区域，用于临时存放待发送或已接收的数据。这里的缓冲区可以实现重传机制，以及将无序的数据重新组装等功能。</p> <p><img src="cache.png" srcset="/img/loading.gif" lazyload alt="缓冲区图示"></p> 
           </div>
 
-<h4 id="断开链接"><a href="#断开链接" class="headerlink" title="断开链接"></a>断开链接</h4><p>数据发送完毕后，需要进行断开操作。该操作分四步</p>
+<h4 id="断开链接"><a href="#断开链接" class="headerlink" title="断开链接"></a>断开链接</h4><div class="note note-danger">
+            <p>字节跳动, 中国交易与广告 - 实习, 一面</p> 
+          </div>
+
+<p>数据发送完毕后，需要进行断开操作。该操作分四步</p>
 <ol>
 <li>FIN 主动关闭方发送 FIN 标志位为 1 的报文，标识“我的数据发完了，想断开链接”</li>
 <li>ACK 被动关闭方收到 FIN 后，回复一个 ACK 进行确认，表示“我知道你要关闭了”。此时主动关闭方已不能发送数据，但被动关闭方可能还有数据要发送</li>
@@ -509,13 +517,6 @@
 
 <p>TCP 是流式协议. 为了提高效率, 发送方可能会把多个数据包合并成一个数据包一起发过去, 于是接收方一次读到多个包. 这种情况叫做’<strong>粘包</strong>; 反之, 发送方一个包很大, 但受限于 MSS(最大报文段大小), 会把它切成好几段发送, 这种情况叫做<strong>拆包</strong>.</p>
 <p>为了解决这些问题, 可以强制规定每条消息长度一样, 或者给每条消息末尾加特殊符号. 但现在最常用的是采用<strong>长度域协议</strong>, 即把消息变成 <code>[消息结构][消息体]</code> 的结构, 先读长度, 再按长度读取对应字节.</p>
-<h3 id="SCTP"><a href="#SCTP" class="headerlink" title="SCTP"></a>SCTP</h3><p>这是另一种传输层协议，集 TCP 的可靠和 UDP 的消息边界于一身。具有以下特性</p>
-<ol>
-<li>消息导向： 保留应用层的消息边界，不需要像 TCP 一样给自己加“报文头”来拆粘包。</li>
-<li>多流：一条关联里可并行建立多条独立流，单流丢包不会阻塞其他流，从而避免 TCP 的队头阻塞。</li>
-<li>多宿主：每个端点可以为同一关联绑定多个 IP 地址。运行时任选一条作为主路径，其余作备份。</li>
-<li>相比 TCP，SCTP 提供更高的安全性。</li>
-</ol>
 <h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><p>DNS (Domain Name System) 是将人类易于记忆的域名转换为计算机易于通信的 IP 地址。</p>
 <h3 id="域名空间"><a href="#域名空间" class="headerlink" title="域名空间"></a>域名空间</h3><p>为了实现无二义性，分配给机器的名字必须从<strong>名字空间</strong>中仔细选择。该名字空间完全控制对名字和 IP 地址的绑定。为了获取层次结构的名字空间，设计了<strong>域名空间</strong>。</p>
 <p>域名空间是一个层次化的树状结构，就像一棵倒过来的树</p>
@@ -544,12 +545,7 @@
 
 <h2 id="应用层协议"><a href="#应用层协议" class="headerlink" title="应用层协议"></a>应用层协议</h2><p>教学大纲基本不涉及应用层，而且涉及到的都是千禧年代的产物，因此补充的内容特别多，放另几篇上了。</p>
 <h3 id="TELNET"><a href="#TELNET" class="headerlink" title="TELNET"></a>TELNET</h3><p>用户使用 TELNET 就可以在其所在通道上通过 TCP 链接注册到远地的另一个主机上。然而目前更常用的是加密的 SSH。</p>
-<h3 id="SMTP-与-MIME"><a href="#SMTP-与-MIME" class="headerlink" title="SMTP 与 MIME"></a>SMTP 与 MIME</h3><p>基于 TCP 协议的发送电子邮箱的协议。注意：SMTP 只负责邮件的发送，而不是接收。要从邮件服务器接收邮件，需要使用 POP3 或 IMAP 协议。二者的区别在于，POP3 协议会将邮件下载到本地，然后通常在服务器上删除，适合单设备管理邮件；而 IMAP 将邮件保留到服务器上，客户端进行的所有操作都会和服务器同步。</p>
-<p>MIME 是多用途互联网邮件扩展协议。它不是传输协议，而是一个内容格式标准。它通过在邮件头中添加一系列字段，使SMTP协议能够传输非ASCII字符（如中文）、富文本（HTML）以及二进制文件（如图片、音频、文档等附件）。</p>
-<div class="note note-info">
-            <p>这里的定义老旧得被气笑了。MIME 更广泛的用法<a target="_blank" rel="noopener" href="https://ivanclf.github.io/2024/08/01/internet-1/#MIME%E7%AE%80%E8%BF%B0">在以前的文章</a>。它定义的 <code>Content-Type</code> 标准（即“媒体类型”）实在是太有用了，因此被直接采纳并应用于 WWW 或其他互联网协议中。</p> 
-          </div>
-
+<h3 id="SMTP"><a href="#SMTP" class="headerlink" title="SMTP"></a>SMTP</h3><p>基于 TCP 协议的发送电子邮箱的协议。注意：SMTP 只负责邮件的发送，而不是接收。要从邮件服务器接收邮件，需要使用 POP3 或 IMAP 协议。二者的区别在于，POP3 协议会将邮件下载到本地，然后通常在服务器上删除，适合单设备管理邮件；而 IMAP 将邮件保留到服务器上，客户端进行的所有操作都会和服务器同步。</p>
 <h3 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h3><p>HTTP (Hypertext Transfer Protocol) 超文本传输协议，基于 TCP 协议，用于传输超文本和多媒体内容的协议，主要用于 web 浏览器和服务器的设计中。</p>
 <h3 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h3><p>WebSocket 是一种基于 TCP 链接的全双工通信协议，即客户端和服务器可以同时发送和接收数据。几乎所有主流较新版本的浏览器都支持该协议，用于弥补 HTTP 协议在持久通信能力上的不足。常用于视频弹幕、实时消息推送、多用户协同编辑。</p>
 

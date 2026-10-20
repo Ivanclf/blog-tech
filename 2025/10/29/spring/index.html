@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://tech.ivanclf.com/2025/10/29/spring/spring-20250706065436.png">
 <meta property="og:image" content="https://tech.ivanclf.com/2025/10/29/spring/230ae587a322d6e4d09510161987d346.jpeg">
 <meta property="article:published_time" content="2025-10-29T14:57:43.000Z">
-<meta property="article:modified_time" content="2026-09-18T12:42:42.107Z">
+<meta property="article:modified_time" content="2026-10-10T04:24:34.602Z">
 <meta property="article:author" content="Ivan Chan">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="spring">
@@ -368,7 +368,7 @@
         
         
         
-          143 分钟
+          144 分钟
         
       </span>
     
@@ -908,6 +908,10 @@
             <p>美团后台开发 - 暑期实习, 二面.</p> 
           </div>
 
+<div class="note note-danger">
+            <p>顺丰科技 - 秋招, 二面.</p> 
+          </div>
+
 <h3 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h3><ol>
 <li>加载配置<br> spring 启动时, 会读取 XML, JavaConfig 或注解中的配置信息, 确定要管理的 Bean, 扫描范围, 依赖关系等.</li>
 <li>创建容器<br> 根据配置创建 <code>ApplicationContext</code> 容器, 其本质是一个 BeanFactory, 负责 Bean 的生命周期管理.</li>
@@ -926,7 +930,7 @@
 <li>容器刷新完成, 发布上下文刷新事件, 应用可以正常接收请求</li>
 </ol>
 <h3 id="Spring-Boot"><a href="#Spring-Boot" class="headerlink" title="Spring Boot"></a>Spring Boot</h3><ol>
-<li>启动入口<br> 执行 <code>main</code> 方法, 调用 <code>SpringApplication.run(Application.class, args)</code><br> 传入的主类上带有 <code>@SpringApplication</code>, Spring Boot 以此为核心进行启动</li>
+<li>启动入口<br> 执行 <code>main</code> 方法, 调用 <code>SpringApplication.run(Application.class, args)</code><br> 传入的主类上带有 <code>@SpringBootApplication</code>, Spring Boot 以此为核心进行启动</li>
 <li>创建 <code>SpringApplication</code> 实例<br> 启动前先构建启动器, 主要做三件事:<ul>
 <li>判断应用类型, 看是不是 Servlet Web &#x2F; Reactive &#x2F; 普通应用</li>
 <li>加载初始化器和监听器</li>
@@ -945,7 +949,7 @@
 </li>
 </ol>
 </li>
-<li>容器启动前, 发布就绪事件, 项目正式运行</li>
+<li>发布就绪事件，容器启动 , 项目正式运行</li>
 </ol>
 <h3 id="简略版"><a href="#简略版" class="headerlink" title="简略版"></a>简略版</h3><p>Spring 相比原生 Java, 提供了 IoC 容器, 对象不用自己 <code>new</code>, 统一交给容器管理, 创建, 注入, 适合复杂项目里大量对象的依赖维护.</p>
 <p>但 Spring 只提供容器, 但哪些是 Bean, 要配那些组件还需要自己写, 自己配置.</p>

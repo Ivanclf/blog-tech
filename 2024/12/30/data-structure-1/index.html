@@ -27,7 +27,7 @@
 <meta property="og:description" content="频度12345k&#x3D;0;for(i&#x3D;1;i&lt;&#x3D;n;i++) &#123;    for(j&#x3D;i; j&lt;&#x3D;n; j++)        @  k++;&#125;  @语句的频度为 $$\sum^n_{i&#x3D;1}i&#x3D;\frac{n(n+1)}{2}$$ 循环队列假设将循环队列定义为：以域变量rear和length分别指示循环队列中队尾元素的位置和内含的元素个数，试给出此循">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-12-30T14:38:45.000Z">
-<meta property="article:modified_time" content="2026-03-31T05:28:17.699Z">
+<meta property="article:modified_time" content="2026-10-19T03:11:18.574Z">
 <meta property="article:author" content="Ivan Chan">
 <meta property="article:tag" content="复习">
 <meta name="twitter:card" content="summary_large_image">
@@ -352,7 +352,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.8k 字
+          9.3k 字
         
       </span>
     
@@ -363,7 +363,7 @@
         
         
         
-          82 分钟
+          78 分钟
         
       </span>
     
@@ -426,35 +426,28 @@
 <p>$$<br>\sum^n_{i&#x3D;1}i&#x3D;\frac{n(n+1)}{2}<br>$$</p>
 <h2 id="循环队列"><a href="#循环队列" class="headerlink" title="循环队列"></a>循环队列</h2><p>假设将循环队列定义为：以域变量<code>rear</code>和<code>length</code>分别指示循环队列中队尾元素的位置和内含的元素个数，试给出此循环队列的队满条件，写出相应的入队列和出队列算法（出队列算法应返回队头元素）</p>
 <p>设<code>num</code>为队列大小</p>
-<div class="note note-info">
-            <p>队满条件可以设置为<code>(rear + length) % num = 0</code> 或 <code>rear-&gt;next == front</code><br>队空条件可设置为<code>rear == front</code></p> 
-          </div>
-
+<blockquote>
+<p>队满条件可以设置为 <code>(rear + length) % num = 0</code> 或 <code>rear-&gt;next == front</code>，队空条件可设置为 <code>rear == front</code></p>
+</blockquote>
 <p>入队列算法，先检查队满与否，若不满，则在<code>rear</code>位置插入数据，<code>rear</code>和<code>length</code>都加一。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">enqueue</span><span class="hljs-params">(<span class="hljs-type">int</span> <span class="hljs-built_in">queue</span>[], <span class="hljs-type">int</span> rear, <span class="hljs-type">int</span> length, <span class="hljs-type">int</span> element)</span> &#123;<br>    <span class="hljs-comment">// 队满检查</span><br>    <span class="hljs-keyword">if</span> ((rear + length) % num== <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    &#125;<br>    <span class="hljs-built_in">queue</span>[rear] = element;<br>    rear = (rear + <span class="hljs-number">1</span>) % num;<br>    length++;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>出队列算法，先检查队空与否，若不空，则在<code>(rear - length + 1) % num</code>位置获取<code>front</code>，然后减少<code>length</code>的值，由于<code>rear</code>只指示队尾指针，因此不需要变化。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">dequeue</span><span class="hljs-params">(<span class="hljs-type">int</span> <span class="hljs-built_in">queue</span>[], <span class="hljs-type">int</span> rear, <span class="hljs-type">int</span> length)</span> &#123;<br>    <span class="hljs-comment">// 队空检查</span><br>    <span class="hljs-keyword">if</span> (*length == <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    &#125;<br>    <span class="hljs-type">int</span> front = (rear - length + <span class="hljs-number">1</span>) % num;<br>    <span class="hljs-type">int</span> element = <span class="hljs-built_in">queue</span>[front];<br>    length --;<br>    <span class="hljs-keyword">return</span> element;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<div class="note note-info">
-            <p>由于队首位置可以直接指定，因此不需要再赋0，当然赋0也可以。</p> 
-          </div>
-
-<h2 id="模式匹配算法"><a href="#模式匹配算法" class="headerlink" title="模式匹配算法"></a>模式匹配算法</h2><div class="note note-success">
-            <p>kmp算法讲得比较好的一位<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Higurashi-kagome/p/18013626">在这里</a></p> 
-          </div>
-
+<blockquote>
+<p>由于队首位置可以直接指定，因此不需要再赋0，当然赋0也可以。</p>
+</blockquote>
+<h2 id="模式匹配算法"><a href="#模式匹配算法" class="headerlink" title="模式匹配算法"></a>模式匹配算法</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Higurashi-kagome/p/18013626">kmp算法讲得比较好的一位</a></p>
+</blockquote>
 <p>现在指定字符串的数据结构为</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">String</span> &#123;<br>    <span class="hljs-type">char</span> *str;<br>    <span class="hljs-type">int</span> length;<br>    <span class="hljs-built_in">String</span>(<span class="hljs-type">char</span> *str, <span class="hljs-type">int</span> length) : <span class="hljs-built_in">str</span>(str), <span class="hljs-built_in">length</span>(length) &#123;&#125;<br>&#125; *string;<br><br><span class="hljs-type">int</span> next[length] = &#123;<span class="hljs-number">0</span>&#125;;<br></code></pre></td></tr></table></figure>
 
 <h3 id="暴力匹配算法"><a href="#暴力匹配算法" class="headerlink" title="暴力匹配算法"></a>暴力匹配算法</h3><p>赋初值后开始比较，若对应字符相等则i与j同时相加，指示串中下个位置，比较下一字符。否则指针i后退重新开始匹配，从主串的下一个字符开始比较。<br>如果是j &gt; t-&gt;length导致的循环结束，那么就是找到了指定位置，可以进行输出。反之则是匹配不成功，返回-1；</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">brute_force</span><span class="hljs-params">(string s, string t, <span class="hljs-type">int</span> pos)</span> <span class="hljs-comment">// s串为主串，t串为模式，pos为开始比较的位置</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> i = pos, j = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">while</span> (i &lt;= s-&gt;length &amp;&amp; j &lt;= t-&gt;length)<br>    &#123;<br>        <span class="hljs-keyword">if</span> (s-&gt;str[i] == t-&gt;str[j])<br>            i++, j++;<br>        <span class="hljs-keyword">else</span><br>            i = i - j + <span class="hljs-number">2</span>, j = <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (j &gt; t-&gt;length)<br>        <span class="hljs-keyword">return</span> i - t-&gt;length;<br>    <span class="hljs-keyword">else</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h3 id="临时数组next"><a href="#临时数组next" class="headerlink" title="临时数组next"></a>临时数组next</h3><div class="note note-danger">
-            <p>小红书 - 实习, 笔试.</p> 
-          </div>
-
-<p>以下举例说明，设模式串为<strong>abaabcac</strong></p>
+<h3 id="临时数组next"><a href="#临时数组next" class="headerlink" title="临时数组next"></a>临时数组next</h3><p>以下举例说明，设模式串为<strong>abaabcac</strong></p>
 <ul>
 <li>next[0]固定为0</li>
 <li>i &#x3D; 1，a与b不等，next[1] &#x3D; j &#x3D; 0</li>
@@ -468,45 +461,16 @@
 <h3 id="KMP"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</h3><p>若匹配失败，则在next数组中寻找对应的回溯位置。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">kmp</span><span class="hljs-params">(string s, string t, <span class="hljs-type">int</span> pos)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> i = pos, j = <span class="hljs-number">0</span>;<br>    <span class="hljs-built_in">get_next</span>(t, next);<br>    <span class="hljs-keyword">while</span> (i &lt;= s-&gt;length &amp;&amp; j &lt;= t-&gt;length)<br>    &#123;<br>        <span class="hljs-keyword">if</span> (j == <span class="hljs-number">0</span> || s-&gt;str[i] == t-&gt;str[j])<br>            ++i, ++j;<br>        <span class="hljs-keyword">else</span><br>            j = next[j];<br>    &#125;<br>    <span class="hljs-keyword">if</span> (j &gt; t-&gt;length)<br>        <span class="hljs-keyword">return</span> i - t-&gt;length;<br>    <span class="hljs-keyword">else</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="稀疏矩阵压缩"><a href="#稀疏矩阵压缩" class="headerlink" title="稀疏矩阵压缩"></a>稀疏矩阵压缩</h2><p>设有上三角矩阵<code>A[n][n]</code>，将其上三角元素逐行存于数组<code>B[m]</code>中，使得<code>B[k] = A[i][j]</code>, <code>k = f1(i)+f2(j)+c</code>，试推导出函数f1，f2和常数c。</p>
-<p>对上三角矩阵，设<code>i&lt;=j</code>有</p>
-<p>$$k&#x3D;\underbrace{n + (n-1) + (n+2)+…+(n-i+2)}{前i-1行}+\underbrace{(j-i+2)}{第i行}\ &#x3D;\frac{n-(i-1)}{2}i+j-n\ 故f_1(i) &#x3D; \frac{n-(i-1)}{2},\ f_2(j)&#x3D;j,\ c&#x3D;-n$$</p>
-<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><h3 id="二叉树的遍历"><a href="#二叉树的遍历" class="headerlink" title="二叉树的遍历"></a>二叉树的遍历</h3><p>假设一棵二叉树的先序遍历序列为EBADCFHGIKJ，中序遍历序列为ABCDEFGHIJK，请画出该二叉树</p>
-<p>可通过递归寻找。</p>
-<ul>
-<li>先序遍历的第一个节点E一定是根节点，中序遍历从这个节点开始划分成{ABCD}{FGHIJK}两部分</li>
-<li>以左划分为例，中序遍历对应的先序遍历序列为{BADC}，B为父节点，中序遍历划分为{A}{CD}两部分</li>
-<li>如此递归，即可得到结果</li>
-</ul>
-<pre><code class=" mermaid">graph TD
-e[E]--&gt;b[B]--&gt;a[A]
-b--&gt;d[D]--&gt;c[C]
-d--&gt;n1[null]
-e--&gt;f[F]--&gt;n2[null]
-f--&gt;h[H]--&gt;g[G]
-h--&gt;i[I]--&gt;n3[null]
-i--&gt;k[K]--&gt;J
-k--&gt;n4[null]
-</code></pre>
-
-<ul>
-<li>前序遍历</li>
-</ul>
+<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><h3 id="二叉树的遍历"><a href="#二叉树的遍历" class="headerlink" title="二叉树的遍历"></a>二叉树的遍历</h3><p><strong>前序遍历</strong></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">pre</span><span class="hljs-params">(tree t)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (!t)<br>        <span class="hljs-keyword">return</span>;<br>    std::cout &lt;&lt; t-&gt;value &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>    <span class="hljs-built_in">pre</span>(t-&gt;left);<br>    <span class="hljs-built_in">pre</span>(t-&gt;right);<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<ul>
-<li>中序遍历</li>
-</ul>
+<p><strong>中序遍历</strong></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">in</span><span class="hljs-params">(tree t)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (!t)<br>        <span class="hljs-keyword">return</span>;<br>    <span class="hljs-built_in">in</span>(t-&gt;left);<br>    std::cout &lt;&lt; t-&gt;value &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>    <span class="hljs-built_in">in</span>(t-&gt;right);<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<ul>
-<li>后序遍历</li>
-</ul>
+<p><strong>后序遍历</strong></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">post</span><span class="hljs-params">(tree t)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (!t)<br>        <span class="hljs-keyword">return</span>;<br>    <span class="hljs-built_in">post</span>(t-&gt;left);<br>    <span class="hljs-built_in">post</span>(t-&gt;right);<br>    std::cout &lt;&lt; t-&gt;value &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<ul>
-<li>层序遍历（BFS）</li>
-</ul>
+<p><strong>层序遍历（BFS）</strong></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function">std::vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">BFS</span><span class="hljs-params">(tree t)</span></span><br><span class="hljs-function"></span>&#123;<br>    std::queue&lt;tree&gt; q;<br>    std::vector&lt;<span class="hljs-type">int</span>&gt; v;<br>    <span class="hljs-keyword">if</span>(t)<br>        q.<span class="hljs-built_in">push</span>(t);<br>    <span class="hljs-keyword">while</span>(!q.<span class="hljs-built_in">empty</span>())<br>    &#123;<br>        tree temp = q.<span class="hljs-built_in">front</span>();<br>        v.<span class="hljs-built_in">push_back</span>(temp-&gt;value);<br>        <span class="hljs-keyword">if</span>(temp-&gt;left)<br>            q.<span class="hljs-built_in">push</span>(temp-&gt;left);<br>        <span class="hljs-keyword">if</span>(temp-&gt;right)<br>            q.<span class="hljs-built_in">push</span>(temp-&gt;right);<br>        q.<span class="hljs-built_in">pop</span>();<br>    &#125;<br>    <span class="hljs-keyword">return</span> v;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h3 id="线索二叉树"><a href="#线索二叉树" class="headerlink" title="线索二叉树"></a>线索二叉树</h3><p>其节点形式</p>
@@ -522,13 +486,22 @@ k--&gt;n4[null]
 </thead>
 </table>
 <p>其中，若<code>LTag/RTag</code>为0，则表示child域指示节点的孩子，若为1，则指示节点的前驱&#x2F;后继。</p>
-<h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><h3 id="平均查找长度"><a href="#平均查找长度" class="headerlink" title="平均查找长度"></a>平均查找长度</h3><p>$$\text{ASL}&#x3D;\sum^n_{n&#x3D;1}P_iC_i$$</p>
-<p>$P_i$为查找表中第i个记录的概率(显然有$\sum^n_{i&#x3D;1}{P_i}&#x3D;1$)，$C_i$为找到第i个记录时进行比较的次数，可类比于数学期望。</p>
+<h3 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h3><p>红黑树是一种自平衡的二叉树，用于防止树退化为链表。</p>
+<ol>
+<li>每个节点要么是红色，要么是黑色</li>
+<li>根节点永远是黑色</li>
+<li>根节点下的 <code>null</code> 节点永远是黑色</li>
+<li>红色节点的子节点一定是黑色的</li>
+<li>从任意节点到其每个叶子节点的所有简单路基那个都包含相同数目的黑色节点</li>
+</ol>
+<p>红黑树通过左旋和右旋来调整树的结构，避免某一侧过深。通过染色，保证树的高度不会失衡。</p>
+<h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><h3 id="平均查找长度"><a href="#平均查找长度" class="headerlink" title="平均查找长度"></a>平均查找长度</h3><p>$$<br>\text{ASL}&#x3D;\sum^n_{n&#x3D;1}P_iC_i<br>$$</p>
+<p>$P_i$为查找表中第i个记录的概率(显然有$\sum^n_{i&#x3D;1}{P_i}&#x3D;1$)，$C_i$为找到第i个记录时进行比较的次数，<strong>可类比于数学期望</strong>。</p>
 <p>顺序查找的 $\displaystyle\text{ASL}&#x3D;\frac{1}{n}\sum^n_{i&#x3D;1}i&#x3D;\frac{i+1}{2}$</p>
 <p>将顺序表进行排序后可以进行折半查找。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-type">int</span> *a, <span class="hljs-type">int</span> length, <span class="hljs-type">int</span> value)</span> </span>&#123;<br>    <span class="hljs-type">int</span> low = <span class="hljs-number">0</span>, high = length, mid;<br>    <span class="hljs-keyword">while</span>(low &lt;= high) &#123;<br>        mid = (low + high) / <span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">if</span>(key == a[mid])<br>            <span class="hljs-keyword">return</span> mid;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (key &lt; a[mid])<br>            high = mid - <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">else</span><br>            low = mid + <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>n很大时，$\displaystyle\text{ASL}&#x3D;\log_2(n+1)-1$</p>
+<p>n很大时，$\displaystyle\text{ASL} \approx \log_2(n+1)-1$</p>
 <h3 id="Huffman编码"><a href="#Huffman编码" class="headerlink" title="Huffman编码"></a>Huffman编码</h3><h3 id="哈希表处理冲突（顺序表）"><a href="#哈希表处理冲突（顺序表）" class="headerlink" title="哈希表处理冲突（顺序表）"></a>哈希表处理冲突（顺序表）</h3><p>探测公式 $H_i&#x3D;(H(\text{key})+d_i)$<br>线性探测时 $d_i&#x3D;1,2,\cdots,m-1$<br>伪随机探测时，$d_i$为指定的伪随机序列<br>进行查找时，通过不断计算下一个散列地址$H_i$查找数据。</p>
 <h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><p>按顺序取一个数，放到指定的位置上。时间复杂度为$O(n^2)$，是稳定排序，适合记录基本有序的情况。将插入与折半结合，为折半插入排序，仍然是稳定排序，适合初始记录无序的情况。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt; length; ++i)<br>&#123;<br>    <span class="hljs-keyword">if</span> (array[i] &gt; array[i - <span class="hljs-number">1</span>])<br>    &#123;<br>        tmp = array[i];<br>        array[i] = array[i - <span class="hljs-number">1</span>];<br>        <span class="hljs-keyword">for</span> (index = i - <span class="hljs-number">1</span>; tmp &gt; array[index]; --index)<br>            array[index + <span class="hljs-number">1</span>] = array[index];<br>        array[index + <span class="hljs-number">1</span>] = tmp;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -556,7 +529,7 @@ k--&gt;n4[null]
 <p>sort函数</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">sort</span><span class="hljs-params">(<span class="hljs-type">int</span> array[], <span class="hljs-type">int</span> low, <span class="hljs-type">int</span> high)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span> (low &lt; high)<br>    &#123;<br>        <span class="hljs-type">int</span> tmp = <span class="hljs-built_in">partition</span>(array, low, high);<br>        <span class="hljs-built_in">sort</span>(array, low, tmp - <span class="hljs-number">1</span>);<br>        <span class="hljs-built_in">sort</span>(array, tmp + <span class="hljs-number">1</span>, high);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>快速排序不稳定，当枢轴量每次都能平分数组时最快，适合初始记录无序的情况。平均状况下时间复杂度为$O(n\log n)$。</p>
+<p>快速排序不稳定，当枢轴量每次都能平分数组时最快，适合初始记录无序的情况。平均状况下时间复杂度为 $O(n\log n)$。</p>
 <h3 id="简单选择排序"><a href="#简单选择排序" class="headerlink" title="简单选择排序"></a>简单选择排序</h3><p>与插入排序相反，从未排序的数组中选择一个合适的数放进去。理论上是稳定的，但稳定与否与交换的方法有关。其移动次数较少，可用于记录占用空间较多时的排序方式。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i&lt; length; ++i)<br>&#123;<br>    index = i;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = i; j &lt; length; ++j)<br>        <span class="hljs-keyword">if</span>(array[j] &lt; array[index])<br>            index = j;<br>    tmp = array[index];<br>    array[index] = array[i];<br>    array[i] = tmp;<br>&#125;<br></code></pre></td></tr></table></figure>
 
@@ -564,11 +537,12 @@ k--&gt;n4[null]
             <p>腾讯微信支付 - 实习, 一面.</p> 
           </div>
 
-<p>序列 $k_1,\cdots,k_n$ 在满足 $$k_i\geq k_{2i},\quad k_i\geq k_{2i+1}\quad 或\quad k_{i}\leq k_{2i},\quad k_i\leq k_{si+1}$$ 其中之一时，可以称为堆。满足前者的是大顶堆，满足后者的是小顶堆。以下以大顶堆为例。</p>
+<p>序列 $k_1,\cdots,k_n$ 在满足<br>$$<br>k_i\geq k_{2i},\quad k_i\geq k_{2i+1}\quad 或\quad k_{i}\leq k_{2i},\quad k_i\leq k_{si+1}<br>$$</p>
+<p>其中之一时，可以称为堆。满足前者的是大顶堆，满足后者的是小顶堆。以下以大顶堆为例。</p>
 <p>调整成堆。首先查找这个节点和其子节点哪个更大，若更大的是子节点则找出最大的那个，和父节点交换。注意，交换后，可能子节点处堆的结构也遭到了破坏，因此还需要递归调整。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">adjustHeap</span><span class="hljs-params">(<span class="hljs-type">int</span>[] a, <span class="hljs-type">int</span> i, <span class="hljs-type">int</span> heapSize)</span> &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">largest</span> <span class="hljs-operator">=</span> i;<br>    <span class="hljs-keyword">if</span> (i * <span class="hljs-number">2</span> + <span class="hljs-number">1</span> &lt; heapSize &amp;&amp; a[i * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>] &gt; a[largest]) &#123;<br>        largest = i * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>;<br>    &#125; <br>    <span class="hljs-keyword">if</span> (i * <span class="hljs-number">2</span> + <span class="hljs-number">2</span> &lt; heapSize &amp;&amp; a[i * <span class="hljs-number">2</span> + <span class="hljs-number">2</span>] &gt; a[largest]) &#123;<br>        largest = i * <span class="hljs-number">2</span> + <span class="hljs-number">2</span>;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (largest != i) &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">temp</span> <span class="hljs-operator">=</span> a[i];<br>        a[i] = a[largest];<br>        a[largest] = temp;<br>        adjustHeap(a, largest, heapSize);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>建初堆。此处的 $\frac{k}{2}-1$ 是第一个非叶子节点。</p>
+<p>建初堆。此处的 $\displaystyle\frac{k}{2}-1$ 是第一个非叶子节点。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">buildMaxHeap</span><span class="hljs-params">(<span class="hljs-type">int</span>[] a, <span class="hljs-type">int</span> heapSize)</span> &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> heapSize / <span class="hljs-number">2</span> - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; --i) &#123;<br>        adjustHeap(a, i, heapSize);<br>    &#125; <br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>在堆中进行排序</p>
@@ -595,14 +569,6 @@ k--&gt;n4[null]
 
 <p>在邻接表中进行BFS遍历</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">BFS_in_link</span><span class="hljs-params">(<span class="hljs-type">int</span> v)</span></span><br><span class="hljs-function"></span>&#123;<br>    queue&lt;<span class="hljs-type">int</span>&gt; temp;<br>    link.visited[v] = <span class="hljs-literal">true</span>;<br>    temp.<span class="hljs-built_in">push</span>(v + <span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">while</span> (!temp.<span class="hljs-built_in">empty</span>())<br>    &#123;<br>        q.<span class="hljs-built_in">push</span>(temp.<span class="hljs-built_in">front</span>());<br>        temp.<span class="hljs-built_in">pop</span>();<br>        <span class="hljs-keyword">for</span> (node p = link.matrix_link[v]-&gt;next; p != <span class="hljs-literal">nullptr</span>; p = p-&gt;next)<br>            <span class="hljs-keyword">if</span> (!link.visited[p-&gt;belong])<br>            &#123;<br>                temp.<span class="hljs-built_in">push</span>(p-&gt;belong + <span class="hljs-number">1</span>);<br>                link.visited[p-&gt;belong] = <span class="hljs-literal">true</span>;<br>            &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<div class="note note-info">
-            <p>若图中有不止一个连通分量，则需要另设一个大循环，在循环中不断检测未遍历到的分量继续遍历</p> 
-          </div>
-
-<div class="note note-info">
-            <p>克鲁斯卡尔算法更适合求稀疏网的最小生成树</p> 
-          </div>
 
                 
               </div>
