@@ -19,16 +19,16 @@
   <meta name="author" content="Ivan Chan">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Spring的底层Servlet中，一个请求对应一个线程。为了提高网页响应速度，提供缓存并进行维护，使得缓存满足高并发状态下的请求，就显得非常重要。此处使用redis，解决部分高并发问题。 redis核心就是单线程，不容易出现线程问题。但redis也采用了多线程的IO多路复用技术，可以在只有一个线程的情况下同时监听多个客户端链接。 redis 4.0后，redis引入了多线程机制，用于清理脏数据、">
+    <meta name="description" content="Spring MVC 一般跑在 Tomcat 这类 Servlet 容器上：一个请求占用一个容器线程，从进到出。请求一多，线程都卡在等数据库上，响应自然慢。缓存要做的就是把重复的读请求挡在数据库之前，Redis 就是这一层。 “Redis 单线程工作，单线程指的是命令执行——不用加锁，也就没有线程安全问题。至于同时服务上万个连接，靠的是 IO 多路复用（epoll），一个线程监听多个连接，这不是多">
 <meta property="og:type" content="article">
 <meta property="og:title" content="高并发下的 redis 缓存策略 - 1">
 <meta property="og:url" content="https://tech.ivanclf.com/2025/09/22/redis/index.html">
 <meta property="og:site_name" content="Ivan的技术笔记">
-<meta property="og:description" content="Spring的底层Servlet中，一个请求对应一个线程。为了提高网页响应速度，提供缓存并进行维护，使得缓存满足高并发状态下的请求，就显得非常重要。此处使用redis，解决部分高并发问题。 redis核心就是单线程，不容易出现线程问题。但redis也采用了多线程的IO多路复用技术，可以在只有一个线程的情况下同时监听多个客户端链接。 redis 4.0后，redis引入了多线程机制，用于清理脏数据、">
+<meta property="og:description" content="Spring MVC 一般跑在 Tomcat 这类 Servlet 容器上：一个请求占用一个容器线程，从进到出。请求一多，线程都卡在等数据库上，响应自然慢。缓存要做的就是把重复的读请求挡在数据库之前，Redis 就是这一层。 “Redis 单线程工作，单线程指的是命令执行——不用加锁，也就没有线程安全问题。至于同时服务上万个连接，靠的是 IO 多路复用（epoll），一个线程监听多个连接，这不是多">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://tech.ivanclf.com/2025/09/22/redis/202401222005436.png">
 <meta property="article:published_time" content="2025-09-22T11:19:32.000Z">
-<meta property="article:modified_time" content="2026-10-10T05:55:41.027Z">
+<meta property="article:modified_time" content="2026-10-20T07:41:10.284Z">
 <meta property="article:author" content="Ivan Chan">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="redis">
@@ -355,7 +355,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.6k 字
+          5.6k 字
         
       </span>
     
@@ -366,7 +366,7 @@
         
         
         
-          55 分钟
+          47 分钟
         
       </span>
     
@@ -423,165 +423,349 @@
             
               <div class="markdown-body">
                 
-                <p>Spring的底层Servlet中，一个请求对应一个线程。为了提高网页响应速度，提供缓存并进行维护，使得缓存满足高并发状态下的请求，就显得非常重要。此处使用redis，解决部分高并发问题。</p>
-<p>redis核心就是单线程，不容易出现线程问题。但redis也采用了多线程的IO多路复用技术，可以在只有一个线程的情况下同时监听多个客户端链接。</p>
-<p>redis 4.0后，redis引入了多线程机制，用于清理脏数据、释放无用链接、删除大key.而redis 6.0后，多线程仅用于把网络IO和命令执行分开，将网络IO交给线程池来处理。从而提高性能。</p>
-<p>单线程的redis其QPS通常可以达到每秒10万左右。</p>
-<div class="note note-info">
-            <p><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/redis-tutorial.html">点击这里</a>学redis基础操作。在Java中，涉及redis的操作一般可以通过特定形式的API解决。</p> 
-          </div>
-
-<h2 id="为什么需要缓存？"><a href="#为什么需要缓存？" class="headerlink" title="为什么需要缓存？"></a>为什么需要缓存？</h2><p>一般的前后端分离项目中，遵循以下结构</p>
+                <p>Spring MVC 一般跑在 Tomcat 这类 Servlet 容器上：<strong>一个请求占用一个容器线程</strong>，从进到出。请求一多，线程都卡在等数据库上，响应自然慢。缓存要做的就是把重复的读请求挡在数据库之前，Redis 就是这一层。</p>
+<p><strong>“Redis 单线程工作</strong>，单线程指的是<strong>命令执行</strong>——不用加锁，也就没有线程安全问题。至于同时服务上万个连接，靠的是 IO 多路复用（epoll），<strong>一个线程监听多个连接</strong>，这不是多线程。</p>
+<p>后续版本只是把一部分工作挪出了主线程：</p>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>变化</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>4.0</td>
+<td>增加后台线程做<strong>异步删除</strong>（<code>UNLINK</code>、<code>FLUSHALL ASYNC</code> 等）</td>
+<td>删大 key、清库不再阻塞主线程</td>
+</tr>
+<tr>
+<td>6.0</td>
+<td>网络 IO 与协议解析交给 IO 线程池，<strong>命令执行仍是单线程</strong></td>
+<td>分摊网络开销，提高吞吐</td>
+</tr>
+</tbody></table>
+<p>单机 QPS 通常在 10 万量级。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/redis-tutorial.html">点击这里</a>学 redis 基础命令。Java 中一般用客户端库操作 Redis，如 Jedis、Lettuce、Redisson。</p>
+</blockquote>
+<h2 id="为什么需要缓存？"><a href="#为什么需要缓存？" class="headerlink" title="为什么需要缓存？"></a>为什么需要缓存？</h2><p>前后端分离项目的链路：</p>
 <pre><code class=" mermaid">graph LR
-fronted[fronted]--&gt;|step 1|backend[backend]--&gt;|step 2|database[database]
+frontend[frontend]--&gt;|step 1|backend[backend]--&gt;|step 2|database[database]
 </code></pre>
 
-<p>为了在多后端的集群（或微服务）中对多种多样的请求进行中转，需要在<code>step 1</code>中插入nginx作为中间件，而大量重复的请求（如登录校验、热点信息查询）会导致MySQL这些数据库压力过大，并使得用户访问速度较慢。因此<code>step 2</code>中需要非关系型数据库作为缓冲，减少大量重复或不必要的数据库读取。Redis就是非关系型数据库的一种。</p>
-<p>比如，在实现登录状态持久化的功能时，常用的手段包括jwt和存在redis中的token。</p>
+<p>多实例部署后，<code>step 1</code> 要加 nginx 做反向代理和负载均衡，但请求最终仍落到同一批数据库上。登录校验、热点数据查询这类<strong>大量重复的读</strong>会把 MySQL 压垮，所以得在 <code>step 2</code> 插一层内存缓存，把重复读挡在数据库前面。Redis 就是这层缓存。</p>
+<p><strong>典型例子：登录状态存在哪？</strong></p>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>做法</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>JWT</td>
+<td>登录成功后，后端把用户信息、过期时间等写成 JSON，Base64 <strong>编码</strong>后拼成 token，再对内容签名后返回客户端；之后每次请求带上它，服务端验签即可</td>
+<td>服务端无状态、不用存；但签发后无法主动作废，只能等它过期</td>
+</tr>
+<tr>
+<td>Redis 存 token</td>
+<td>登录成功后，后端生成随机 token 返回客户端，同时存一份 <code>token → 用户信息</code> 到 Redis；之后每次请求拿 token 去 Redis 查</td>
+<td>能随时删 token 让用户下线，也能顺手续期</td>
+</tr>
+</tbody></table>
+<p>需要“强制下线”或“活跃即续期”时，后者更合适。</p>
+<h2 id="redis-数据类型指北"><a href="#redis-数据类型指北" class="headerlink" title="redis 数据类型指北"></a>redis 数据类型指北</h2><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>底层实现</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>String</code></td>
+<td>SDS</td>
+<td>最大 512 MB，常用来存序列化后的对象</td>
+</tr>
+<tr>
+<td><code>Hash</code></td>
+<td>元素少用 listpack，超阈值转哈希表</td>
+<td>哈希表是数组 + 拉链（没有红黑树）；适合只改某几个字段，或想省内存</td>
+</tr>
+<tr>
+<td><code>List</code></td>
+<td>quicklist</td>
+<td>多个 listpack（7.0 前是 ziplist）用指针串成双向链表，兼顾内存与两端进出</td>
+</tr>
+<tr>
+<td><code>Set</code></td>
+<td>全整数且量少用 intset，否则哈希表</td>
+<td><code>SRANDMEMBER</code> 随机取元素；<code>SINTER</code>&#x2F;<code>SUNION</code>&#x2F;<code>SDIFF</code> 求交&#x2F;并&#x2F;差，带 <code>STORE</code> 后缀的会把结果存成新 key</td>
+</tr>
+<tr>
+<td><code>ZSet</code></td>
+<td>跳表 + 字典</td>
+<td>跳表管排序和范围查询，字典管 $O(1)$ 由 member 查 score</td>
+</tr>
+</tbody></table>
+<h3 id="SDS"><a href="#SDS" class="headerlink" title="SDS"></a>SDS</h3><p>Redis 没有直接用 C 的 <code>char *</code>，而是自己实现了 SDS（Simple Dynamic String，简单动态字符串）。换来三个好处：</p>
 <ul>
-<li>jwt(JSON Web Token): 在用户登录时，后端将存有用户信息、有效期的JSON文件通过Base64解码并进行数字签名后传输给客户。客户在后续的请求中带上jwt。</li>
-<li>存在redis中的token: 在用户登录时，后端将随机token发送给用户，同时存一份到Redis中。客户在后续的请求中带上token。</li>
+<li><strong>$O(1)$ 求长度</strong>：<code>len</code> 字段直接记着，不用像 <code>strlen</code> 那样扫到 <code>\0</code>。</li>
+<li><strong>二进制安全</strong>：判断结尾靠 <code>len</code> 而不是 <code>\0</code>，内容里可以有 <code>\0</code>，所以能存图片、序列化对象。</li>
+<li><strong>预分配 + 惰性释放</strong>：<code>free</code> 记录空闲空间，追加时少扩容；缩短时不立刻归还，避免频繁 realloc。</li>
 </ul>
-<p>后一种能够实现主动登出服务，并且对有效期的管理更加灵活（例如在用户发送请求时由redis动态调整有效期），在某些需求下更受青睐。</p>
-<h2 id="redis数据类型指北"><a href="#redis数据类型指北" class="headerlink" title="redis数据类型指北"></a>redis数据类型指北</h2><ul>
-<li><p><code>String</code>可以把序列化后的对象存进去，最大容量是512Mb。</p>
-</li>
-<li><p>相比于<code>Hash</code>，<code>String</code>适合存储对象数据，但如果需要频繁操作对象的部分字段或节省内吨，那么<code>Hash</code>可能更好。</p>
-</li>
-<li><p>redis的<code>String</code>类型的底层实现并不是C语言的字符串，而是自己编写了SDS（<code>Dimple Dynamic String</code> 简单动态字符串）来作为底层实现。相比C语言的字符串，SDS可以快捷获取字符串长度，保证缓冲区安全和二进制安全，使用更聪明的内存分配策略等。<br>  忽略其不同字节下的实现方式变化，其定义方式如下</p>
-  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sdshdr</span> &#123;</span><br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> len;<br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> <span class="hljs-built_in">free</span>;<br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> flags; <span class="hljs-comment">// 低3位保存类型状态</span><br>    <span class="hljs-type">char</span> buf[];<br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>大致结构如下（Redis 3.2 起按长度分为 <code>sdshdr5/8/16/32/64</code> 五种，区别只是 <code>len</code>、<code>free</code> 用 <code>uint8_t</code>、<code>uint16_t</code>、<code>uint32_t</code> 还是 <code>uint64_t</code>）：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sdshdr</span> &#123;</span><br>    <span class="hljs-type">uint32_t</span> len;         <span class="hljs-comment">// 已用长度</span><br>    <span class="hljs-type">uint32_t</span> <span class="hljs-built_in">free</span>;        <span class="hljs-comment">// 剩余可用长度</span><br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> flags;  <span class="hljs-comment">// 低 3 位记录 header 类型</span><br>    <span class="hljs-type">char</span> buf[];           <span class="hljs-comment">// 柔性数组，真正的内容，末尾补 &#x27;\0&#x27;</span><br>&#125;;<br></code></pre></td></tr></table></figure>
 
-<p>  其中的<code>len</code>和<code>free</code>中的<code>unsigned int</code>会随着其初始化长度，改变为<code>uint8_t</code>、<code>uint16_t</code>、<code>uint32_t</code>或<code>uint_64t</code>几种类型</p>
-</li>
-<li><p><code>List</code>的内部实现方式为quicklist，即将一条压缩列表拆分为多条小的压缩列表，然后通过指针连接成一个双向链表。</p>
-</li>
-<li><p><code>Hash</code>的内部实现方式与JDK 1.8前的HashMap类似</p>
-</li>
-<li><p><code>Set</code>中可以使用<code>srandmember</code>来随机获取集合中的元素</p>
-</li>
-<li><p><code>Set</code>的集合操作命令：<code>SINTER</code>（交集）、<code>SINTERSTORE</code> （交集）、<code>SUNION</code> （并集）、<code>SUNIONSTORE</code>（并集）、<code>SDIFF</code>（差集）、<code>SDIFFSTORE</code> （差集）。</p>
-</li>
-<li><p><code>ZSet</code>的底层基于跳表实现。</p>
-</li>
-</ul>
-<h3 id="压缩列表"><a href="#压缩列表" class="headerlink" title="压缩列表"></a>压缩列表</h3><p>当有序集合元素小于64字节，且个数小于128时，会使用<code>ziplist</code>（压缩列表），这两个阈值的配置为</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">zset-max-ziplist-value 64<br>zset-max-ziplist-entries 128<br></code></pre></td></tr></table></figure>
-
-<p>压缩链表是redis为了节省内存而设计的一种紧凑型数据结构，它会把所有数据连续存储在一块内存中。每个结构包含总字节数、尾部偏移量、节点数量等数据。每个节点包含前一个节点的长度、编码的类型和实际的数据。不过这种压缩列表可能会导致插入或删除节点时连锁更新后续节点数据的问题，导致算法复杂度可能退化到$O(n^2)$</p>
 <h3 id="跳表"><a href="#跳表" class="headerlink" title="跳表"></a>跳表</h3><div class="note note-danger">
             <p>腾讯混元 - 实习, 一面.</p> 
           </div>
 
-<p>一旦超过其中的一个阈值，就会变为<code>skiplist</code>（跳表，但实际上是字典+跳表，使用字典来提高获取速率）。跳表可以在链表的基础上，建立多级索引，将增删改查的时间复杂度变为 $O(\log n)$</p>
-<p>跳表节点的定义如下</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">skiplistNode</span> &#123;</span><br>    <span class="hljs-type">double</span> score;                    <span class="hljs-comment">// 分值（用于排序）</span><br>    robj *obj;                      <span class="hljs-comment">// 数据对象</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">skiplistNode</span> *<span class="hljs-title">backward</span>;</span>   <span class="hljs-comment">// 后退指针</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">skiplistLevel</span> &#123;</span><br>        <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">skiplistNode</span> *<span class="hljs-title">forward</span>;</span> <span class="hljs-comment">// 前进指针</span><br>        <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> span;           <span class="hljs-comment">// 跨度（到下个节点的距离）</span><br>    &#125; level[];                      <span class="hljs-comment">// 层级数组</span><br>&#125; skiplistNode;<br></code></pre></td></tr></table></figure>
-
-<p>跳表本身的定义如下</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">skiplist</span> &#123;</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">skiplistNode</span> *<span class="hljs-title">header</span>, *<span class="hljs-title">tail</span>;</span> <span class="hljs-comment">// 头尾节点</span><br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> length;               <span class="hljs-comment">// 节点数量</span><br>    <span class="hljs-type">int</span> level;                         <span class="hljs-comment">// 最大层数</span><br>&#125; skiplist;<br></code></pre></td></tr></table></figure>
-
-<p>以下图为例</p>
+<p>超过任一阈值后，ZSet 就变成<strong>跳表 + 字典</strong>：字典存 <code>member → score</code>，按成员查分数是 $O(1)$；跳表让节点按 score 有序，撑起范围查询。</p>
+<p>跳表就是在有序链表上叠多层索引，像坐电梯：先在高层大步跨，跨过头了就降一层细找。</p>
 <p><img src="202401222005436.png" srcset="/img/loading.gif" lazyload alt="展开来看就很容易看懂了"></p>
-<p>假如我们需要查询元素 6，其工作流程如下：</p>
+<p>以查 6 为例：</p>
 <ol>
-<li>从 2 级索引开始，先来到节点 4。</li>
-<li>查看 4 的后继节点，是 8 的 2 级索引，这个值大于 6，说明 2 级索引后续的索引都是大于 6 的，没有再往后搜寻的必要，我们索引向下查找。</li>
-<li>来到 4 的 1 级索引，比对其后继节点为 6，查找结束。</li>
+<li>从最高层出发，在 2 级索引上走到 4；下一个是 8，比 6 大，停。</li>
+<li>降一层，到 4 的 1 级索引，下一个就是 6，命中。</li>
 </ol>
-<p>理想状态下，每一层索引都是下一层元素个数的二分之一。其高度生成算法如下</p>
-<ol>
-<li>链表的高度为1。</li>
-<li>进行一次随机运算，数值范围为0.5。若随机数大于0.5则为当前元素增加以及索引。同理索引也这么操作。</li>
-</ol>
-<p>于是插入算法可以如下操作</p>
-<ol>
-<li>查找前置节点</li>
-<li>随机生成层级</li>
-<li>链接节点</li>
-</ol>
-<p>删除操作如下</p>
-<ol>
-<li>查找目标节点及其前置节点</li>
-<li>解除链接</li>
-<li>更新跳表层数</li>
-</ol>
-<p>为什么有序集合使用跳表，而非平衡树、红黑树或者B+树呢？相比平衡树，跳表使用概率平衡而非严格强制的平衡，因此跳表的插入和删除算法相比平衡树的算法高效得多；相比红黑树，跳表按照区间查找的速率更高；相比B+树，跳表能节省更多的内存。</p>
+<p><strong>层级是随机的</strong>：每个节点先定 1 层，之后每轮以概率 $p$ 再加一层（Redis 取 $p&#x3D;0.25$，最高 32 层）。理想情况下每层节点数是下一层的 1&#x2F;4，步数因此是 $O(\log n)$。用随机代替「必须平衡」，就不用旋转、整树调整：插入是「找前驱 → 掷骰子定层 → 接指针」，删除是「找前驱 → 摘指针 → 必要时降最大层数」。</p>
+<p><strong>为什么不用红黑树 &#x2F; B+ 树</strong>：</p>
 <ul>
-<li>redis的字典分为三层，最外层是一个dict结构，包含两个哈希表<code>ht[0]</code> <code>ht[1]</code>，用于存储键值对。每个哈希表都由数组的链表组成。</li>
+<li>范围查询：跳表底层就是有序链表，<code>ZRANGE</code> 从定位点顺着走；红黑树得中序遍历，还要维护遍历栈。</li>
+<li>实现难度：平衡树靠旋转维持严格平衡，跳表靠概率，代码短、易改。</li>
+<li>内存：B+ 树节点要预分配、容易留空洞，跳表每个节点只多几个指针。</li>
 </ul>
-<div class="note note-info">
-            <p>字典最核心的特点是渐进式rehash。当负载因子大于等于1或小于0.1时，会触发rehash。平时不启用的<code>ht[1]</code>开始启用。扩展时的<code>ht[1]</code>的大小为<code>ht[0]</code>的两倍，缩小时的大小为<code>ht[0]</code>的一半，然后将<code>rehashidx</code>设置为0。接下来，redis不会一次性把所有的数据从哈希表中迁移，而是在每次操作字典时，顺便迁移<code>ht[0]</code>中<code>rehashidx</code>位置上的所有键值对。迁移完一个槽位后，<code>rehashidx</code>递增，直到整个哈希表0都迁移完成。</p> 
-          </div>
-
-<div class="note note-info">
-            <p>redis中过期key的删除策略有以下4种</p> <ul> <li>惰性删除<br>  只有在取出&#x2F;查询的key的时候才对数据进行过期检查，对CPU友好，对内存不友好</li> <li>定期删除<br>  周期性随机抽查一批，检查是否过期，对CPU不太友好，对内存较友好</li> <li>延迟队列<br>  设置过期时间的key放到一个延迟队列里，到期就删除key，但维护延迟队列太麻烦，队列本身也占用资源</li> <li>定时删除<br>  到达时间后立即被删除，对CPU压力最大，因为要为每个键都设置一个定时器</li> </ul> <p>redis中采用定期删除+惰性删除的方式。其中定期删除会受到其他影响</p> <ul> <li>执行时间超过了阈值，那么就中断这一次定期删除循环</li> <li>过期key的比例超过阈值，就会重复执行定期删除流程。若过期key比例低于阈值，就会中断定期删除循环。</li> </ul> <p>在redis 7.2中执行时间阈值为25ms，过期key比例设定值为10%。定期检查时，随机抽查的数量为20，频率为每秒10次，也可以通过开启<code>dynamic-hz</code>动态改变抽查次数。</p> 
-          </div>
-
-<div class="note note-success">
-            <p>很短时间内被访问频繁的键可能会称为热key。大量请求集中到同一个键可能会导致该redis节点的CPU使用率飙升。响应时间变长。可以使用<code>redis-cli -h &lt;address&gt; -p &lt;port&gt; -a&lt;password&gt; — hotkey</code>监控热key。</p> <p>一般可以将热key缓存到本地内存中，或者将某些特别热的key拆分成多个子key，然后随机分布到不同的redis节点上。</p> <p>占用较大内存的缓存键称大key，比如超过10M的键值对。可以使用<code>redis-cli -h &lt;address&gt; -p &lt;port&gt; -a&lt;password&gt; --bigkeys</code>查找</p> <p>对于大key，最根本的方法是拆分成多个小key存储，对于JSON数据可以进行Gzip压缩后再存储。</p> 
-          </div>
-
-<h2 id="缓存更新"><a href="#缓存更新" class="headerlink" title="缓存更新"></a>缓存更新</h2><p>既然是把同一份数据存了两遍。那么当数据库中的某些数据已经更改，redis中的数据应该在什么时候更新呢？为了保证数据库与redis的高一致性，每次更新数据库后，都需要同步对redis进行操作。</p>
-<div class="note note-info">
-            <p>除了每次更新数据库都同步更新外，还有其他办法。例如将缓存与数据库合并成一个服务，再插入一个中间件；或者使用写回法，调用者只操作缓存，由其他线程将缓存数据持久化到数据库中。</p> 
-          </div>
-
-<p>更新缓存时可能会产生无效更新，且可能导致线程安全问题，因此在更新数据库时直接删除redis中的相关条目。这样，当用户查询到这条数据时，就可以直接查数据库，从而同步到redis中。</p>
-<p>如何保证缓存和数据库的操作同时成功或失败呢？对于单体系统，可以将缓存与数据库放在一个事务中。而在分布式系统中，可以利用TCC等分布式解决方案。</p>
-<div class="note note-info">
-            <p>事务是MySQL中的一个概念，用于将多个操作合并为一个独立的工作单元。事务必须满足四个特性(ACID)：原子性、一致性、隔离性、持久性。该特性用于保证成批的SQL语句一起执行——即要么全部执行成功、要么全部执行失败。</p> <p>TCC (Try-Confirm-Cancel)用于解决分布式系统中传统的数据库ACID事务只能保证单个数据库的原子性问题。首先在Try阶段创建一个状态为“待确认”的订单。若所有的Try操作都成功，则跳转至Confirm阶段，将订单状态从“待确认”更新为“已确认”；若任何一个Try操作失败，则执行Cancel操作，将订单状态更新为“已取消”，回滚语句并释放资源。</p> <p>而在redis中，也支持简单的事务处理</p> <ul> <li><code>multi</code> 开始事务</li> <li><code>exec</code> 执行事务</li> <li><code>discard</code> 取消事务，清空事务队列中保存的所有命令</li> <li><code>watch</code> 监听指定的key，若事务在执行时，监听的key被其他客户端修改，则事务不会被执行（但若watch和事务在同一个Session中，则事务是可以被执行成功的）</li> </ul> <p>由于redis的单线程特性，事务的执行过程不会被其他命令打断，也就不会被其他事务打断。但需要注意的是，redis的事务不支持回滚，即使有些命令执行失败。因此可以使用Lua脚本代替事务。但Lua脚本中途结束后不会执行后续操作，也不会回滚，分布式系统下的原子性也保证不了。</p> 
-          </div>
-
-<p>先操作缓存还是先操作数据库呢？这个需要考虑读写线程可能引起的并发问题。</p>
-<pre><code class=" mermaid">sequenceDiagram
-    participant t1 as Thread1
-    participant t2 as Thread2
-
-    t1-&gt;&gt;t1: 1. delete cache
-    t2-&gt;&gt;t2: 2. search cache, miss, so check database
-    t2-&gt;&gt;t2: 3. return data and write back to cache
-    t1-&gt;&gt;t1: 4. update database
-</code></pre>
-
-<p>在先删除缓存再操作数据库的情况下，由于更新数据库的速度较慢，所以上图中的状况很有可能发生。最后导致缓存中的数据是老数据而数据库中的数据是新数据。</p>
-<pre><code class=" mermaid">sequenceDiagram
-    participant t1 as Thread1
-    participant t2 as Thread2
-
-    t1-&gt;&gt;t1: 1. search cache, miss, so check database
-    t2-&gt;&gt;t2: 2. update database
-    t2-&gt;&gt;t2: 3. delete cache
-    t1-&gt;&gt;t1: 4. write back to cache
-</code></pre>
-
-<p>在先操作数据库再删除缓存的情况下，可能的不一致问题如上图。但写的时间一般远远大于读的时间，因此上图发生的概率极小。因此，<strong>一般先操作数据库</strong>。</p>
-<p>若真要很高的一致性，可以尝试以下方法。</p>
+<h3 id="字典与渐进式-rehash"><a href="#字典与渐进式-rehash" class="headerlink" title="字典与渐进式 rehash"></a>字典与渐进式 rehash</h3><p><code>Hash</code>、<code>Set</code> 的哈希表、以及整个 Redis 的键空间，底层都是字典：<code>dict</code> → 两个哈希表 <code>ht[0]</code>、<code>ht[1]</code> → 数组 + 拉链。</p>
+<p>rehash 的触发条件：负载因子 ≥ 1 扩容（若正在做 RDB&#x2F;AOF 子进程则放宽到 ≥ 5，避免写时复制放大内存），&lt; 0.1 缩容。</p>
+<p>做法是先给空闲的 <code>ht[1]</code> 分配空间（扩容两倍、缩容一半），<code>rehashidx</code> 置 0；之后每次读写字典都顺手把 <code>rehashidx</code> 这一槽位的节点搬到 <code>ht[1]</code>，搬完 <code>rehashidx++</code>。期间查找要查两张表，新增只写 <code>ht[1]</code>；全搬完后交换两张表，<code>rehashidx</code> 复位为 -1。这样把一次大搬迁摊到多次操作上，不会卡住主线程。</p>
+<h3 id="过期-key-的删除"><a href="#过期-key-的删除" class="headerlink" title="过期 key 的删除"></a>过期 key 的删除</h3><p>四种思路，Redis 只用了后两种：</p>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>做法</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>定时删除</td>
+<td>每个 key 挂定时器，到点立刻删</td>
+<td>CPU 压力最大，Redis 不用</td>
+</tr>
+<tr>
+<td>延迟队列</td>
+<td>按到期时间入队，由队列触发删除</td>
+<td>要额外维护队列，Redis 不用</td>
+</tr>
+<tr>
+<td>定期删除</td>
+<td>每秒若干次随机抽查一批，删掉过期的</td>
+<td>CPU 可控，内存可能滞留</td>
+</tr>
+<tr>
+<td>惰性删除</td>
+<td>访问时顺手判断，过期就删并返回 nil</td>
+<td>省 CPU，但没人访问的 key 会一直占内存</td>
+</tr>
+</tbody></table>
+<p>实际是<strong>定期 + 惰性</strong>：定期负责兜底清理，惰性兜住漏网的。</p>
+<p>定期删除每轮的约束（默认 <code>hz = 10</code>，即每秒 10 轮）：</p>
 <ul>
-<li>引入消息队列，比如在数据库更新的事务中插入一条本地消息记录，事务提交后异步发送给MQ进行缓存删除。即使缓存删除失效，消息队列的重试机制也能保证最终的一致性。</li>
-<li>使用Canal监听MySQL中的binlog，在数据更新时，将数据变更记录到消息队列中，消费者信息监听到后去删除缓存。</li>
-<li>对于简单一点的项目，可以采用延迟双删的策略——再删一次。这种方式主要针对缓存不存在，但写入了脏数据的情况。</li>
+<li>每轮随机抽 20 个带过期时间的 key；</li>
+<li>过期比例超过阈值就接着抽下一批，低于阈值就结束这一轮；</li>
+<li>整轮耗时不超过周期的 25%（<code>hz=10</code> 时约 25ms），超了立刻中断，避免拖慢主线程。</li>
 </ul>
-<h2 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h2><p>当客户端请求的数据不存在时，缓存永远都不会生效，而且这些请求都会打到数据库上。这样要是有大量重复的数据打进来，服务就崩了。</p>
-<p>解决缓存穿透的办法有两个：一个是在第一次发现不存在时，向redis写入一个空对象，这样简单好用，但会造成额外的内存开销与短时间的不一致问题。另一种是使用布隆过滤器，通过过滤器的请求才能进入到redis中，这样不需要太多额外内存，也不会产生不一致问题，但可能会误判，并且删除数据较为困难。</p>
-<div class="note note-info">
-            <p>布隆过滤器是一大串位列表。将数据添加到布隆过滤器时，我们提供数个不同的哈希函数中，将各自算出的值置为1。当请求获得的哈希值与布隆过滤器不匹配时拒绝，并返回空对象，反之放行。当某个空对象刚好能匹配先前其他元素生成过的1时，它也能透过过滤器。</p> <p>而且，布隆过滤器并不支持删除操作，若真想实现删除操作，可以使用计数布隆过滤器，但这样会增加内存开销。</p> 
-          </div>
-
-<p>而在实际项目中，还需要在接口层面做一些处理，比如参数校验，拦截不合理的请求，对疑似攻击的IP进行限流或者封禁等。</p>
-<h2 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h2><p>在同一时段内若有大量的缓存key同时失效或者redis服务宕机，那么大量的请求会直接到达数据库，造成巨大的压力。</p>
+<p><code>dynamic-hz yes</code>（默认开）会在连接数变多时自动调高 <code>hz</code>，过期检查和事件处理也会跟着变频繁。</p>
+<h3 id="内存淘汰策略"><a href="#内存淘汰策略" class="headerlink" title="内存淘汰策略"></a>内存淘汰策略</h3><p>过期删除管“到期”，淘汰管“放不下”。<code>maxmemory</code> 是内存上限，只管数据本身，不含写时复制的副本、主从缓冲区、内存碎片，所以一般按物理内存的 60%~75% 设。</p>
+<p>打满后不再报错或宕机，而是按 <code>maxmemory-policy</code> 删 key：</p>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>候选范围</th>
+<th>淘汰谁</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>noeviction</code></td>
+<td>—</td>
+<td>不淘汰，写命令直接报 OOM（<strong>默认值</strong>）</td>
+</tr>
+<tr>
+<td><code>allkeys-lru</code></td>
+<td>所有 key</td>
+<td>最久没被访问的</td>
+</tr>
+<tr>
+<td><code>allkeys-lfu</code></td>
+<td>所有 key</td>
+<td>访问频率最低的</td>
+</tr>
+<tr>
+<td><code>allkeys-random</code></td>
+<td>所有 key</td>
+<td>随机</td>
+</tr>
+<tr>
+<td><code>volatile-lru</code> &#x2F; <code>-lfu</code> &#x2F; <code>-ttl</code> &#x2F; <code>-random</code></td>
+<td>设了 TTL 的 key</td>
+<td>同上；<code>-ttl</code> 是剩余时间最短的</td>
+</tr>
+</tbody></table>
+<p>两个坑：</p>
 <ul>
-<li>对于大量缓存key同时失效的问题，直接给key的TTL设置随机时间即可。</li>
-<li>对于redis宕机的问题则比较麻烦。常见的解决方案有设计redis集群、设置多级缓存策略（比如使用本地缓存<code>Caffeine</code>来作为二级缓存。注意，在redis进行更新时，要通过pub&#x2F;sub机制向本地缓存更新通知）。</li>
-<li>对于请求量超过了缓存的正常服务的承载能力，则需要采用限流和降级措施。</li>
-<li>对于刚开机时可能出现的情况，则使用<code>xxl-job</code>或<code>Kafka</code>在缓存中提前放入数据即可。</li>
+<li><code>volatile-*</code> 只动设了 TTL 的 key，若这些 key 都无可淘汰，行为退化成 <code>noeviction</code>，照样 OOM。</li>
+<li>LRU &#x2F; LFU 都是<strong>近似</strong>的：随机采样 <code>maxmemory-samples</code>（默认 5）个 key 挑一个淘汰，不维护全局链表。采样越多越准，CPU 开销也越大。</li>
 </ul>
-<div class="note note-success">
-            <p>若确实存在大量key集中过期的需求，则可以修改<code>redis.conf</code>文件，将<code>lazyfree-lazy-expire</code>参数设置为<code>true</code>。开启后，redis会在后台异步删除过期的key不会阻塞主线程进行。</p> 
-          </div>
-
-<h2 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h2><p>一个高频访问并且重建缓存重建业务较为复杂的key突然失效了，大量的请求会挤进数据库里，并且大量申请写入redis的请求也会形成，从而造成巨大压力。为了防止这种情况，可以使用互斥锁或者逻辑过期方法。</p>
-<p>在互斥锁解决方案中，在进行缓存重建时，一群请求中只有一个可以进入数据库中，其余的请求都在等待。而在写入缓存后，其他的请求都直接从缓存中读取。</p>
-<p>逻辑过期与物理过期存在很大的差别。当使用逻辑过期时，物理过期时间可能会特别长甚至没有。逻辑过期结束时会另发线程更新数据，而在数据更新完成前，另外的线程都会使用旧数据。</p>
-<p>这两种方法适用于不同的情形。互斥锁适用于需要在每次数据库更新是都需要缓存重建的场景，一致性强且实现较为简单。但线程的等待时间较长。而逻辑过期方案适用于定期更新缓存的场景，一致性弱但不会出现线程等待的问题。</p>
+<p>纯缓存用 <code>allkeys-lru</code>；热点长期集中、怕热门被误删用 <code>allkeys-lfu</code>；持久数据和缓存混在同一实例，用 <code>volatile-lru</code> 让缓存先走。</p>
+<h2 id="缓存更新"><a href="#缓存更新" class="headerlink" title="缓存更新"></a>缓存更新</h2><p>同一份数据存了两份，就有一致性问题：数据库改了，缓存什么时候跟着改？这里有两个决策——<strong>改缓存还是删缓存</strong>，<strong>先动库还是先动缓存</strong>。</p>
+<h3 id="改缓存还是删缓存"><a href="#改缓存还是删缓存" class="headerlink" title="改缓存还是删缓存"></a>改缓存还是删缓存</h3><table>
+<thead>
+<tr>
+<th>做法</th>
+<th>好处</th>
+<th>问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>改缓存</td>
+<td>命中率高，改完就是新的</td>
+<td>并发写会互相覆盖；算出来可能没人读，白费；缓存常是聚合结果，改它等于重算一遍</td>
+</tr>
+<tr>
+<td>删缓存</td>
+<td>写方只发一个 <code>DEL</code>，不会写出矛盾的值</td>
+<td>删除后的第一波读请求会落到库上</td>
+</tr>
+</tbody></table>
+<p><strong>一般选删</strong>。删掉后由读请求懒加载回填，缓存里永远是某一次读库的结果，不会出现两个写线程各写一半的“拼装数据”。</p>
+<blockquote>
+<p>这就是 <strong>Cache Aside（旁路缓存）</strong>：业务代码自己管缓存，读时先查缓存、miss 再查库并回填，写时改库 + 删缓存。另外两种是 <strong>Read&#x2F;Write Through</strong>（把缓存当主存，由中间件代理读写数据库）和 <strong>Write Behind</strong>（只写缓存、异步刷库，性能最好但一致性最弱，宕机可能丢数据）。一般项目用 Cache Aside 就够。</p>
+</blockquote>
+<h3 id="先动库还是先动缓存"><a href="#先动库还是先动缓存" class="headerlink" title="先动库还是先动缓存"></a>先动库还是先动缓存</h3><p><strong>先删缓存，再改库</strong>：从删掉到改完库之间有一段空窗，期间任何读请求都 miss、读库、把<strong>旧值</strong>写回缓存。改库越慢（大事务、批量更新），空窗越长，脏数据越容易留。这个顺序直接排除。</p>
+<p><strong>先改库，再删缓存</strong>：脏数据只可能出现在一种交错里——读请求在改库<strong>之前</strong>读到旧值，却到删缓存<strong>之后</strong>才回填。这要求一次读操作恰好横跨整个写操作，概率极低。所以<strong>一般先改库再删缓存</strong>，这也是 Cache Aside 的默认写法。</p>
+<p>代价是<strong>短暂不一致</strong>：删缓存到下一次回填之间，读请求可能仍拿到旧值。大多数业务能接受；若要“读到自己刚写的”，可由写方在本地打标记，随后短时间直读数据库。</p>
+<h3 id="追求更强一致性"><a href="#追求更强一致性" class="headerlink" title="追求更强一致性"></a>追求更强一致性</h3><ul>
+<li><strong>延迟双删</strong>：改库前删一次，改库后再延迟几百毫秒删一次，把晚到的回填脏值清掉。延迟靠估算、不严谨，胜在简单。</li>
+<li><strong>订阅 binlog</strong>：用 Canal 订阅 MySQL binlog，数据真正落盘后再删缓存。删除动作与业务代码解耦，失败可重试，是生产上最常见的做法。</li>
+<li><strong>本地消息表 + MQ</strong>：改库事务里顺带插一条消息记录，提交后发 MQ，消费者负责删缓存；删失败靠 MQ 重试最终成功。</li>
+</ul>
+<p>前两条解决“删早了”，最后一条解决“删除请求本身丢了”。</p>
+<p>改库和删缓存是两个动作，没法真正做到原子，只能靠事务或补偿：</p>
+<ul>
+<li>单体应用：库操作放进本地事务，<strong>删缓存放到提交之后</strong>——事务回滚了就不该删。</li>
+<li>分布式：本地事务管不到跨服务，用 TCC 一类补偿事务。</li>
+</ul>
+<h2 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h2><p><strong>查的数据根本不存在</strong>，缓存永远 miss，每次都穿到库里。正常业务里少见，但一旦有人拿不存在的 id 扫，流量会全部落到数据库上。</p>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>做法</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>缓存空值</td>
+<td>查库发现不存在，就往 Redis 写一个空标记，TTL 设短一点</td>
+<td>实现最简单；被扫时会造出大量垃圾 key，且与库存在短时间不一致</td>
+</tr>
+<tr>
+<td>布隆过滤器</td>
+<td>写库时同步写入过滤器，请求先过一遍过滤器，不在里面直接返回</td>
+<td>内存开销小；有误判，且不支持删除</td>
+</tr>
+</tbody></table>
+<p>两者通常叠加：过滤器挡住绝大多数非法 key，漏过的再用空值兜底。</p>
+<blockquote>
+<p><strong>布隆过滤器怎么工作</strong>：一个 bit 数组加 $k$ 个哈希函数。写入元素时，把每个哈希算出的位置置 1。查询时只要有一位是 0，就<strong>一定不存在</strong>；全是 1，只是<strong>可能存在</strong>。所以它只会误判“存在”，不会漏掉真实存在的 key。过滤器的误判率随元素数量上升，所以容量要按预期数据量预留。标准布隆过滤器不能删元素（把位清零会误伤其他元素共享的位），需要删除就用计数布隆过滤器，把每个位换成计数器，代价是内存涨数倍。</p>
+</blockquote>
+<p>接口层还要配合参数校验、限流、封禁可疑 IP。过滤器只能挡“格式合法的假 id”，挡不住真正的恶意流量。</p>
+<h2 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h2><p><strong>大量 key 在同一时刻失效，或者 Redis 整体不可用</strong>，流量瞬间全压到数据库。原因不同，应对也不同：</p>
+<table>
+<thead>
+<tr>
+<th>原因</th>
+<th>应对</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>大量 key 过期时间相同</td>
+<td>给 TTL 加随机偏移</td>
+</tr>
+<tr>
+<td>刚上线&#x2F;重启，缓存是空的</td>
+<td>预热：用 <code>xxl-job</code> 定时任务或消费 Kafka，把热点数据提前灌进去</td>
+</tr>
+<tr>
+<td>Redis 宕机</td>
+<td>主从 + 哨兵 &#x2F; Cluster；再加一层本地缓存 <code>Caffeine</code> 兜住热点（一致性靠 pub&#x2F;sub 广播或短 TTL 收敛）</td>
+</tr>
+<tr>
+<td>流量本身超出承载能力</td>
+<td>限流、降级、熔断，把请求挡在入口，别把库拖死</td>
+</tr>
+</tbody></table>
+<h2 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h2><p><strong>单个热点 key 失效的瞬间</strong>，请求同时回源，把库打穿。它和热 key 是同一件事的两面：热 key 一旦过期就是击穿，即使不过期，也能把单个节点压垮。</p>
+<h3 id="热-key"><a href="#热-key" class="headerlink" title="热 key"></a>热 key</h3><p>访问高度集中的 key 就是热 key，典型如大促爆款、首页榜单。它的危害在于<strong>压力集中在一个分片</strong>——集群加再多节点也没用，同一个 key 只落在一个节点上。</p>
+<table>
+<thead>
+<tr>
+<th>手段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>redis-cli --hotkeys</code></td>
+<td>需要 <code>maxmemory-policy</code> 是 LFU 系列（<code>allkeys-lfu</code> &#x2F; <code>volatile-lfu</code>）才生效</td>
+</tr>
+<tr>
+<td>拆分副本</td>
+<td>把 key 拆成 N 份（如 <code>item:1001:&#123;0..N-1&#125;</code>），读时随机挑一份，写时广播；适合读多写少</td>
+</tr>
+<tr>
+<td>本地缓存</td>
+<td>热点数据沉到 JVM（Caffeine），连网络都省了；代价是多实例间要靠 pub&#x2F;sub 或短 TTL 收敛</td>
+</tr>
+<tr>
+<td>读写分离</td>
+<td>加从节点分摊读，但数据还是同一份，只能缓解</td>
+</tr>
+</tbody></table>
+<p>大 key 是另一类问题：不是 QPS 高，而是<strong>单次操作耗时长</strong>，可能阻塞主线程拖慢整个节点。用 <code>redis-cli --bigkeys</code> 找出来，拆成多个小 key；JSON 可以先 Gzip 压缩。</p>
+<h3 id="击穿的两套解法"><a href="#击穿的两套解法" class="headerlink" title="击穿的两套解法"></a>击穿的两套解法</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>互斥锁</th>
+<th>逻辑过期</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>做法</td>
+<td>重建前先抢锁（<code>SET NX</code> 或本地锁），抢到的查库写缓存，其余等待或直接返回兜底值</td>
+<td>value 里存过期时间戳，物理上不设 TTL；读到逻辑过期后，由一个线程异步重建，其他线程直接返回旧值</td>
+</tr>
+<tr>
+<td>优点</td>
+<td>一致性强，实现简单</td>
+<td>无等待，吞吐高</td>
+</tr>
+<tr>
+<td>缺点</td>
+<td>线程阻塞；锁要设超时防死锁</td>
+<td>重建窗口内返回旧数据，一致性弱</td>
+</tr>
+<tr>
+<td>适用</td>
+<td>一致性优先：库存、余额</td>
+<td>可用性优先：商品详情、榜单、文章</td>
+</tr>
+</tbody></table>
+<p>互斥锁<strong>不让请求穿透</strong>，逻辑过期<strong>不让请求等待</strong>。选哪个，看这份数据能否容忍几十毫秒的旧值。</p>
 
                 
               </div>

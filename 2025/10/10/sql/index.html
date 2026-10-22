@@ -19,16 +19,16 @@
   <meta name="author" content="Ivan Chan">
   <meta name="keywords" content="">
   
-    <meta name="description" content="这部分主要涉及SQL语法及部分实现上的差别，暂不涉及太底层的内容。还有一些数据库考试用到的概念也会写在这里。 SQL和NoSQL有什么区别？     SQL NoSQL    数据存储类型 结构化存储，具有固定行和列的表格 非结构化存储。文档：JSON 文档，键值：键值对，宽列：包含行和动态列的表，图：节点和边   例子 Oracle、MySQL、Microsoft SQL Server、Post">
+    <meta name="description" content="这部分主要涉及SQL语法及部分实现上的差别，暂不涉及太底层的内容。还有一些数据库考试用到的概念也会写在这里。 SQL 与 NoSQL 的区别    SQL（关系型） NoSQL（非关系型）    数据存储类型 结构化存储：行、列由 schema 预先定义的二维表 非结构化或半结构化，没有固定 schema。文档：JSON 文档；键值：键值对；宽列：行键 + 动态列族；图：节点和边   例子 Ora">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL基础">
 <meta property="og:url" content="https://tech.ivanclf.com/2025/10/10/sql/index.html">
 <meta property="og:site_name" content="Ivan的技术笔记">
-<meta property="og:description" content="这部分主要涉及SQL语法及部分实现上的差别，暂不涉及太底层的内容。还有一些数据库考试用到的概念也会写在这里。 SQL和NoSQL有什么区别？     SQL NoSQL    数据存储类型 结构化存储，具有固定行和列的表格 非结构化存储。文档：JSON 文档，键值：键值对，宽列：包含行和动态列的表，图：节点和边   例子 Oracle、MySQL、Microsoft SQL Server、Post">
+<meta property="og:description" content="这部分主要涉及SQL语法及部分实现上的差别，暂不涉及太底层的内容。还有一些数据库考试用到的概念也会写在这里。 SQL 与 NoSQL 的区别    SQL（关系型） NoSQL（非关系型）    数据存储类型 结构化存储：行、列由 schema 预先定义的二维表 非结构化或半结构化，没有固定 schema。文档：JSON 文档；键值：键值对；宽列：行键 + 动态列族；图：节点和边   例子 Ora">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://tech.ivanclf.com/2025/10/10/sql/join.jpg">
 <meta property="article:published_time" content="2025-10-10T12:13:26.000Z">
-<meta property="article:modified_time" content="2026-10-20T06:09:19.351Z">
+<meta property="article:modified_time" content="2026-10-20T08:44:35.555Z">
 <meta property="article:author" content="Ivan Chan">
 <meta property="article:tag" content="复习">
 <meta property="article:tag" content="SQL">
@@ -356,7 +356,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.9k 字
+          10k 字
         
       </span>
     
@@ -367,7 +367,7 @@
         
         
         
-          66 分钟
+          86 分钟
         
       </span>
     
@@ -425,428 +425,916 @@
               <div class="markdown-body">
                 
                 <p>这部分主要涉及SQL语法及部分实现上的差别，暂不涉及太底层的内容。还有一些数据库考试用到的概念也会写在这里。</p>
-<p>SQL和NoSQL有什么区别？</p>
-<table>
+<h2 id="SQL-与-NoSQL-的区别"><a href="#SQL-与-NoSQL-的区别" class="headerlink" title="SQL 与 NoSQL 的区别"></a>SQL 与 NoSQL 的区别</h2><table>
 <thead>
 <tr>
 <th></th>
-<th>SQL</th>
-<th>NoSQL</th>
+<th>SQL（关系型）</th>
+<th>NoSQL（非关系型）</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>数据存储类型</td>
-<td>结构化存储，具有固定行和列的表格</td>
-<td>非结构化存储。文档：JSON 文档，键值：键值对，宽列：包含行和动态列的表，图：节点和边</td>
+<td>结构化存储：行、列由 schema 预先定义的二维表</td>
+<td>非结构化或半结构化，没有固定 schema。文档：JSON 文档；键值：键值对；宽列：行键 + 动态列族；图：节点和边</td>
 </tr>
 <tr>
 <td>例子</td>
-<td>Oracle、MySQL、Microsoft SQL Server、PostgreSQL</td>
-<td>文档：MongoDB、CouchDB，<br>键值：Redis、DynamoDB，<br>宽列：Cassandra、 HBase，<br>图表：Neo4j、 Amazon Neptune、Giraph</td>
+<td>Oracle、MySQL、SQL Server、PostgreSQL</td>
+<td>文档：MongoDB、CouchDB<br>键值：Redis、DynamoDB<br>宽列：Cassandra、HBase<br>图：Neo4j、Amazon Neptune、Giraph</td>
 </tr>
 <tr>
 <td>ACID 属性</td>
-<td>提供原子性、一致性、隔离性和持久性 (ACID) 属性</td>
-<td>通常不支持 ACID 事务，为了可扩展、高性能进行了权衡，少部分支持比如 MongoDB</td>
+<td>完整支持原子性、一致性、隔离性和持久性（ACID）</td>
+<td>多数为了可扩展性和性能放弃跨行事务，少数已补齐（如 MongoDB 4.0+ 的多文档事务）</td>
 </tr>
 <tr>
 <td>性能</td>
-<td>性能通常取决于磁盘子系统。要获得最佳性能，通常需要优化查询、索引和表结构</td>
-<td>性能通常由底层硬件集群大小、网络延迟以及调用应用程序来决定</td>
+<td>受磁盘 I&#x2F;O 影响大，通常靠优化查询、索引和表结构提升</td>
+<td>受集群规模、网络延迟和访问模式影响更大，靠加节点换吞吐</td>
 </tr>
 <tr>
 <td>扩展</td>
-<td>垂直（使用性能更强大的服务器进行扩展）、读写分离、分库分表</td>
-<td>横向（增加服务器的方式横向扩展，通常是基于分片机制）</td>
+<td>以垂直扩容（换更强的机器）为主，也能通过读写分离、分库分表做横向拆分</td>
+<td>天然支持水平扩展，靠分片（sharding）把数据摊到多台机器</td>
 </tr>
 </tbody></table>
-<h2 id="数据库概念"><a href="#数据库概念" class="headerlink" title="数据库概念"></a>数据库概念</h2><p>数据库的<strong>数据模型</strong>包括<strong>概念模型</strong>和<strong>逻辑模型&#x2F;物理模型</strong>。前者按用户的视角建模，用于数据库设计，如 E-R 模型；后者按计算机的视角建模，用于 DBMS 的实现。</p>
-<p>数据模型的组成要素为<strong>数据结构</strong>、<strong>数据操作</strong>和<strong>完整性约束条件</strong>。</p>
-<p>数据库的三层模式结构分为模式、内模式、外模式</p>
+<h2 id="数据库概念"><a href="#数据库概念" class="headerlink" title="数据库概念"></a>数据库概念</h2><p>数据库的<strong>数据模型</strong>按抽象层次分为<strong>概念模型</strong>、<strong>逻辑模型</strong>和<strong>物理模型</strong>。概念模型按用户视角建模，用于数据库设计，如 E-R 模型；逻辑模型和物理模型按计算机视角建模，用于 DBMS 的实现。</p>
+<p>数据模型的组成要素是<strong>数据结构</strong>、<strong>数据操作</strong>和<strong>完整性约束条件</strong>。</p>
+<p>数据库采用三层模式结构，从用户到物理存储依次是外模式、模式和内模式。</p>
 <ul>
-<li>内模式，数据的物理存储结构，定义数据库在存储介质上的存放方式。一个数据库只有一个内模式。</li>
-<li>模式，全体数据的全局逻辑约束，即属性、数据类型、约束等等。一个数据库只有一个模式。</li>
-<li>外模式，用户或应用程序看到的数据逻辑结构。一个数据库可以有多个外模式。</li>
+<li>外模式：用户或应用程序看到的数据逻辑结构。一个数据库可以有多个外模式。</li>
+<li>模式：全体数据的全局逻辑结构，即有哪些表、哪些属性、什么类型和约束。一个数据库只有一个模式。</li>
+<li>内模式：数据的物理存储结构，定义数据库在存储介质上的存放方式。一个数据库只有一个内模式。</li>
 </ul>
-<p>数据库的完整性是指数据的<strong>正确性</strong>和<strong>相容性</strong>。正确性是指符合现实世界的语义，相容性是指同一对象在不同表中的数据符合逻辑。完整性需要满足以下三大完整性</p>
+<p>三层之间靠两级映像解耦：外模式&#x2F;模式映像保证<strong>逻辑独立性</strong>，改模式时只需改映像，外模式和应用程序不动；模式&#x2F;内模式映像保证<strong>物理独立性</strong>，改存储结构时模式不用动。</p>
+<p>数据库的完整性是指数据的<strong>正确性</strong>和<strong>相容性</strong>：正确性指数据符合现实世界的语义，相容性指同一对象在不同表中出现时彼此吻合。完整性约束分为三类</p>
 <ul>
 <li>实体完整性：主码唯一且非空。</li>
-<li>参照完整性：外码的约束。</li>
-<li>用户自定义的完整性。</li>
+<li>参照完整性：外码的取值必须是被参照关系中已存在的主码值，或者为 <code>null</code>。</li>
+<li>用户定义完整性：针对具体业务的约束，如年龄必须大于 0。</li>
 </ul>
-<p>数据库设计时按照 需求分析 $\rightarrow $ 概念结构设计 $\rightarrow $ 逻辑结构设计 $\rightarrow $ 物理结构设计 $\rightarrow $ 数据库实施 $\rightarrow $ 数据库运行和维护 这几个步骤实施。</p>
-<p>嵌入式 SQL 与主语言在进行通信时，涉及以下概念</p>
+<p>数据库设计按 需求分析 $\rightarrow$ 概念结构设计 $\rightarrow$ 逻辑结构设计 $\rightarrow$ 物理结构设计 $\rightarrow$ 数据库实施 $\rightarrow$ 数据库运行和维护 依次进行。</p>
+<p>嵌入式 SQL 与主语言通信时，涉及三个概念：</p>
 <ul>
-<li>SQL 通信区<br>  SQL 语句执行后的执行状态信息将送到 SQL 通信区中，应用程序从中取出这些消息。</li>
-<li>主变量<br>  在 SQL 语句中引用的主语言变量，用于实现数据传递。</li>
-<li>游标<br>  SQL 是面向集合的，一条 SQL 语句可以产生或处理多条记录，而主语言是面向记录的，一组变量一次只能存放一条记录，游标用于协调二者处理方式，实现逐条访问结果集。</li>
+<li>SQL 通信区（SQLCA）：存放 SQL 语句执行后的状态信息，应用程序从这里取出执行结果。</li>
+<li>主变量：SQL 语句中引用的主语言变量，用于在两种语言之间传递数据。</li>
+<li>游标：SQL 面向集合，一条语句可能返回多条记录；主语言面向记录，一组变量一次只能放一条。游标用来逐条访问结果集，协调两种处理方式。</li>
 </ul>
-<h2 id="数据库范式"><a href="#数据库范式" class="headerlink" title="数据库范式"></a>数据库范式</h2><h3 id="第一范式"><a href="#第一范式" class="headerlink" title="第一范式"></a>第一范式</h3><p>如果其元素被视为不可分割的单元，则该<strong>域</strong>具有<strong>原子性</strong>。</p>
-<p>若关系模式 $R$ 中的所有属性都是原子的，则 $R$ 满足<strong>第一范式</strong>。</p>
-<h3 id="函数依赖"><a href="#函数依赖" class="headerlink" title="函数依赖"></a>函数依赖</h3><p>若关系模式 $R$ 满足 $\alpha \subseteq R$ 且 $\beta \subseteq R$，那么<strong>函数依赖</strong> $\alpha \rightarrow \beta$ 说明二者存在依赖关系，即任两个元组在 $\alpha$ 相同时 $\beta$ 的取值也一定相同，$\beta$ 的值由 $\alpha$ 唯一决定。</p>
-<p>若某种函数依赖对关系的所有实例都成立，则称该依赖是<strong>平凡</strong>的。</p>
-<p>给定函数依赖集 $F$，若被其他函数依赖<strong>逻辑蕴含</strong>，则称另外的函数依赖为 $F$ 的闭包，标记为 $F^+$，显而易见，$F^+$ 是 $F$ 的超集。</p>
-<p>关系模式 $R$ 中，$X\subseteq U$ 为候选键或超键，$Y\subseteq U$ 为非主属性。<br>若存在 $X\rightarrow Y$ 且存在 $X’\subset X$，使得 $X’\rightarrow Y$，则称 $Y$ 对 $X$ 存在<strong>部分函数依赖</strong>。</p>
-<h3 id="第二范式"><a href="#第二范式" class="headerlink" title="第二范式"></a>第二范式</h3><p>若关系模式 $R$ 满足<strong>第二范式</strong>，则其每一个属性 $A$ 满足任一条件</p>
-<ul>
-<li>是候选键</li>
-<li>不依赖候选键</li>
-</ul>
-<div class="note note-info">
-            <p>候选键是潜在的主键的属性集合。一个表可以有多个候选键，但只能有一个主键。</p> 
-          </div>
-
-<h3 id="BC-范式-BCNF"><a href="#BC-范式-BCNF" class="headerlink" title="BC 范式 (BCNF)"></a>BC 范式 (BCNF)</h3><p>关系依赖 $R$ 满足 BC 范式，若其函数依赖超集 $F^+$ 所有形如 $\alpha \rightarrow \beta$ 的依赖均满足以下任一条件</p>
-<ul>
-<li>该依赖是平凡的</li>
-<li>$\alpha$ 是 $R$ 的超键</li>
-</ul>
-<div class="note note-info">
-            <p>$\alpha$ 是 $R$ 的超键，当且仅当 $\alpha \rightarrow R$，即 $\alpha$ 能函数决定关系模式中的全部属性。</p> 
-          </div>
-
-<h3 id="第三范式"><a href="#第三范式" class="headerlink" title="第三范式"></a>第三范式</h3><p>若仅需测试分解后各个关系中的依赖就能确保所有函数依赖成立，则该分解是依赖保持的。由于无法同时实现 BCNF 和依赖保持，因此平常更多考虑<strong>第三范式</strong>。该范式对于 $\alpha \rightarrow \beta \ \text{in} \ F^+$，满足以下任一条件</p>
-<ul>
-<li>该依赖是平凡的</li>
-<li>$\alpha$ 是 $R$ 的超键</li>
-<li>在 $\beta-\alpha$ 中的每个属性都是 $R$ 的主属性</li>
-</ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>简单来说，日常用到的数据库范式有3种</p>
-<ul>
-<li>第一范式：属性不可再分，确保表的每一列都是不可分割的基本数据单元</li>
-<li>第二范式：第一范式的基础上，消除了非主属性对于码的部分函数依赖，即表中每一列都和主键直接相关</li>
-<li>第三范式：第二范式的基础上，消除了非主属性对于码的传递函数依赖，即非主键列应该只依赖于主键列</li>
-</ul>
-<h2 id="关系表达式"><a href="#关系表达式" class="headerlink" title="关系表达式"></a>关系表达式</h2><p>关系表达式符号有 <strong>选择</strong> $\sigma$、<strong>投影</strong> $\pi$、<strong>并</strong> $\cup$、<strong>集合差</strong> $-$、<strong>笛卡尔积</strong> $\times$、<strong>别名</strong> $\rho$ 几种。</p>
-<p>比如，找出账户最多的支行<br>$$<br>\sigma_{\text{A1.balance&gt;A2.balance}}(\rho_{\text{A1}}(\text{account})\times \rho_{\text{A2}}(\text{account}))<br>$$</p>
-<p>而除运算能找出在某个关系中，能够与另一个关系中“所有”元组都满足关联条件的那些元组，即“那些东西具备了另一组要求的全部条件”。</p>
-<p>SQL 中没有直接的除操作，通常写法为</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> student<br><span class="hljs-keyword">from</span> R<br><span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> student<br><span class="hljs-keyword">having</span> <span class="hljs-built_in">count</span>(<span class="hljs-keyword">distinct</span> course) <span class="hljs-operator">=</span> (<br>    <span class="hljs-keyword">select</span> <span class="hljs-built_in">count</span>(<span class="hljs-operator">*</span>) <span class="hljs-keyword">from</span> S<br>);<br></code></pre></td></tr></table></figure>
-
-<p>或者</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-keyword">distinct</span> r.student<br><span class="hljs-keyword">from</span> R r<br><span class="hljs-keyword">where</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">exists</span> (<br>    <span class="hljs-keyword">select</span> <span class="hljs-number">1</span><br>    <span class="hljs-keyword">from</span> S s<br>    <span class="hljs-keyword">where</span> (r.student, s.course) <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> (<br>        <span class="hljs-keyword">select</span> r2.student, r2.course<br>        <span class="hljs-keyword">from</span> R r2<br>    )<br>)<br></code></pre></td></tr></table></figure>
-
-<h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><ul>
-<li><p><code>varchar</code>和<code>char</code>的区别在于，<code>varchar</code>是可变长度字符类型，最长不会超过声明的大小。原则上最多可以容纳65535个字符（但MySQL需要1到2个字节来表示字符串长度）。但<code>char</code>字段无论存储的字符长度是多少，都会占用声明的长度。<br>  不过，当<code>varchar</code>类型在指定大小较大时，会消耗更多的内存，因为<code>varchar</code>类型在内存中操作时，通常会分配固定大小的内存块来保存值。</p>
-</li>
-<li><p><code>varchar</code> 的最大长度视具体数据库而定。MySQL 中所有列共享 65535 字节，在 UTF8M64 下为 16383 字符；PostgreSQL 中可不指定长度，通常由行最大大小（8kB）限制；SQL Server 中 <code>varchar(n)</code> 最大为 8000字符；Oracle 中最大为 4000 字节。</p>
-</li>
-<li><p><code>blob</code>和<code>text</code>的区别在于，<code>blob</code>用于存储二进制数据，但实际开发中通常将文件存储至 OSS &#x2F; 对象存储，仅在数据库保存文件 URL。而<code>text</code>用于存储文本数据，但<code>text</code>无默认值，检索效率较低，目前也不常用。</p>
-</li>
-<li><p><code>datetime</code>和<code>timestamp</code>的区别在于，一个直接放日期和时间的完整值，和时区无关，占8个字节；而另一个放时间戳，占4个字节，实际开发更常用。</p>
-</li>
-<li><p><code>null</code>和<code>&#39;&#39;</code>是两个不同的值，一个表示值未确定，而另一个表示空字符串。<br>  任何值和<code>null</code>进行比较的结果都是<code>null</code>。<br>  要判断一个值是不是<code>null</code>，必须使用<code>is null</code>或<code>is not null</code>。<br>  大多数聚合函数会忽略<code>null</code>值。<br>  筛选包含有 null 的数据，必须显式使用 <code>is null</code> 进行筛选，否则不会选到。</p>
-</li>
-<li><p>MySQL中没有专门的布尔类型，一般使用<code>tinyint(1)</code>替代。</p>
-</li>
-</ul>
-<h2 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h2><p><img src="join.jpg" srcset="/img/loading.gif" lazyload alt="提到数据库基础就必须要放的join图"></p>
-<ul>
-<li><p><code>left join</code> 在遇到没有的数据时会置 null，最终返回左表所有行，而 <code>inner join</code> 在遇到没有的数据会不合并。</p>
-</li>
-<li><p><code>drop</code>，<code>delete</code>，<code>truncate</code>的区别在于<br>  <code>drop</code>直接把整个表删除掉<br>  <code>truncate</code>只是清空表中的数据而不改变表的结构，同时自增id也重新开始<br>  <code>delete</code>删除某一行的数据，不加<code>where</code>字句时和<code>truncate</code>类似，不改变表的结构。<br>  <code>truncate</code>和<code>drop</code>直接对整张表进行操作，因此原数据不能回滚，也不会触发trigger。</p>
-</li>
-<li><p><code>in</code>和<code>exists</code>的区别在于<br>  在使用<code>in</code>时，MySQL会首先执行子查询，然后将结果集用于外部查询的条件，适用于结果集较小的情况<br>  <code>exists</code>会对外部查询的每一行执行一次子查询，若子查询返回任何行则<code>exists</code>条件为真，适用于结果集可能很大的情况。<br>  还有，<code>in</code>可能会受到null值陷阱的影响，产生意外结果，而<code>exists</code>完全不受影响。</p>
-</li>
-<li><p><code>union</code>，<code>union all</code>，<code>join</code>的区别在于，<code>union</code>和<code>union all</code>都是垂直合并，用于合并多个<code>select</code>语句的结果集，但前者会自动去重（但性能很低），后者不去重，而<code>join</code>为列合并，基于某个条件将多个表的列组合到一起。</p>
-</li>
-<li><p>交并非的操作在不同数据库中的支持不同，非操作在 Oracle 中叫 <code>minus</code>，MySQL &#x2F; SQL Server 叫 <code>except</code>。交操作一般是 <code>intersect</code>。</p>
-</li>
-<li><p><code>like</code>操作符用于确定字符串是否匹配模式，支持两个通配符选项：<code>%</code>和<code>_</code><br>  <code>%</code>表示任何字符出现任意次数<br>  <code>_</code>表示任何字符出现一次</p>
-  <div class="note note-info">
-            <p>比如，<code>___</code>匹配有3个字母的字符串；<code>___%</code> 匹配至少有3个字母的字符串。</p> <p>匹配通配符本身需要转义，MySQL 中用 <code>\</code>，SQL Server 中用 <code>[]</code>。</p> 
-          </div>
-</li>
-<li><p>事务管理不对<code>select</code>操作生效，不能回退<code>create</code>和<code>drop</code>语句。</p>
-</li>
-<li><p>使用<code>start transaction</code>开启事务，<code>commit</code>提交事务，<code>savepoint</code>创建保留点，<code>rollback to</code>用于回滚到某个保留点（没有设置则回滚到事务起点）。</p>
-</li>
-<li><p><code>where</code> 字句在分组前过滤，<code>having</code> 在分组后过滤。</p>
-</li>
-<li><p>在子查询前加 <code>some</code> 指定只需要满足部分即可为真，加 <code>all</code> 指定必须满足全部，<code>exists</code> 返回子查询是否为空，<code>unique</code> 返回子查询是否有重复元素。</p>
-</li>
-<li><p><code>with</code> 字句提供了定义临时关系（作用域为单句）的子查询。</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">with</span> dept _total (dept_name, <span class="hljs-keyword">value</span>) <span class="hljs-keyword">as</span> (<br>    <span class="hljs-keyword">select</span> dept_name, <span class="hljs-built_in">sum</span>(salary)<br>    <span class="hljs-keyword">from</span> instructor<br>    <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> dept_name<br>),<br>dept_total_avg(<span class="hljs-keyword">value</span>) <span class="hljs-keyword">as</span> (<br>    <span class="hljs-keyword">select</span> <span class="hljs-built_in">avg</span>(<span class="hljs-keyword">value</span>)<br>    <span class="hljs-keyword">from</span> dept_total<br>)<br><span class="hljs-keyword">select</span> dept_name<br><span class="hljs-keyword">from</span> dept_total, dept_total_avg<br><span class="hljs-keyword">where</span> dept_total.value <span class="hljs-operator">&gt;</span> dept_total_avg.value;<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>约束条件可以在创建表(<code>create table</code>)时约定，也可以在表创建后更新(<code>alter table</code>)。常用的约束条件有</p>
+<h2 id="数据库范式"><a href="#数据库范式" class="headerlink" title="数据库范式"></a>数据库范式</h2><p>范式解决的是<strong>冗余</strong>问题：让同一份事实只存一处，避免插入、删除、更新时的异常。</p>
+<h3 id="第一范式（1NF）"><a href="#第一范式（1NF）" class="headerlink" title="第一范式（1NF）"></a>第一范式（1NF）</h3><p>属性的<strong>域具有原子性</strong>，即每个属性值都是不可再分的最小单元。</p>
+<p>比如把”电话”存成 <code>138xxx / 010-xxx</code> 就不满足 1NF；拆成两列，或单开一张电话号码表才对。</p>
+<p>1NF 只要求”列不可再分”，不涉及表间关系。</p>
+<h3 id="函数依赖"><a href="#函数依赖" class="headerlink" title="函数依赖"></a>函数依赖</h3><p>设关系模式 $R$ 的属性全集为 $U$，$\alpha, \beta \subseteq U$。</p>
+<p><strong>函数依赖</strong> $\alpha \rightarrow \beta$：任意两个元组只要在 $\alpha$ 上取值相同，在 $\beta$ 上也必然相同，即 $\alpha$ 唯一决定 $\beta$。</p>
+<p>按定义是否恒成立，分两类：</p>
 <table>
 <thead>
 <tr>
 <th>类型</th>
+<th>条件</th>
 <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>平凡函数依赖</td>
+<td>$\beta \subseteq \alpha$</td>
+<td>左边已经包含了右边，恒成立，不携带新信息</td>
+</tr>
+<tr>
+<td>非平凡函数依赖</td>
+<td>$\beta \not\subseteq \alpha$</td>
+<td>真正有约束力的依赖，范式讨论的都是这一类</td>
+</tr>
+</tbody></table>
+<p>给定函数依赖集 $F$，由 $F$ 用 Armstrong 公理能推出的全部函数依赖构成 $F$ 的<strong>闭包</strong> $F^+$，显然 $F \subseteq F^+$。</p>
+<h3 id="完全、部分与传递依赖"><a href="#完全、部分与传递依赖" class="headerlink" title="完全、部分与传递依赖"></a>完全、部分与传递依赖</h3><table>
+<thead>
+<tr>
+<th>概念</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>完全函数依赖</td>
+<td>$X \rightarrow Y$，且 $X$ 的任一真子集 $X’$ 都不能决定 $Y$</td>
+</tr>
+<tr>
+<td>部分函数依赖</td>
+<td>$X \rightarrow Y$，但存在 $X’ \subset X$ 使 $X’ \rightarrow Y$，即只用一部分属性就能决定 $Y$</td>
+</tr>
+<tr>
+<td>传递函数依赖</td>
+<td>$X \rightarrow Y$、$Y \rightarrow Z$，且 $Y \not\rightarrow X$、$Z \not\subseteq Y$，则 $X \rightarrow Z$ 是传递依赖</td>
+</tr>
+</tbody></table>
+<h3 id="候选键与主属性"><a href="#候选键与主属性" class="headerlink" title="候选键与主属性"></a>候选键与主属性</h3><ul>
+<li><strong>候选键</strong>：能唯一标识一个元组、且去掉任一属性后就不再唯一的属性集，即<strong>最小超键</strong>。</li>
+<li><strong>主键</strong>：从候选键中挑一个用于标识。候选键可以有多个，主键只有一个。</li>
+<li><strong>主属性</strong>：包含在任一候选键中的属性；其余为<strong>非主属性</strong>。</li>
+</ul>
+<h3 id="第二范式（2NF）"><a href="#第二范式（2NF）" class="headerlink" title="第二范式（2NF）"></a>第二范式（2NF）</h3><p>在 1NF 基础上，<strong>每个非主属性都完全函数依赖于候选键</strong>，不能出现部分依赖。换句话说，不能让”半个主键”就决定某一列。</p>
+<p>它只约束非主属性，主属性之间怎么依赖不管。</p>
+<p>例如选课表 <code>(学号, 课程号, 成绩, 课程名)</code>，主键是 <code>(学号, 课程号)</code>，但课程名只依赖课程号 → 部分依赖 → 不满足 2NF。应拆成 <code>(学号, 课程号, 成绩)</code> 和 <code>(课程号, 课程名)</code>。</p>
+<h3 id="第三范式（3NF）"><a href="#第三范式（3NF）" class="headerlink" title="第三范式（3NF）"></a>第三范式（3NF）</h3><p>对 $F^+$ 中每个非平凡依赖 $\alpha \rightarrow \beta$，至少满足一条：</p>
+<ul>
+<li>$\alpha$ 是 $R$ 的超键；</li>
+<li>$\beta - \alpha$ 中每个属性都是 $R$ 的主属性。</li>
+</ul>
+<p>只看非主属性的话，等价于”非主属性不传递依赖于候选键”。</p>
+<h3 id="BC-范式（BCNF）"><a href="#BC-范式（BCNF）" class="headerlink" title="BC 范式（BCNF）"></a>BC 范式（BCNF）</h3><p>对 $F^+$ 中每个非平凡依赖 $\alpha \rightarrow \beta$，$\alpha$ 必须是 $R$ 的超键。</p>
+<p>它比 3NF 更严：3NF 还允许主属性传递依赖候选键，BCNF 不允许。</p>
+<blockquote>
+<p>$\alpha$ 是 $R$ 的超键，当且仅当 $\alpha \rightarrow R$，即 $\alpha$ 能决定关系模式中的全部属性。</p>
+</blockquote>
+<h3 id="分解的性质"><a href="#分解的性质" class="headerlink" title="分解的性质"></a>分解的性质</h3><p>拆表时有两个理想性质：</p>
+<ul>
+<li><strong>无损连接</strong>：按公共属性 join 回去，不多行也不丢行。</li>
+<li><strong>依赖保持</strong>：拆分后各表上的函数依赖合起来仍能推出原来的 $F$，校验时不必跨表 join。</li>
+</ul>
+<p><strong>3NF 分解总能同时做到无损连接和依赖保持；BCNF 分解只保证无损连接，不保证依赖保持。</strong> 这就是工程上常停在 3NF 的原因。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><table>
+<thead>
+<tr>
+<th>范式</th>
+<th>要求</th>
+<th>常见说法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1NF</td>
+<td>属性原子</td>
+<td>列不可再分</td>
+</tr>
+<tr>
+<td>2NF</td>
+<td>非主属性完全依赖候选键</td>
+<td>消除非主属性的部分依赖</td>
+</tr>
+<tr>
+<td>3NF</td>
+<td>非主属性不传递依赖候选键</td>
+<td>消除非主属性的传递依赖</td>
+</tr>
+<tr>
+<td>BCNF</td>
+<td>非平凡依赖的左边都是超键</td>
+<td>主属性也不允许部分 &#x2F; 传递依赖</td>
+</tr>
+</tbody></table>
+<p>日常说的”三范式”就是 1NF、2NF、3NF。</p>
+<h2 id="关系代数"><a href="#关系代数" class="headerlink" title="关系代数"></a>关系代数</h2><p>关系代数是<strong>过程化</strong>的查询语言：写出得到结果的操作步骤，SQL 的 <code>select ... from ... where</code> 就是它的变形。</p>
+<p>运算分两类：</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>运算</th>
+<th>符号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本</td>
+<td>选择</td>
+<td>$\sigma$</td>
+<td>按条件筛<strong>行</strong>，元数不变</td>
+</tr>
+<tr>
+<td>基本</td>
+<td>投影</td>
+<td>$\pi$</td>
+<td>挑<strong>列</strong>并去重，元数减少</td>
+</tr>
+<tr>
+<td>基本</td>
+<td>并</td>
+<td>$\cup$</td>
+<td>两个同结构关系的行合到一起</td>
+</tr>
+<tr>
+<td>基本</td>
+<td>集合差</td>
+<td>$-$</td>
+<td>在左边但不在右边中的行</td>
+</tr>
+<tr>
+<td>基本</td>
+<td>笛卡尔积</td>
+<td>$\times$</td>
+<td>两关系的行两两拼接</td>
+</tr>
+<tr>
+<td>基本</td>
+<td>重命名</td>
+<td>$\rho$</td>
+<td>给关系或属性换名，自连接时必用</td>
+</tr>
+<tr>
+<td>导出</td>
+<td>交</td>
+<td>$\cap$</td>
+<td>同时出现在两个关系中的行</td>
+</tr>
+<tr>
+<td>导出</td>
+<td>连接</td>
+<td>$\bowtie$</td>
+<td>笛卡尔积后按条件筛选</td>
+</tr>
+<tr>
+<td>导出</td>
+<td>除</td>
+<td>$\div$</td>
+<td>「对所有」语义，等价于双重 <code>not exists</code></td>
+</tr>
+</tbody></table>
+<p>导出运算都能用基本运算写出来，单列出来只是为了少写几层嵌套。</p>
+<p>比如，找出<strong>余额最大</strong>的账户。思路是「先排除所有不是最大的，再从全集里减掉」：</p>
+<p>$$<br>\Pi_{\text{balance}}(\text{account}) - \Pi_{\text{A1.balance}}\left(\sigma_{\text{A1.balance}&lt;\text{A2.balance}}(\rho_{\text{A1}}(\text{account})\times\rho_{\text{A2}}(\text{account}))\right)<br>$$</p>
+<p>$\rho$ 把同一张表复制成两个别名，$\times$ 造出所有账户对，$\sigma$ 只留下「有人比我大」的那些，投影出它们的余额，最后用集合差从全体余额中减掉。</p>
+<p>除运算处理「所有」：$R \div S$ 从 $R$ 中挑出<strong>与 $S$ 里每一个元组都配对</strong>的元组。典型例子是 <code>R(student, course)</code> 为选课记录、<code>S(course)</code> 为课程表，$R \div S$ 就是<strong>选了 S 中全部课程的学生</strong>。</p>
+<p>SQL 没有除运算符，两种常见写法。第一种按学生分组，数他选了几门课：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">-- R(student, course) 选课表，S(course) 课程表</span><br><span class="hljs-keyword">select</span> student<br><span class="hljs-keyword">from</span> R<br><span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> student<br><span class="hljs-keyword">having</span> <span class="hljs-built_in">count</span>(<span class="hljs-keyword">distinct</span> course) <span class="hljs-operator">=</span> (<span class="hljs-keyword">select</span> <span class="hljs-built_in">count</span>(<span class="hljs-keyword">distinct</span> course) <span class="hljs-keyword">from</span> S);<br></code></pre></td></tr></table></figure>
+
+<p>用 <code>distinct</code> 是为了防止同一门课被重复选、结果被算多。</p>
+<p>第二种是双重 <code>not exists</code>，直译「不存在一门 S 里的课，这个学生没选」：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-keyword">distinct</span> r.student<br><span class="hljs-keyword">from</span> R r<br><span class="hljs-keyword">where</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">exists</span> (<br>    <span class="hljs-keyword">select</span> <span class="hljs-number">1</span><br>    <span class="hljs-keyword">from</span> S s<br>    <span class="hljs-keyword">where</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">exists</span> (<br>        <span class="hljs-keyword">select</span> <span class="hljs-number">1</span><br>        <span class="hljs-keyword">from</span> R r2<br>        <span class="hljs-keyword">where</span> r2.student <span class="hljs-operator">=</span> r.student<br>          <span class="hljs-keyword">and</span> r2.course  <span class="hljs-operator">=</span> s.course<br>    )<br>);<br></code></pre></td></tr></table></figure>
+
+<p>这种写法比 <code>not in</code> 稳：<code>not in</code> 的子查询一旦出现 <code>null</code>，整个条件变成 <code>unknown</code>，一行都筛不出来。</p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>各库的类型名和上限略有差异，这里以 MySQL 为主，同时标出区别。</p>
+<h3 id="字符类型"><a href="#字符类型" class="headerlink" title="字符类型"></a>字符类型</h3><table>
+<thead>
+<tr>
+<th></th>
+<th><code>char(n)</code></th>
+<th><code>varchar(n)</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>长度</td>
+<td>定长，不足右补空格，取值时去掉尾部空格</td>
+<td>变长，按实际长度存</td>
+</tr>
+<tr>
+<td>占用</td>
+<td>恒为 n</td>
+<td>实际长度 + 1~2 字节长度前缀</td>
+</tr>
+<tr>
+<td>上限</td>
+<td>255 字符</td>
+<td>见下表</td>
+</tr>
+<tr>
+<td>适用</td>
+<td>长度固定的短字段，如性别、MD5、邮编</td>
+<td>长度不定的字段，如姓名、地址</td>
+</tr>
+</tbody></table>
+<p><code>varchar</code> 的上限各库不同：</p>
+<table>
+<thead>
+<tr>
+<th>数据库</th>
+<th>上限</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MySQL</td>
+<td>单列最长 65535 <strong>字节</strong>，且所有列共享这个行上限；utf8mb4 下一个字符最多 4 字节，所以大约 16383 字符</td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td>可以不写长度，实际受单行 8 kB（可调）限制</td>
+</tr>
+<tr>
+<td>SQL Server</td>
+<td><code>varchar</code> 8000 字节，<code>nvarchar</code> 4000 字符</td>
+</tr>
+<tr>
+<td>Oracle</td>
+<td><code>varchar2</code> 4000 字节（<code>extended</code> 模式下可到 32767）</td>
+</tr>
+</tbody></table>
+<h3 id="二进制与文本"><a href="#二进制与文本" class="headerlink" title="二进制与文本"></a>二进制与文本</h3><table>
+<thead>
+<tr>
+<th></th>
+<th><code>blob</code></th>
+<th><code>text</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>存什么</td>
+<td>二进制字节，不做字符集转换</td>
+<td>文本，按字符集存储</td>
+</tr>
+<tr>
+<td>典型用途</td>
+<td>图片、音视频、序列化对象</td>
+<td>长文章、日志</td>
+</tr>
+<tr>
+<td>注意</td>
+<td>大字段会让行溢出、拖慢查询</td>
+<td>只能建前缀索引；早期版本不支持默认值</td>
+</tr>
+</tbody></table>
+<p>实际项目里文件一般放 OSS &#x2F; 对象存储，库里只存 URL，<code>blob</code> 基本用不上。</p>
+<h3 id="时间类型"><a href="#时间类型" class="headerlink" title="时间类型"></a>时间类型</h3><table>
+<thead>
+<tr>
+<th></th>
+<th><code>datetime</code></th>
+<th><code>timestamp</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>占字节</td>
+<td>8</td>
+<td>4</td>
+</tr>
+<tr>
+<td>存什么</td>
+<td>字面日期时间，<strong>不随时区变化</strong></td>
+<td>UTC 时间戳，读取时按当前会话时区转换</td>
+</tr>
+<tr>
+<td>范围</td>
+<td>1000-01-01 ~ 9999-12-31</td>
+<td>1970-01-01 ~ 2038-01-19（2038 问题）</td>
+</tr>
+<tr>
+<td>自动更新</td>
+<td>需要显式写 <code>on update current_timestamp</code></td>
+<td>可自动初始化、自动更新</td>
+</tr>
+</tbody></table>
+<p>跨时区业务用 <code>timestamp</code> 更省心，但注意 2038 上限；只记录”某地某时发生了什么事”的话，<code>datetime</code> 更直观。</p>
+<h3 id="NULL"><a href="#NULL" class="headerlink" title="NULL"></a>NULL</h3><p><code>null</code> 表示”值未知或不存在”，<code>&#39;&#39;</code> 是长度为 0 的空串，两者不同。</p>
+<ul>
+<li>任何值与 <code>null</code> 比较（<code>=</code>、<code>&gt;</code>、<code>&lt;&gt;</code>）结果都是 <code>null</code>，既不是 <code>true</code> 也不是 <code>false</code>；判断只能用 <code>is null</code> &#x2F; <code>is not null</code>。</li>
+<li><code>where</code> 把 <code>null</code> 条件当作不成立：<code>where age &lt;&gt; 20</code> 会漏掉 <code>age is null</code> 的行。</li>
+<li><code>count(*)</code> 统计所有行，<code>count(col)</code> 跳过 <code>null</code>；<code>sum</code> &#x2F; <code>avg</code> &#x2F; <code>max</code> &#x2F; <code>min</code> 都忽略 <code>null</code>，所以 <code>avg</code> 算的是”非空值的平均”，可能和直觉不符。</li>
+<li>唯一索引允许多行为 <code>null</code>，<code>null</code> 之间不算重复。</li>
+</ul>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><div class="note note-danger">
+            <p>顺丰科技 - 秋招, 一面</p> 
+          </div>
+
+<ul>
+<li>MySQL 没有独立的布尔类型，<code>boolean</code> 只是 <code>tinyint(1)</code> 的别名，<code>0</code> 为假、非 <code>0</code> 为真。</li>
+<li><code>int(11)</code> 里的数字是<strong>显示宽度</strong>，与取值范围无关，而且必须配合 <code>zerofill</code> 才补零：<ul>
+<li><code>int(2)</code> 存 12，显示还是 <code>12</code>，超宽就完整显示，不截断；</li>
+<li><code>int(11) zerofill</code> 存 12 才显示 <code>00000000012</code>。</li>
+<li>MySQL 8.0.17 起整数显示宽度已被标记弃用，8.0.19 起 <code>show create table</code> 也不再输出。</li>
+</ul>
+</li>
+</ul>
+<h2 id="查询相关"><a href="#查询相关" class="headerlink" title="查询相关"></a>查询相关</h2><h3 id="join"><a href="#join" class="headerlink" title="join"></a>join</h3><p><img src="join.jpg" srcset="/img/loading.gif" lazyload alt="提到数据库基础就必须要放的 join 图"></p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>inner join</code></td>
+<td>只保留两张表都匹配上的行</td>
+</tr>
+<tr>
+<td><code>left join</code></td>
+<td>左表全部保留，右表匹配不上的列补 <code>null</code></td>
+</tr>
+<tr>
+<td><code>right join</code></td>
+<td>反之</td>
+</tr>
+<tr>
+<td><code>full outer join</code></td>
+<td>两边都保留（MySQL 不支持，用 <code>left join union right join</code> 模拟）</td>
+</tr>
+<tr>
+<td><code>cross join</code></td>
+<td>笛卡尔积，等价于不带 <code>on</code> 的 <code>join</code></td>
+</tr>
+</tbody></table>
+<p><code>on</code> 决定怎么匹配，<code>where</code> 在 join 之后过滤。写外连接时如果把右表的过滤条件放到 <code>where</code> 里，补出来的 <code>null</code> 行会被筛掉，外连接就退化成内连接了——这类条件要写在 <code>on</code> 里。</p>
+<h3 id="in-与-exists"><a href="#in-与-exists" class="headerlink" title="in 与 exists"></a>in 与 exists</h3><table>
+<thead>
+<tr>
+<th></th>
+<th><code>in</code></th>
+<th><code>exists</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>写法</td>
+<td><code>col in (子查询)</code></td>
+<td><code>exists (子查询)</code></td>
+</tr>
+<tr>
+<td>语义</td>
+<td>值出现在子查询结果中</td>
+<td>子查询是否返回至少一行</td>
+</tr>
+<tr>
+<td>与外部查询的关系</td>
+<td>子查询通常可独立执行</td>
+<td>常写成引用外部列的相关子查询</td>
+</tr>
+<tr>
+<td><code>null</code> 陷阱</td>
+<td><code>not in</code> 一旦碰到子查询结果里有 <code>null</code>，整体变成 <code>unknown</code>，一行都选不出来</td>
+<td>不受影响</td>
+</tr>
+</tbody></table>
+<p>“<code>in</code> 先跑子查询、<code>exists</code> 逐行跑”是教科书说法；现代优化器会把两者都改写成 semi-join，性能差异往往不大。真正要记的是 <strong><code>not in</code> + <code>null</code> 会静默返回空集</strong>，这种场景一律用 <code>not exists</code>。</p>
+<h3 id="union-union-all-join"><a href="#union-union-all-join" class="headerlink" title="union &#x2F; union all &#x2F; join"></a>union &#x2F; union all &#x2F; join</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>方向</th>
+<th>是否去重</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>union</code></td>
+<td>纵向，行数相加</td>
+<td>去重，需要排序或哈希，代价高</td>
+</tr>
+<tr>
+<td><code>union all</code></td>
+<td>纵向，行数相加</td>
+<td>不去重，最快</td>
+</tr>
+<tr>
+<td><code>join</code></td>
+<td>横向，列拼接</td>
+<td>不涉及</td>
+</tr>
+</tbody></table>
+<p><code>union</code> 要求各 <code>select</code> 列数相同、类型兼容，结果列名取第一个 <code>select</code> 的。</p>
+<h3 id="集合运算"><a href="#集合运算" class="headerlink" title="集合运算"></a>集合运算</h3><table>
+<thead>
+<tr>
+<th>运算</th>
+<th>Oracle</th>
+<th>MySQL</th>
+<th>SQL Server &#x2F; PostgreSQL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>交</td>
+<td><code>intersect</code></td>
+<td><code>intersect</code>（8.0.31+）</td>
+<td><code>intersect</code></td>
+</tr>
+<tr>
+<td>差</td>
+<td><code>minus</code></td>
+<td><code>except</code>（8.0.31+）</td>
+<td><code>except</code></td>
+</tr>
+</tbody></table>
+<p>MySQL 在 8.0.31 之前没有这两个运算符，只能用 <code>join</code> &#x2F; <code>not exists</code> 模拟。</p>
+<h3 id="like"><a href="#like" class="headerlink" title="like"></a>like</h3><table>
+<thead>
+<tr>
+<th>通配符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>%</code></td>
+<td>任意个字符，包括 0 个</td>
+</tr>
+<tr>
+<td><code>_</code></td>
+<td>恰好一个字符</td>
+</tr>
+</tbody></table>
+<p><code>&#39;%abc&#39;</code> 这种以通配符开头的模式用不上索引，必然全表扫描。要匹配通配符本身得转义：MySQL 默认用 <code>\</code>，SQL Server 可以写 <code>[%]</code>，标准写法是 <code>like &#39;a\%b&#39; escape &#39;\&#39;</code>。</p>
+<h3 id="where-与-having"><a href="#where-与-having" class="headerlink" title="where 与 having"></a>where 与 having</h3><p><code>where</code> 在分组前过滤<strong>行</strong>，<code>having</code> 在分组后过滤<strong>组</strong>。<code>having</code> 里可以出现聚合函数，<code>where</code> 不行；能在 <code>where</code> 过滤的别拖到 <code>having</code>，越早筛掉数据越省。</p>
+<h3 id="with（CTE）"><a href="#with（CTE）" class="headerlink" title="with（CTE）"></a>with（CTE）</h3><p><code>with</code> 定义一个只在本条语句内有效的临时结果集，比多层嵌套子查询好读，也能被重复引用。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">with</span> dept_total (dept_name, <span class="hljs-keyword">value</span>) <span class="hljs-keyword">as</span> (<br>    <span class="hljs-keyword">select</span> dept_name, <span class="hljs-built_in">sum</span>(salary)<br>    <span class="hljs-keyword">from</span> instructor<br>    <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> dept_name<br>),<br>dept_total_avg (<span class="hljs-keyword">value</span>) <span class="hljs-keyword">as</span> (<br>    <span class="hljs-keyword">select</span> <span class="hljs-built_in">avg</span>(<span class="hljs-keyword">value</span>) <span class="hljs-keyword">from</span> dept_total<br>)<br><span class="hljs-keyword">select</span> dept_name<br><span class="hljs-keyword">from</span> dept_total, dept_total_avg<br><span class="hljs-keyword">where</span> dept_total.value <span class="hljs-operator">&gt;</span> dept_total_avg.value;<br></code></pre></td></tr></table></figure>
+
+<p>MySQL 8.0、PostgreSQL、SQL Server 都支持；树形结构用 <code>with recursive</code>。</p>
+<h3 id="子查询量词"><a href="#子查询量词" class="headerlink" title="子查询量词"></a>子查询量词</h3><table>
+<thead>
+<tr>
+<th>写法</th>
+<th>含义</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>= some (...)</code></td>
+<td>等于结果中的某一个值</td>
+<td><code>any</code> 是 <code>some</code> 的同义词，等价于 <code>in</code></td>
+</tr>
+<tr>
+<td><code>&gt; all (...)</code></td>
+<td>比结果中每个值都大</td>
+<td></td>
+</tr>
+<tr>
+<td><code>exists (...)</code></td>
+<td>子查询非空为真</td>
+<td></td>
+</tr>
+<tr>
+<td><code>unique (...)</code></td>
+<td>子查询结果没有重复行</td>
+<td>SQL 标准谓词，<strong>MySQL 不支持</strong></td>
+</tr>
+</tbody></table>
+<h2 id="数据修改与约束"><a href="#数据修改与约束" class="headerlink" title="数据修改与约束"></a>数据修改与约束</h2><h3 id="drop-delete-truncate"><a href="#drop-delete-truncate" class="headerlink" title="drop &#x2F; delete &#x2F; truncate"></a>drop &#x2F; delete &#x2F; truncate</h3><table>
+<thead>
+<tr>
+<th></th>
+<th><code>delete</code></th>
+<th><code>truncate</code></th>
+<th><code>drop</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>类型</td>
+<td>DML</td>
+<td>DDL</td>
+<td>DDL</td>
+</tr>
+<tr>
+<td>删什么</td>
+<td>满足 <code>where</code> 的行，可以只删一部分</td>
+<td>全部行，保留表结构</td>
+<td>表结构和数据一起删</td>
+</tr>
+<tr>
+<td>能否回滚</td>
+<td>事务内可以</td>
+<td>不能（隐式提交）</td>
+<td>不能</td>
+</tr>
+<tr>
+<td>触发 trigger</td>
+<td>会</td>
+<td>不会</td>
+<td>不会</td>
+</tr>
+<tr>
+<td>自增 id</td>
+<td>不重置</td>
+<td>重置为 1</td>
+<td>—</td>
+</tr>
+<tr>
+<td>速度</td>
+<td>慢，逐行删并写日志</td>
+<td>快，直接重建数据页</td>
+<td>快</td>
+</tr>
+</tbody></table>
+<p><code>delete</code> 不带 <code>where</code> 时结果看着和 <code>truncate</code> 一样，但上表这些差别都在。</p>
+<h3 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h3><p>可以在 <code>create table</code> 时声明，也可以用 <code>alter table</code> 补加。</p>
+<table>
+<thead>
+<tr>
+<th>约束</th>
+<th>作用</th>
+<th>注意</th>
 </tr>
 </thead>
 <tbody><tr>
 <td><code>not null</code></td>
-<td>存不了<code>null</code>值</td>
+<td>该列不能为 <code>null</code></td>
+<td></td>
 </tr>
 <tr>
 <td><code>unique</code></td>
-<td>每行必须有唯一值</td>
+<td>列或列组合的取值不重复</td>
+<td>允许多行为 <code>null</code></td>
 </tr>
 <tr>
 <td><code>primary key</code></td>
-<td><code>not null</code> + <code>unique</code>，主键</td>
+<td>唯一标识一行，等于 <code>not null</code> + <code>unique</code></td>
+<td>一张表只能有一个</td>
 </tr>
 <tr>
 <td><code>foreign key</code></td>
-<td>外键</td>
+<td>引用另一张表的主键 &#x2F; 唯一键</td>
+<td>父行被删时的行为由 <code>on delete cascade / set null / restrict</code> 决定</td>
 </tr>
 <tr>
 <td><code>check</code></td>
-<td>保证列中的某个值符合指定条件</td>
+<td>列值满足给定表达式</td>
+<td>MySQL 8.0.16 起才真正检查，之前只解析不生效</td>
 </tr>
 <tr>
 <td><code>default</code></td>
-<td>默认值</td>
+<td>未显式赋值时的默认值</td>
+<td><code>blob</code> &#x2F; <code>text</code> 早期版本不能设默认值</td>
 </tr>
 </tbody></table>
-  <div class="note note-info">
-            <p>从更学术的角度来看，约束大体可以分为以下几种</p> <ul> <li>实体完整性约束，即主键。</li> <li>参照完整性约束，即外键。</li> <li>用户自定义完整约束，由用户自定义的约束，如域完整性约束、check 约束、唯一约束、非空约束、默认值约束和格式约束，等等。</li> <li>函数依赖约束，作为设计范式理论中指导如何设计无冗余的表。</li> </ul> 
+<div class="note note-info">
+            <p>从理论上看，这些约束对应三类完整性：主键 → 实体完整性，外键 → 参照完整性，其余（<code>check</code>、<code>not null</code>、<code>default</code> 等）→ 用户定义完整性。</p> 
           </div>
-</li>
-<li><p><code>explain</code>可以用于普通crud语句，显示其执行查询的计划。以下是其中的一些输出列。</p>
+
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">start</span> transaction;                    <span class="hljs-comment">-- 也可以写 begin</span><br><span class="hljs-keyword">update</span> account <span class="hljs-keyword">set</span> balance <span class="hljs-operator">=</span> balance <span class="hljs-operator">-</span> <span class="hljs-number">100</span> <span class="hljs-keyword">where</span> id <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br><span class="hljs-keyword">savepoint</span> s1;                          <span class="hljs-comment">-- 打一个保留点</span><br><span class="hljs-keyword">update</span> account <span class="hljs-keyword">set</span> balance <span class="hljs-operator">=</span> balance <span class="hljs-operator">+</span> <span class="hljs-number">100</span> <span class="hljs-keyword">where</span> id <span class="hljs-operator">=</span> <span class="hljs-number">2</span>;<br><span class="hljs-keyword">rollback</span> <span class="hljs-keyword">to</span> s1;                        <span class="hljs-comment">-- 回滚到保留点，事务还没结束</span><br><span class="hljs-keyword">commit</span>;                                <span class="hljs-comment">-- 提交</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>rollback to savepoint</code> 只撤销保留点之后的语句，事务本身还在，之后仍要 <code>commit</code> 或 <code>rollback</code>。</li>
+<li><code>select</code> 也在事务里，受隔离级别影响，只是它没有副作用，回滚改变不了什么。</li>
+<li>MySQL 中 <code>create</code>、<code>drop</code>、<code>truncate</code>、<code>alter</code> 等 DDL 会<strong>隐式提交</strong>当前事务，无法回滚。</li>
+</ul>
+<h2 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">grant</span> <span class="hljs-keyword">select</span>, <span class="hljs-keyword">insert</span> <span class="hljs-keyword">on</span> db.<span class="hljs-operator">*</span> <span class="hljs-keyword">to</span> <span class="hljs-string">&#x27;user&#x27;</span>@<span class="hljs-string">&#x27;%&#x27;</span>;<br><span class="hljs-keyword">revoke</span> <span class="hljs-keyword">insert</span> <span class="hljs-keyword">on</span> db.<span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;user&#x27;</span>@<span class="hljs-string">&#x27;%&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>教材里常见的一组权限名，和实际 SQL 关键字的对应关系：</p>
 <table>
 <thead>
 <tr>
-<th>参数</th>
-<th>说明</th>
+<th>教材名</th>
+<th>含义</th>
+<th>SQL 关键字</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Read</td>
+<td>只读</td>
+<td><code>select</code></td>
+</tr>
+<tr>
+<td>Insert</td>
+<td>插入</td>
+<td><code>insert</code></td>
+</tr>
+<tr>
+<td>Update</td>
+<td>更新</td>
+<td><code>update</code></td>
+</tr>
+<tr>
+<td>Delete</td>
+<td>删除</td>
+<td><code>delete</code></td>
+</tr>
+<tr>
+<td>Index</td>
+<td>建 &#x2F; 删索引</td>
+<td><code>index</code></td>
+</tr>
+<tr>
+<td>Resources</td>
+<td>创建新表</td>
+<td><code>create</code></td>
+</tr>
+<tr>
+<td>Alteration</td>
+<td>增删列</td>
+<td><code>alter</code></td>
+</tr>
+<tr>
+<td>Drop</td>
+<td>删表</td>
+<td><code>drop</code></td>
+</tr>
+</tbody></table>
+<p><code>Resources</code>、<code>Alteration</code> 是教材术语，不是 SQL 关键字，<code>grant</code> 里要写 <code>create</code> &#x2F; <code>alter</code>。</p>
+<h2 id="执行计划-explain"><a href="#执行计划-explain" class="headerlink" title="执行计划 explain"></a>执行计划 explain</h2><p>在语句前加 <code>explain</code> 就能看执行计划，不真正执行。</p>
+<table>
+<thead>
+<tr>
+<th>列</th>
+<th>含义</th>
 </tr>
 </thead>
 <tbody><tr>
 <td><code>id</code></td>
-<td>查询的标识符。如果是复杂查询（如子查询或UNION），数字大的先执行，数字相同的从上到下执行</td>
+<td>查询序号。<code>id</code> 大的先执行，<code>id</code> 相同的从上到下执行</td>
 </tr>
 <tr>
 <td><code>select_type</code></td>
-<td>查询类型常见的有<br><code>simple</code> 简单查询<br><code>primary</code> 最外层的查询<br> <code>subquery</code> 子查询中的第一个<code>select</code><br><code>derived</code> 派生表（<code>from</code>字句里的子查询）<br><code>union</code> <code>union</code>中的第二个或后面的<code>select</code></td>
+<td>该行的查询类型：<code>simple</code> 简单查询、<code>primary</code> 最外层查询、<code>subquery</code> 子查询里的第一个 <code>select</code>、<code>derived</code> 派生表（<code>from</code> 中的子查询）、<code>union</code> union 中后面的 <code>select</code>、<code>union result</code> union 的结果集</td>
 </tr>
 <tr>
 <td><code>table</code></td>
-<td>当前行访问的是哪个表</td>
+<td>这一行访问的表</td>
 </tr>
 <tr>
 <td><code>partitions</code></td>
-<td>匹配的分区</td>
+<td>命中的分区</td>
 </tr>
 <tr>
 <td><code>type</code></td>
-<td>连接类型或访问类型。是衡量查询效率的关键指标<br>从好到坏大致是<br><code>system</code>&gt;<code>const</code>&gt;<code>eq_ref</code>&gt;<code>ref</code>&gt;<code>range</code>&gt;<code>index</code>&gt;<code>all</code><br>达到<code>const</code> <code>eq_ref</code> <code>ref</code>的为优；范围查询下，使用<code>range</code>也可以接受。如果是<code>all</code>，则需要进行优化</td>
+<td>访问方式，判断效率的核心指标：<code>system</code> &gt; <code>const</code> &gt; <code>eq_ref</code> &gt; <code>ref</code> &gt; <code>range</code> &gt; <code>index</code> &gt; <code>all</code>。到 <code>range</code> 都算可接受；<code>index</code> 是全索引扫描，<code>all</code> 是全表扫描，这两种基本都要优化</td>
 </tr>
 <tr>
 <td><code>possible_keys</code></td>
-<td>查询可能使用的索引</td>
+<td>可能用到的索引</td>
 </tr>
 <tr>
 <td><code>key</code></td>
-<td>查询实际使用的索引，<code>null</code>为没有使用索引</td>
+<td>实际使用的索引，<code>null</code> 表示没走索引</td>
 </tr>
 <tr>
 <td><code>key_len</code></td>
-<td>使用索引的长度，越短越好</td>
+<td>索引上用到的字节数，可用来判断复合索引用到了前几列，不是越短越好</td>
 </tr>
 <tr>
 <td><code>ref</code></td>
-<td>显示索引的哪一列被使用了</td>
+<td>索引列在和哪个值 &#x2F; 哪一列比较</td>
+</tr>
+<tr>
+<td><code>rows</code></td>
+<td>预估扫描行数，越小越好</td>
+</tr>
+<tr>
+<td><code>filtered</code></td>
+<td>扫描后经条件过滤剩下的行占比</td>
 </tr>
 <tr>
 <td><code>extra</code></td>
-<td>包含不适合放其他列的额外信息。包括<br><code>using index</code> 使用了覆盖索引<br><code>using where</code> 在存储引擎检索行后进行了过滤<br><code>using temporary</code> 需要创建临时表来处理查询，这通常需要优化<br><code>using filesort</code> 需要额外的排序操作，通常需要优化</td>
+<td>额外信息：<code>using index</code> 覆盖索引、<code>using where</code> 回表后再过滤、<code>using index condition</code> 索引下推、<code>using temporary</code> 用了临时表、<code>using filesort</code> 额外排序、<code>using join buffer</code> 用了 join 缓冲区</td>
 </tr>
 </tbody></table>
-</li>
-<li><p>常见的权限有 <strong>只读</strong> Read、<strong>插入</strong> Insert、<strong>更新</strong> Update、<strong>删除</strong> Delete、<strong>增删索引</strong> Index、<strong>创建新关系</strong> Resources、<strong>关系中添加或删除属性</strong> Alteration、<strong>删除关系</strong> Drop。</p>
-</li>
-<li><p><code>grant</code> 关键字用于给予权限、<code>revoke</code> 关键字用于删除权限。</p>
-</li>
-<li><p>窗口函数：在保留明细数据的同时完成排名 &#x2F; 聚合计算，这在传统的 sql 语句中往往非常复杂。其格式为</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-operator">&lt;</span>窗口函数<span class="hljs-operator">&gt;</span>(表达式)<br><span class="hljs-keyword">over</span> (<br>    <span class="hljs-keyword">partition</span> <span class="hljs-keyword">by</span> 分组字段<br>    <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> 排序字段<br>)<br></code></pre></td></tr></table></figure></li>
-</ul>
-<div class="note note-danger">
-            <p>顺丰科技 - 秋招, 一面.</p> 
-          </div>
+<p>看到 <code>using temporary</code> 或 <code>using filesort</code> 基本说明还能优化；看到 <code>using index</code> 说明没回表，是好消息。</p>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>以下以 MySQL 为例，多数函数在其他库里同名或行为接近。</p>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>left(s, n)</code> &#x2F; <code>right(s, n)</code></td>
+<td>从左 &#x2F; 右取 n 个字符</td>
+</tr>
+<tr>
+<td><code>substring(s, pos, len)</code></td>
+<td>从第 <code>pos</code> 个字符（从 1 开始，负数表示从末尾倒数）起取 <code>len</code> 个字符</td>
+</tr>
+<tr>
+<td><code>length(s)</code> &#x2F; <code>char_length(s)</code></td>
+<td>字节数 &#x2F; 字符数，纯 ASCII 时两者相等</td>
+</tr>
+<tr>
+<td><code>concat(a, b, ...)</code></td>
+<td>拼接字符串，任一参数为 <code>null</code> 则整体为 <code>null</code></td>
+</tr>
+<tr>
+<td><code>group_concat(expr [order by ...] [separator &#39;x&#39;])</code></td>
+<td>把分组内多行拼成一个串，默认逗号分隔</td>
+</tr>
+<tr>
+<td><code>ltrim(s)</code> &#x2F; <code>rtrim(s)</code> &#x2F; <code>trim(s)</code></td>
+<td>去掉左 &#x2F; 右 &#x2F; 两端的空格，<code>trim(both &#39;x&#39; from s)</code> 可去指定字符</td>
+</tr>
+<tr>
+<td><code>lower(s)</code> &#x2F; <code>upper(s)</code></td>
+<td>转小写 &#x2F; 大写</td>
+</tr>
+<tr>
+<td><code>replace(s, from, to)</code></td>
+<td>子串替换</td>
+</tr>
+</tbody></table>
+<p>注意 <code>substring</code> 的第三个参数是<strong>长度</strong>，不是结束位置：<code>substring(&#39;abcdef&#39;, 2, 2)</code> 得到 <code>&#39;bc&#39;</code>。</p>
+<h3 id="数值与条件"><a href="#数值与条件" class="headerlink" title="数值与条件"></a>数值与条件</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>round(x, d)</code></td>
+<td>四舍五入到 d 位小数</td>
+</tr>
+<tr>
+<td><code>if(cond, a, b)</code></td>
+<td><code>cond</code> 为真返回 <code>a</code>，否则返回 <code>b</code></td>
+</tr>
+<tr>
+<td><code>case when ... then ... else ... end</code></td>
+<td>多分支判断，是<strong>表达式</strong>不是函数</td>
+</tr>
+<tr>
+<td><code>nullif(a, b)</code></td>
+<td><code>a = b</code> 时返回 <code>null</code>，否则返回 <code>a</code></td>
+</tr>
+<tr>
+<td><code>ifnull(a, b)</code></td>
+<td><code>a</code> 为 <code>null</code> 时返回 <code>b</code>，否则返回 <code>a</code>（MySQL 专有）</td>
+</tr>
+<tr>
+<td><code>coalesce(a, b, ...)</code></td>
+<td>返回第一个非 <code>null</code> 的参数，全为 <code>null</code> 则返回 <code>null</code>（标准 SQL）</td>
+</tr>
+</tbody></table>
+<h3 id="计数"><a href="#计数" class="headerlink" title="计数"></a>计数</h3><table>
+<thead>
+<tr>
+<th>写法</th>
+<th>统计范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>count(*)</code></td>
+<td>所有行，包括所有列都是 <code>null</code> 的行</td>
+</tr>
+<tr>
+<td><code>count(1)</code></td>
+<td>与 <code>count(*)</code> 等价</td>
+</tr>
+<tr>
+<td><code>count(col)</code></td>
+<td>只统计该列非 <code>null</code> 的行</td>
+</tr>
+</tbody></table>
+<p><code>count(*)</code> 和 <code>count(1)</code> 没有实质差别，不用纠结；真正有区别的是 <code>count(col)</code> 会跳过 <code>null</code>。</p>
+<h3 id="日期时间"><a href="#日期时间" class="headerlink" title="日期时间"></a>日期时间</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>now()</code> &#x2F; <code>curdate()</code> &#x2F; <code>curtime()</code></td>
+<td>当前日期时间 &#x2F; 日期 &#x2F; 时间</td>
+</tr>
+<tr>
+<td><code>to_days(d)</code></td>
+<td>从公元 0 年 1 月 1 日到 <code>d</code> 的天数</td>
+</tr>
+<tr>
+<td><code>date_add(d, interval n unit)</code> &#x2F; <code>date_sub(...)</code></td>
+<td>加 &#x2F; 减 n 个单位，<code>unit</code> 可以是 <code>day</code>、<code>month</code>、<code>hour</code> 等</td>
+</tr>
+<tr>
+<td><code>datediff(d1, d2)</code></td>
+<td>两个日期相差的天数，只看日期部分</td>
+</tr>
+<tr>
+<td><code>timestampdiff(unit, t1, t2)</code></td>
+<td>两个时间点相差多少个 <code>unit</code>，如 <code>timestampdiff(hour, a, b)</code></td>
+</tr>
+<tr>
+<td><code>date(t)</code></td>
+<td>取出时间中的日期部分</td>
+</tr>
+<tr>
+<td><code>last_day(d)</code></td>
+<td><code>d</code> 所在月的最后一天</td>
+</tr>
+</tbody></table>
+<h3 id="窗口函数"><a href="#窗口函数" class="headerlink" title="窗口函数"></a>窗口函数</h3><p>窗口函数在保留明细行的同时做排名或聚合，比自连接、相关子查询清爽得多，MySQL 8.0 起支持。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-operator">&lt;</span>窗口函数<span class="hljs-operator">&gt;</span>() <span class="hljs-keyword">over</span> (<br>    <span class="hljs-keyword">partition</span> <span class="hljs-keyword">by</span> 分组列<br>    <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> 排序列<br>)<br></code></pre></td></tr></table></figure>
 
-<ul>
-<li><code>int(2)</code> 和 <code>int(11)</code> 的区别在于，二者的显示宽度不同，其最小宽度为括号内的数据。比如当该 <code>int</code> 值为12时，<code>int(2)</code> 显示12，<code>int(11)</code>显示00000000012。</li>
-</ul>
-<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>MySQL常用函数如下</p>
+<p><code>partition by</code> 决定分组（不写就是整表一组），<code>order by</code> 决定组内顺序。<strong>不写 <code>order by</code> 时窗口是整个分组；写了之后默认是”从分组第一行到当前行”</strong>，这就是 <code>sum(x) over (order by ...)</code> 会得到累计值的原因。</p>
 <table>
 <thead>
 <tr>
 <th>函数</th>
-<th>说明</th>
-<th>函数</th>
-<th>说明</th>
+<th>作用</th>
 </tr>
 </thead>
 <tbody><tr>
-<td><code>left()</code> <code>right()</code></td>
-<td>左边或右边的字符，一个参数为字符串，一个参数为指定的长度</td>
-<td><code>lower()</code> <code>upper()</code></td>
-<td>转换为小写或大写，传入字符串</td>
+<td><code>row_number()</code></td>
+<td>组内连续序号，不并列：1, 2, 3</td>
 </tr>
 <tr>
-<td><code>ltrim()</code> <code>rtrim()</code> <code>trim()</code></td>
-<td>去掉左边或右边或两边的空格</td>
-<td><code>concat()</code></td>
-<td>链接多个字符串，传入多个字符串</td>
-</tr>
-<tr>
-<td><code>length()</code></td>
-<td>长度，以字节为单位，传入字符串</td>
-<td><code>round()</code></td>
-<td>返回小数的四舍五入值</td>
-</tr>
-<tr>
-<td><code>if()</code></td>
-<td>若条件为真，返回一个值，否则返回另一个值</td>
-<td><code>case</code></td>
-<td>根据一系列条件返回值</td>
-</tr>
-</tbody></table>
-<p>以下都以MySQL的函数为例。</p>
-<ul>
-<li><p><code>count(&lt;constance&gt;)</code>和<code>count(*)</code>之间没什么差别，<code>count(&lt;col&gt;)</code>只统计列中非<code>null</code>值数据。</p>
-</li>
-<li><p><code>substring()</code> 用于返回子字符串，一个参数为字符串，另两个参数为始末位置。</p>
-</li>
-<li><p><code>char_length()</code> 用于计算字符串的字符数，<code>length()</code> 用于计算字符串的字节数。</p>
-</li>
-<li><p><code>group-concat()</code> 函数用于拼接多个字符串。里面放入一条sql字句。<code>order by</code> 字句后接字符串顺序，<code>separator</code> 字句后接分隔符（一般是 <code>&#39;,&#39;</code>）。</p>
-</li>
-<li><p>常见的计算时间函数有</p>
-<table>
-<thead>
-<tr>
-<th>函数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>curdate()</code></td>
-<td>当前日期</td>
-</tr>
-<tr>
-<td><code>now()</code></td>
-<td>当前日期和时间</td>
-</tr>
-<tr>
-<td><code>to_days</code></td>
-<td>返回从 0000 年到现在的天数</td>
-</tr>
-<tr>
-<td><code>date_add</code> <code>date_sub</code></td>
-<td>加减天数，参数1为目前时间，参数二可以为 <code>interval &lt;num&gt; hour/day/month/...</code></td>
-</tr>
-<tr>
-<td><code>datediff</code> <code>timestampdiff</code></td>
-<td>计算时间差，前者只计算日期，后者计算两个时间点<br>后者的第一个参数为 <code>day/hour/second/...</code>，后两个参数为需要计算的两个时间</td>
-</tr>
-<tr>
-<td><code>date</code></td>
-<td>提取日期部分</td>
-</tr>
-<tr>
-<td><code>last_day</code></td>
-<td>获取指定日期所在月的最后一天</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>常见的窗口函数为</p>
-<table>
-<thead>
-<tr>
-<th>函数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
 <td><code>rank()</code></td>
-<td>在排名时跳号</td>
+<td>并列同名次，之后跳号：1, 1, 3</td>
 </tr>
 <tr>
 <td><code>dense_rank()</code></td>
-<td>在排名时不跳号</td>
+<td>并列同名次，不跳号：1, 1, 2</td>
 </tr>
 <tr>
-<td><code>row_number()</code></td>
-<td>每行唯一序号，不考虑并列</td>
+<td><code>ntile(n)</code></td>
+<td>把分组均分成 n 份，返回所在桶号</td>
 </tr>
 <tr>
-<td><code>lag()</code></td>
-<td>取前一行</td>
+<td><code>lag(expr, n)</code> &#x2F; <code>lead(expr, n)</code></td>
+<td>取前 n 行 &#x2F; 后 n 行的值，n 默认 1</td>
 </tr>
 <tr>
-<td><code>lead()</code></td>
-<td>取后一行</td>
+<td><code>first_value(expr)</code></td>
+<td>窗口第一行的值</td>
 </tr>
 <tr>
-<td><code>first_value()</code></td>
-<td>窗口首值</td>
+<td><code>last_value(expr)</code></td>
+<td>窗口最后一行的值；默认窗口到当前行为止，通常要显式写 <code>rows between unbounded preceding and unbounded following</code></td>
 </tr>
 <tr>
-<td><code>last_value()</code></td>
-<td>窗口末值</td>
+<td><code>sum</code> &#x2F; <code>avg</code> &#x2F; <code>count</code> 等聚合</td>
+<td>加上 <code>over (...)</code> 后按窗口聚合，不再折叠行</td>
 </tr>
 </tbody></table>
-</li>
-<li><p><code>nullif()</code> 函数使用两个参数，比较两个表达式的值，若两表达式相等则返回 null，否则返回第一个表达式</p>
-</li>
-<li><p><code>ifnull()</code> 函数使用两个参数，若第一个参数为 null 则返回第二个参数的值，否则返回第一个参数的值</p>
-</li>
-<li><p><code>coalesce()</code> 函数返回参数列表中第一个非 null 的值，若全为 null 则返回 null</p>
-</li>
-</ul>
-<h2 id="规约"><a href="#规约" class="headerlink" title="规约"></a>规约</h2><ul>
-<li><p>【强制】 表达是否概念的字段，必须使用 <code>is_xxx</code> 的方式命名，数据类型是 <code>unsigned tinyint</code>，其中1表示是，2表示否。</p>
-</li>
-<li><p>【强制】 表名、字段名必须使用小写字母或数字。禁止数字开头，禁止两个下划线中间只有数字。<br>  因为 MySQL 在 Windows 下不区分大小写，但在 Linux 下默认区分大小写，要避免节外生枝。</p>
-</li>
-<li><p>【强制】 主键索引为 <code>pk_xxx</code>，唯一索引名为 <code>uk_xxx</code>，普通索引名为 <code>idx_xxx</code>。</p>
-</li>
-<li><p>【强制】 小数类型为 decimal，禁用 float 和 double。</p>
-</li>
-<li><p>【强制】 varchar 是可变长字符串，不预先分配存储空间，长度不要超过5000，若大于此数则定义字段类型为 text，独立出来一张表，并用主键来对应。</p>
-</li>
-<li><p>【推荐】 冗余字段应遵循</p>
-<ol>
-<li>不是频繁修改的字段</li>
-<li>不是唯一索引字段</li>
-<li>不是 varchar 字段，不能是 text 字段</li>
-</ol>
-</li>
-<li><p>【推荐】 单表行数超过500万行或者单表容量超过2GB财推荐进行分库分表。</p>
-</li>
-<li><p>【强制】 超过3个表禁止 join，关联查询时保证被关联字段要有索引。</p>
-</li>
-<li><p>【强制】 在 varchar 字段上简历索引时必须指定索引长度。</p>
-</li>
-<li><p>【强制】 页面搜索严禁左模糊或右模糊，需要就走搜索引擎解决。</p>
-</li>
-<li><p>【推荐】 利用覆盖索引来进行查询操作，避免回表。</p>
-</li>
-<li><p>【推荐】 SQL 性能优化的目标：至少要到 range 级别，要求是 ref 级别，是 const 最好。</p>
-</li>
-<li><p>【强制】 不要用 count(列名) 或 count(常量) 来替代 count(*)。</p>
-<ul>
-<li>count(*) 是 SQL92 定义的标准统计行数的语法，和数据库无关，跟有没有 null 无关。</li>
-<li>count(distinct col) 计算该列除 null 外的不重复行数，注意 count(distinct col1, col2) 如果其中一列全为 null，那么最终结果也是0。</li>
-<li>某一列全为 null 时，count(col) 的结果是0，sum(col) 的结果是 null。</li>
-</ul>
-</li>
-<li><p>【强制】 代码中写分页查询时，若 count 为0则直接返回。</p>
-</li>
-<li><p>【强制】 不得使用外键和级联，一切外键概念都在应用层解决；禁止使用存储过程。<br>  外键和级联更新适用于单机开发，不适合分布式、高并发集群；级联更新是强阻塞，存在数据库更新风暴的风险；外键影响数据库的插入速度；存储过程难以调试和扩展，更没有移植性。</p>
-</li>
-<li><p>【强制】 数据订正（删除或修改记录操作）时，要先 select，避免出现误删除的情况。</p>
-</li>
-<li><p>【推荐】 in 操作能避免就避免，实在无法避免则需要将 in 后面集合元素的数量控制在 1000 个以内。</p>
-</li>
-<li><p>【参考】 所有字符均采用 utf8m64 字符集。要注意该字符集和 utf8 的区别。</p>
-</li>
-<li><p>【参考】 <code>truncate table</code> 比 <code>delete</code> 速度快，且使用的系统和事务日志资源少，但该命令无事务且不触发 trigger，有可能造成事故，因此不建议在开发代码中使用。</p>
-</li>
-</ul>
 
                 
               </div>
